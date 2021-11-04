@@ -6,14 +6,15 @@ import { countryFlags } from "../services/countryFlags";
 
 const FlagCard = ({ area, loadRecipes, isItFood }) => {
   const flagSource = countryFlags[area];
+  const flagIMGProps = {
+    src: flagSource,
+    style: { height: '100px' },
+  };
+
   return(
     <div style={{ height: '160px', width: '200px', margin: '50px', justifyContent: 'center', textAlign: 'center' }}>
       <div>
-        <img
-          src={flagSource}
-          style={{ height: '100px' }}
-          alt={`${area} flag`}
-        />
+        <img alt={`${area} flag`} {...flagIMGProps} />
         <Link to='/main'>
           <button onClick={() => loadRecipes(area, isItFood)} style={{ marginTop: '20px' }}>
             <h3>{area} food</h3>

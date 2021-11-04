@@ -7,6 +7,7 @@ import Button from "./Button";
 const FavoriteButton = ({ id }) => {
   const currentRecipe = getLocalStorageKey('inProgressRecipes');
   const favorite = currentRecipe[id] ? currentRecipe[id].favorite : false;
+
   const whiteHeart = <img src={whiteHeartIcon} alt="white heart" style={{ width: '50px'}} />;
   const blackHeart = <img src={blackHeartIcon} alt="black heart" style={{ width: '50px'}} />;
 
@@ -24,7 +25,7 @@ const FavoriteButton = ({ id }) => {
 
   return (
     <Button {...favButtonProps} />
-  )
-}
+  );
+};
 
 export default FavoriteButton;
