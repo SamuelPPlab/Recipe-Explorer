@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, connect } from "react-redux";
+import BackToMain from "../components/BackToMain";
 import Button from "../components/Button";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import RecipeCard from "../components/RecipeCard";
@@ -102,6 +103,7 @@ const Suggestions = ({ foodSuggestion, drinkSuggestion, foods, drinks, recipe, c
         }
       </div>
       <div>
+        <BackToMain />
         {recipe && <Button {...hideDetailsButtonProps} />}
         {
           recipe && <MainRecipeDetails>
