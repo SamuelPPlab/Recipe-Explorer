@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 
-const Paginator = ({ length, pageChanger, pageSize = 12 }) => {
+const Paginator = ({ length, pageChanger, pageSize = 15 }) => {
   let pageNumber = Math.ceil(length / pageSize);
   const counter = [];
 

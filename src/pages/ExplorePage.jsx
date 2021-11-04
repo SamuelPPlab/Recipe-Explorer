@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { changeIngredientPage, clearState, ingredientFetcher } from "../redux/actions/explorePage";
+import { changeIngredientPage, clearState, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
 import ExploreHeader from "../components/ExploreHeader";
 import FlagCard from "../components/FlagCard";
 import IngredientCard from "../components/IngredientCard";
@@ -10,6 +10,7 @@ import Paginator from "../components/Paginator";
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, clearState, newPage, apiResponse }) => {
 
   useEffect(() => {
+    
     loadIngredients();
     return () => clearState();
   }, [loadIngredients, clearState]);
@@ -48,6 +49,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadIngredients: () => dispatch(ingredientFetcher(false)),
   clearState: () => dispatch(clearState()),
   newPage: (newPage) => dispatch(changeIngredientPage(newPage)),
+  searchIngredient: (query) => ingredientSearch(query),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExplorePage);
