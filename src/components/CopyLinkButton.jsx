@@ -13,7 +13,7 @@ const CopyLinkButton = ({ pathname }) => {
 
   return(
     <Button {...shareButtonProps} />
-  )
+  );
 }
 
 export default CopyLinkButton;
