@@ -1,4 +1,4 @@
-import { CHANGE_INGREDIENT_PAGE, CLEAR_STATE, ERROR_AREAS, LOADING, SUCCESS_ALCOHOLIC, SUCCESS_AREAS, SUCCESS_GLASSES, SUCCESS_INGREDIENTS } from "../actions/explorePage";
+import { CHANGE_INGREDIENT_PAGE, CLEAR_STATE, ERROR_AREAS, INGREDIENT_SEARCH, LOADING, SUCCESS_ALCOHOLIC, SUCCESS_AREAS, SUCCESS_GLASSES, SUCCESS_INGREDIENTS } from "../actions/explorePage";
 
 const INITIAL_STATE = {
   loading: true,
@@ -11,8 +11,16 @@ const INITIAL_STATE = {
   currentPage: 1,
 };
 
+const queryFinder = (query, state) => {
+  const { apiResponse } = state;
+  const filteredIngredients = apiResponse.filter((ingredient) =>
+    (ingredient.toLowerCase().includes(query.toLowerCase())));
+
+  return { ...state, apiResponse: filteredIngredients, ingredients: filteredIngredients.slice(0, 15) };
+};
+
 const exploreReducer = (state = INITIAL_STATE, action) => {
-  const { ingredients, newPage } = action;
+  const { ingredients, newPage, query } = action;
   const { apiResponse } = state;
   switch(action.type) {
     case LOADING:
@@ -22,7 +30,7 @@ const exploreReducer = (state = INITIAL_STATE, action) => {
     case SUCCESS_AREAS:
       return { ...INITIAL_STATE, loading: false, areas: action.areas };
     case SUCCESS_INGREDIENTS:
-      return { ...INITIAL_STATE, loading: false, ingredients: ingredients.slice(0, 12), apiResponse: ingredients };
+      return { ...INITIAL_STATE, loading: false, ingredients: ingredients.slice(0, 15), apiResponse: ingredients };
     case CLEAR_STATE:
       return { ...INITIAL_STATE };
     case SUCCESS_GLASSES:
@@ -30,7 +38,9 @@ const exploreReducer = (state = INITIAL_STATE, action) => {
     case SUCCESS_ALCOHOLIC:
       return { ...INITIAL_STATE, loading: false, alcoholicOptions: action.alcoholicOptions };
     case CHANGE_INGREDIENT_PAGE:
-      return { ...state, currentPage: newPage, ingredients: apiResponse.slice((newPage - 1) * 12, newPage * 12) }
+      return { ...state, currentPage: newPage, ingredients: apiResponse.slice((newPage - 1) * 15, newPage * 15) };
+    case INGREDIENT_SEARCH:
+      return queryFinder(query, state);
     default:
       return state;
   };

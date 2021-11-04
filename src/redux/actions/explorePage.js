@@ -9,6 +9,7 @@ export const SUCCESS_ALCOHOLIC = 'SUCCESS_ALCOHOLIC';
 export const SUCCESS_GLASSES = 'SUCCESS_GLASSES';
 export const SUCCESS_INGREDIENTS = 'SUCCESS_INGREDIENTS';
 export const SUCCESS_RECIPES = 'SUCCESS_RECIPES';
+export const INGREDIENT_SEARCH = 'INGREDIENT_SEARCH';
 
 const loading = () => ({ type: LOADING });
 
@@ -36,6 +37,8 @@ const error = (error) => ({
   type: ERROR_AREAS,
   error,
 });
+
+export const ingredientSearch = (query) => ({ type: INGREDIENT_SEARCH, query });
 
 export const changeIngredientPage = (newPage) => ({ type: CHANGE_INGREDIENT_PAGE, newPage });
 

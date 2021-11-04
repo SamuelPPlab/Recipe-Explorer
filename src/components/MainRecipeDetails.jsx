@@ -1,5 +1,6 @@
 import React from "react";
-import {  connect } from "react-redux";
+import { connect } from "react-redux";
+import { countryFlags } from "../services/countryFlags";
 import Loading from "./Loading";
 
 const MainRecipeDetails = ({ loading, recipe:
@@ -14,8 +15,8 @@ const MainRecipeDetails = ({ loading, recipe:
   return(
     <div style={{ width: '50%' }}>
       <img src={image} alt={name} />
-      {area}
       <h1>{name}</h1>
+      {area && <img src={countryFlags[area]} alt={`${area} flag`} />}
       {area && <p>{category}</p>}
       {isAlcoholic}
       {children}
