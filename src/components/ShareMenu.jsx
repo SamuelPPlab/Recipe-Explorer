@@ -4,6 +4,7 @@ import CopyLinkButton from "./CopyLinkButton";
 import FavoriteButton from "./FavoriteButton";
 import ExploreButton from "./ExploreButton";
 import WhatsAppShareButton from "./WhatsAppShareButton";
+import GoBackToSuggestions from "./GoBackToSuggestions";
 
 const ShareMenu = ({ pathname, id }) => {
   return(
@@ -13,6 +14,7 @@ const ShareMenu = ({ pathname, id }) => {
       <FavoriteButton id={id} />
       <CopyLinkButton pathname={pathname} />
       <WhatsAppShareButton pathname={`https://localhost:3000${pathname}`} />
+      <GoBackToSuggestions />
     </div>
   );
 }
