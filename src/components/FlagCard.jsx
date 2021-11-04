@@ -2,20 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { recipesByAreaFetcher } from "../redux/actions/mainPage";
-import { nationalityToCC } from "../services/nationalityToCC";
+import { countryFlags } from "../services/countryFlags";
 
 const FlagCard = ({ area, loadRecipes, isItFood }) => {
-  const flagSource = `https://www.countryflags.io/${nationalityToCC[area]}/shiny/64.png`;
+  const flagSource = countryFlags[area];
   return(
-    <div style={{ height: '160px', width: '300', margin: '50px', justifyContent: 'center', textAlign: 'center' }}>
-      <Link to='/main' onClick={() => loadRecipes(area, isItFood)}>
+    <div style={{ height: '160px', width: '200px', margin: '50px', justifyContent: 'center', textAlign: 'center' }}>
+      <div>
         <img
           src={flagSource}
           style={{ height: '100px' }}
           alt={`${area} flag`}
         />
-        <h3>{area} food</h3>
-      </Link>
+        <Link to='/main'>
+          <button onClick={() => loadRecipes(area, isItFood)} style={{ marginTop: '20px' }}>
+            <h3>{area} food</h3>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
