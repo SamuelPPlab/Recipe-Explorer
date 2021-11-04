@@ -1,6 +1,5 @@
 import React from "react";
 import {  connect } from "react-redux";
-import { nationalityToCC } from "../services/nationalityToCC";
 import Loading from "./Loading";
 
 const MainRecipeDetails = ({ loading, recipe:
@@ -16,7 +15,6 @@ const MainRecipeDetails = ({ loading, recipe:
     <div style={{ width: '50%' }}>
       <img src={image} alt={name} />
       {area}
-      {area && <img src={`https://www.countryflags.io/${nationalityToCC[area]}/shiny/64.png`} alt='' />}
       <h1>{name}</h1>
       {area && <p>{category}</p>}
       {isAlcoholic}
