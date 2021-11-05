@@ -13,15 +13,16 @@ const AlcoholicOptionCard = ({ option, getRecipes }) => {
     'Optional alcohol': optionalAlcohol,
   };
 
+  const optionIconProps = {
+    src: options[option],
+    style: { width: '200px' },
+  };
+
   return(
     <div style={{ margin: '50px', textAlign: 'center' }}>
       <Link to='/main'>
         <button onClick={() => getRecipes(option)}>
-          <img
-            src={options[option]}
-            alt={option}
-            style={{ width: '200px' }}
-          />
+          <img alt={option} {...optionIconProps} />
           <h3>{option}</h3>
         </button>
       </Link>

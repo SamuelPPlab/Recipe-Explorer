@@ -5,15 +5,16 @@ import Button from "./Button";
 
 const NoResults = () => {
   const dispatch = useDispatch();
-  
+  const goBackProps = {
+    name: 'Voltar',
+    id: 'back to main',
+    onClick: () => dispatch(searching('Name', '', true)),
+  };
+
   return(
     <div>
       No results for your search :(
-      <Button
-        name={'Voltar'}
-        id='back to main'
-        onClick={() => dispatch(searching('Name', '', true))}
-      />
+      <Button {...goBackProps} />
     </div>
   );
 }
