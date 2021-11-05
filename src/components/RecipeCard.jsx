@@ -24,15 +24,16 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
     name: 'Start Cooking Recipe',
     id: 'Start Cooking Recipe',
     onClick: () => setRedirectProgress(true),
-  }
+  };
+
+  const recipeImageProps = {
+    style: { height: '300px' },
+    src: image,
+  };
 
   return (
     <div className="recipe-card" style={{ width: '300px', margin: '20px', textAlign: 'center' }} >
-      <img
-        style={{ height: '300px' }}
-        src={image}
-        alt="Foto da receita"
-      />
+      <img alt="Recipe" {...recipeImageProps}/>
       <div>
         <h5>{name}</h5>
         <Button {...seeDetailsProps} />
@@ -43,6 +44,6 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
       <Button {...startCookingRecipeProps} />
     </div>
   );
-}
+};
 
 export default RecipeCard;

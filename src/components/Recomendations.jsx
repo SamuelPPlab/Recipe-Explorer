@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Paginator from "../components/Paginator";
 import { swapMainPage } from "../redux/actions/mainPage";
 import Loading from "./Loading";
 import RecomendationCard from "./RecomendationCard";
 
-const Recomendations = ({ recomendations, isItFood, swapMain }) => {
+const Recomendations = ({ recomendations, isItFood }) => {
   const [recipesShowing, setRecipesShowing] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(recomendations) {
@@ -35,7 +36,7 @@ const Recomendations = ({ recomendations, isItFood, swapMain }) => {
                 image={image}
                 isAlcoholic={isAlcoholic}
                 category={category}
-                handleClick={swapMain}
+                handleClick={() => dispatch(swapMainPage())}
               />
             ))
           }
@@ -53,8 +54,4 @@ const mapStateToProps = ({ detailReducer: { recomendations }, mainPageReducer: {
   isItFood,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  swapMain: () => dispatch(swapMainPage()),
-})
-
-export default connect (mapStateToProps, mapDispatchToProps)(Recomendations);
+export default connect(mapStateToProps)(Recomendations);

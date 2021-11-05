@@ -1,13 +1,14 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { recipesByIngredients } from "../redux/actions/mainPage";
 
-const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
+const IngredientCard = ({ isItFood, ingredient }) => {
+  const dispatch = useDispatch();
   return(
     <div style={{ margin: '50px', textAlign: 'center' }}>
       <Link to='/main'>
-        <button onClick={() => loadSelectedRecipes(isItFood, ingredient)}>
+        <button onClick={(ingredient) => (dispatch(recipesByIngredients(isItFood, ingredient)))}>
           <img
             src={`https://www.themealdb.com/images/ingredients/${ingredient}.png`}
             alt={ingredient}
@@ -20,8 +21,4 @@ const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  loadSelectedRecipes: (isItFood, ingredient) => (dispatch(recipesByIngredients(isItFood, ingredient))),
-});
-
-export default connect(null, mapDispatchToProps)(IngredientCard);
+export default IngredientCard;
