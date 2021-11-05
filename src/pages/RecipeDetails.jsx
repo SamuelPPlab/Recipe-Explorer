@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import { Redirect } from "react-router";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey } from "../services/localStorage";
 import { fetchSixRandomRecipes, resetId, setSuggestionsBasedOnUser } from "../redux/actions/detailPage";
@@ -13,8 +13,8 @@ import Recomendations from "../components/Recomendations";
 import { swapMainPage } from "../redux/actions/mainPage";
 import useLoadSuggestions from "../customHooks/useLoadSuggestions";
 
-const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures, waitRedirect,
-  resetId, getRandomRecomendations, isItFood, swapMain, foods, drinks, getRecomendations }) => {
+const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
+  getRandomRecomendations, isItFood, swapMain, foods, drinks }) => {
 
   const [startRecipe, setStartRecipe] = useState(false);
   const id = pathname.split('/')[2];
@@ -25,18 +25,19 @@ const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
   useLoadSuggestions(foods, drinks);
 
   const pathnameIsFood = pathname.includes('/foods');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if(isItFood !== pathnameIsFood) {
-      swapMain();
+      dispatch(swapMainPage());
     }
-  }, [isItFood, swapMain, pathnameIsFood]);
+  }, [isItFood, swapMain, dispatch, pathnameIsFood]);
 
   const getRandomArrayItem = (array, index) => (array[index]);
 
   useEffect(() => {
     if(surpriseMe) {
-      getRandomRecomendations(!isItFood);
+      dispatch(fetchSixRandomRecipes(isItFood));
     }
 
     if(!surpriseMe && foods && drinks) {
@@ -50,15 +51,15 @@ const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
         recomendations.push(getRandomArrayItem(suggestionPool, randomIndex));
         removeItemfromSuggestion(randomIndex);
       }
-      getRecomendations(recomendations);
+      dispatch(setSuggestionsBasedOnUser(recomendations));
     }
-  }, [pathnameIsFood, getRandomRecomendations, isItFood, surpriseMe, foods, drinks, getRecomendations]);
+  }, [pathnameIsFood, getRandomRecomendations, isItFood, surpriseMe, foods, drinks, dispatch]);
 
   useEffect(() => {
     if (id && !loading) {
-      resetId();
+      dispatch(resetId());
     }
-  }, [id, loading, resetId]);
+  }, [id, loading, dispatch]);
 
   if (startRecipe) return <Redirect to={`${pathname}/in-progress`} />;
 
@@ -89,13 +90,6 @@ const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  swapMain: () => dispatch(swapMainPage()),
-  resetId: () => dispatch(resetId()),
-  getRandomRecomendations: (isItFood) => dispatch(fetchSixRandomRecipes(isItFood)),
-  getRecomendations: (recomendations) => dispatch(setSuggestionsBasedOnUser(recomendations)),
-});
-
 const mapStateToProps = ({
   detailReducer: { recipe: { ingredients, recomendations, measures, name, image }, waitRedirect, loading },
   suggestionPageReducer: { suggestionPool: { drinks, foods } },
@@ -113,4 +107,4 @@ const mapStateToProps = ({
   foods,
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RecipeDetails);
+export default connect(mapStateToProps)(RecipeDetails);
