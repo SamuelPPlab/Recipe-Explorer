@@ -33,7 +33,7 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
 
   return (
     <div className="recipe-card" style={{ width: '300px', margin: '20px', textAlign: 'center' }} >
-      <img alt="Recipe image" {...recipeImageProps}/>
+      <img alt="Recipe" {...recipeImageProps}/>
       <div>
         <h5>{name}</h5>
         <Button {...seeDetailsProps} />
