@@ -17,7 +17,7 @@ function Input({ name, fieldValue = null, checked = null,
       <label htmlFor={ name } style={style}>
         {name}
         <div>
-          <input />
+          <input {...inputProps} />
         </div>
     </label>
     </div>
