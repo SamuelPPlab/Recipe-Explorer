@@ -37,7 +37,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
       dispatch(shouldLoadMainRecipes());
       return;
     }
-  }, [isItFood, shouldReloadRecipes, loading, vegan, drinker]);
+  }, [isItFood, shouldReloadRecipes, loading, vegan, drinker, dispatch]);
 
   if(loading) return <Loading />;
 
