@@ -16,7 +16,7 @@ const RecomendationCard = ({ image, name, id, isItFood, handleClick }) => {
       setRedirect(!redirect);
       dispatch(waitRedirect());
     },
-  }
+  };
 
   return(
     <div style={{ width: '400px', textAlign: 'center' }}>

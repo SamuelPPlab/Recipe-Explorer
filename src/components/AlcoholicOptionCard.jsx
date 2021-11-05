@@ -15,15 +15,16 @@ const AlcoholicOptionCard = ({ option, getRecipes }) => {
 
   const dispatch = useDispatch();
 
+  const optionIconProps = {
+    src: options[option],
+    style: { width: '200px' },
+  };
+
   return(
     <div style={{ margin: '50px', textAlign: 'center' }}>
       <Link to='/main'>
         <button onClick={() => dispatch(recipesByAlcoholOption(option))}>
-          <img
-            src={options[option]}
-            alt={option}
-            style={{ width: '200px' }}
-          />
+          <img alt={option} {...optionIconProps} />
           <h3>{option}</h3>
         </button>
       </Link>

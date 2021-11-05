@@ -17,28 +17,34 @@ function Login() {
 
   if (redirect) return <Redirect to="/main" />;
 
+  const nameInputProps = {
+    id: "email",
+    name: "Email",
+    fieldValue: email,
+    setFieldValue: setEmail,
+    type: "email",
+  };
+
+  const passwordInputProps = {
+    id: "password",
+    name: "Password",
+    fieldValue: passwordInput,
+    setFieldValue: setPasswordInput,
+    type: "password",
+  };
+
+  const loginButtonProps = {
+    name: "Entrar",
+    id: "submitLogin",
+    onClick: () => setRedirect(true),
+    disabled:  isDisabled,
+  };
+
   return (
     <div>
-      <Input
-        id="email"
-        name="Email"
-        fieldValue={ email }
-        setFieldValue={ setEmail }
-        type="email"
-      />
-      <Input
-        id="password"
-        name="Password"
-        fieldValue={ passwordInput }
-        setFieldValue={ setPasswordInput }
-        type="password"
-      />
-      <Button
-        name="Entrar"
-        id="submitLogin"
-        onClick={ () => setRedirect(true) }
-        disabled={ isDisabled }
-      />
+      <Input {...nameInputProps} />
+      <Input {...passwordInputProps} />
+      <Button {...loginButtonProps} />
     </div>
   );
 }

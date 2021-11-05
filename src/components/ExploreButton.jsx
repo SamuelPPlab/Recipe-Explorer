@@ -7,12 +7,15 @@ const ExploreButton = () => {
   const exploreImage = <img src={exploreIcon} alt="explore Icon" style={{ width: '50px' }} />;
   const [goToExplore, setGoToExplore] = useState(false);
   if(goToExplore) return <Redirect to='/explore' />;
+
+  const exploreButtonProps = {
+    name: exploreImage,
+    id: 'explore button',
+    onClick: () => setGoToExplore(!goToExplore),
+  };
+
   return(
-    <Button
-      name={exploreImage}
-      id='explore button'
-      onClick={() => setGoToExplore(!goToExplore)}
-    />
+    <Button {...exploreButtonProps} />
   );
 };
 

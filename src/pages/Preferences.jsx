@@ -140,10 +140,12 @@ const Preferences = ({ countries }) => {
         <RadioButton {...lactoseProps} />
         <RadioButton {...veganProps} />
         { vegan.includes('No') && <RadioButton {...favoriteMeatProps} />}
-        <div>
-          Do you have a preference for food of any of these coutries?
-          {countryList}
-        </div>
+        {
+          vegan.includes('No') && <div>
+            Do you have a preference for food of any of these coutries?
+            {countryList}
+          </div>
+        }
         <Button {...saveButtonProps} />
       </form>
     </div>

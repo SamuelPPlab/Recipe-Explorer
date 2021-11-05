@@ -41,7 +41,9 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
       default:
         return null;
     }
-  }, [selectedRadioOption, showFood, dispatch, isItFood]);
+  }, [selectedRadioOption, showFood, isItFood, dispatch]);
+
+  if(redirect && id) return <Redirect to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
 
   const searchIngredientsProps = {
     name: 'Search Ingredient',
@@ -64,39 +66,40 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
     onClick: () => {dispatch(ingredientFetcher(showFood))},
   };
 
-  if(redirect && id) return <Redirect to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />
+  const exploreDrinksProps = {
+    id: "Explore Drinks",
+    name: "Explore Drinks",
+    onClick: () => {
+      setShowFood(false);
+    },
+  };
+
+  const exploreFoodsProps = {
+    id: "Explore Foods",
+    name: "Explore Foods",
+    onClick: () => {
+      setShowFood(true);
+      setSearchIng('');
+    },
+  };
+
+  const exploreOptionsProps = {
+    options: showFood ? foodExploreOptions : drinkExploreOptions,
+    selectedFilter: selectedRadioOption,
+    setSelectedFilter: setSelectedRadioOption,
+  };
 
   return(
     <div>
-      <Button
-        id="Explore Drinks"
-        name="Explore Drinks"
-        onClick={ () => {
-          setShowFood(false);
-        } }
-      />
-      <Button
-        id="Explore Foods"
-        name="Explore Foods"
-        onClick={ () => {
-          setShowFood(true);
-          setSearchIng('');
-        } }
-      />
-      { 
-        !loading && <RadioButton
-          options={showFood ? foodExploreOptions : drinkExploreOptions}
-          selectedFilter={selectedRadioOption}
-          setSelectedFilter={setSelectedRadioOption}
-        />
-      }
+      <Button {...exploreDrinksProps} />
+      <Button {...exploreFoodsProps} />
+      {!loading && <RadioButton {...exploreOptionsProps} />}
       {
         selectedRadioOption === 'Ingredients' && !loading && <div>
           <Input {...searchIngredientsProps} />
           <Button {...searchButtonProps} />
           <Button {...clearSearchButtonProps} />
         </div>
-
       }
     </div>
   );

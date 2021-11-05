@@ -9,17 +9,20 @@ const Header = ({ loadFood }) => {
 	const [hideSearchBar, setHideSearchBar] = useState(false);
 	const profileIconImg = <img src={ profileIcon } alt="profileIcon" />;
 	const searchIconImg = <img src={ searchIcon } alt="searchIcon" />;
+
+	const searchButtonProps = {
+		name: searchIconImg,
+		onClick: () => setHideSearchBar(!hideSearchBar),
+		id: "lookingGlass",
+	};
+
   return (
 		<div>
 			<Link to="/profile">
 				{ profileIconImg }
 			</Link>
 			Titulo
-			<Button
-				name={ searchIconImg }
-				onClick={ () => setHideSearchBar(!hideSearchBar) }
-				id="lookingGlass"
-			/>
+			<Button {...searchButtonProps} />
 			{ hideSearchBar && <SearchBar loadFood={loadFood} /> }
 		</div>
 	);
