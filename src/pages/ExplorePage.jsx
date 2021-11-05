@@ -1,19 +1,20 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { changeIngredientPage, clearState, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
+import { connect, useDispatch } from "react-redux";
+import { changeIngredientPage, clearState, ingredientFetcher } from "../redux/actions/explorePage";
 import ExploreHeader from "../components/ExploreHeader";
 import FlagCard from "../components/FlagCard";
 import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
 import Paginator from "../components/Paginator";
 
-const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, clearState, newPage, apiResponse }) => {
+const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    
-    loadIngredients();
-    return () => clearState();
-  }, [loadIngredients, clearState]);
+    dispatch(ingredientFetcher(false));
+    return () => dispatch(clearState());
+  }, [loadIngredients, dispatch]);
 
   const length = apiResponse && apiResponse.length;
 
@@ -31,7 +32,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
           alcoholicOptions && alcoholicOptions.map((option) => <AlcoholicOptionCard key={option} option={option} />)
         }
       </div>
-      {ingredients && <Paginator pageChanger={newPage} length={length} />}
+      {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
     </div>
   );
 };
@@ -45,11 +46,4 @@ const mapStateToProps = ({ exploreReducer: { loading, areas, ingredients, alcoho
   apiResponse,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadIngredients: () => dispatch(ingredientFetcher(false)),
-  clearState: () => dispatch(clearState()),
-  newPage: (newPage) => dispatch(changeIngredientPage(newPage)),
-  searchIngredient: (query) => ingredientSearch(query),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ExplorePage);
+export default connect(mapStateToProps)(ExplorePage);

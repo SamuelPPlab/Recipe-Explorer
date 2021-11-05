@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { getLocalStorageKey } from "../services/localStorage";
 import { categorySelector, changePage, mainPageFetcher, recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
 import { Redirect } from "react-router";
@@ -14,29 +14,30 @@ import SwitchMainPage from "../components/SwitchMainPage";
 import Paginator from "../components/Paginator";
 import Button from "../components/Button";
 
-const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, loadMainRecipes, allowLoadingRecipes, apiResponse, newPage, loadVegetarianRecipes, loadNonAlcoholicDrinks }) => {
+const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
   const [goToPreferences, setGoToPreferences] = useState(false);
   const [goToSugestions, setGoToSugestions] = useState(false);
+  const dispatch = useDispatch();
 
   const { vegan, drinker } = getLocalStorageKey('preferences');
   useEffect(() => {
     if(vegan && loading && shouldReloadRecipes) {
-      loadVegetarianRecipes(isItFood);
+      dispatch(categorySelector(isItFood, 'Vegetarian'));
       return;
     }
     if(!drinker && loading && shouldLoadMainRecipes && !isItFood) {
-      loadNonAlcoholicDrinks();
+      dispatch(recipesByAlcoholOption('Non alcoholic'));
       return;
     }
     if(shouldReloadRecipes && loading) {
-      loadMainRecipes(isItFood);
+      dispatch(mainPageFetcher(isItFood));
       return;
     }
     if(!loading) {
-      allowLoadingRecipes();
+      dispatch(shouldLoadMainRecipes());
       return;
     }
-  }, [isItFood, shouldReloadRecipes, loadMainRecipes, loading, allowLoadingRecipes, vegan, drinker, loadVegetarianRecipes, loadNonAlcoholicDrinks]);
+  }, [isItFood, shouldReloadRecipes, loading, vegan, drinker, dispatch]);
 
   if(loading) return <Loading />;
 
@@ -82,7 +83,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, loadMain
           ))
         }
       </div>
-      <Paginator length={length} pageChanger={newPage} />
+      <Paginator length={length} pageChanger={(newPage) => dispatch(changePage(newPage))} />
     </div>
   );
 };
@@ -96,12 +97,4 @@ const mapStateToProps = ({ mainPageReducer: { shouldReloadRecipes, recipeList, l
   shouldReloadRecipes,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  loadVegetarianRecipes: (isItFood) => dispatch(categorySelector(isItFood, 'Vegetarian')),
-  loadNonAlcoholicDrinks: () => dispatch(recipesByAlcoholOption('Non alcoholic')),
-  allowLoadingRecipes: () => dispatch(shouldLoadMainRecipes()),
-  loadMainRecipes: (isItFood) => dispatch(mainPageFetcher(isItFood)),
-  newPage: (newPage) => dispatch(changePage(newPage)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default connect(mapStateToProps)(MainPage);
