@@ -16,13 +16,15 @@ const SwitchMainPage = ({ isItFood }) => {
     dispatch(swapMainPage());
   };
 
+  const switchMainPageProps = {
+    name: buttonName,
+    onClick: handleSwitch,
+    id: 'switch',
+    type: "button",
+  };
+
   return(
-    <Button
-      name={ buttonName }
-      onClick={ handleSwitch }
-      id='switch'
-      type="button"
-    />
+    <Button {...switchMainPageProps} />
   );
 };
 

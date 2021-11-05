@@ -44,6 +44,6 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
       <Button {...startCookingRecipeProps} />
     </div>
   );
-}
+};
 
 export default RecipeCard;
