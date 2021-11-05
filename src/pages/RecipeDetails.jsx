@@ -44,7 +44,8 @@ const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
       const recomendations = [];
       let suggestionPool = isItFood ? drinks : foods;
       const removeItemfromSuggestion = (index) => (
-        suggestionPool = suggestionPool.filter((currentItem) => currentItem !== suggestionPool[index])
+        suggestionPool = suggestionPool.filter((currentItem) =>
+          (currentItem !== suggestionPool[index]))
       );
       for(let i = 0; i < 6; i += 1) {
         const randomIndex = Math.floor(Math.random() * suggestionPool.length);

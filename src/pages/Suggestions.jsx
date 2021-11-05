@@ -10,7 +10,7 @@ import { detailsFetcher, resetState } from "../redux/actions/detailPage";
 import { getDrinkRecipeOfTheDay, getFoodRecipeOfTheDay } from "../redux/actions/suggestionPage";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 
-const Suggestions = ({ foodSuggestion, drinkSuggestion, foods, drinks, recipe, clearData }) => {
+const Suggestions = ({ foodSuggestion, drinkSuggestion, foods, drinks, recipe }) => {
 
   const dispatch = useDispatch();
 
@@ -28,19 +28,19 @@ const Suggestions = ({ foodSuggestion, drinkSuggestion, foods, drinks, recipe, c
     }
   }, [dispatch, foods, foodSuggestion]);
 
-  useEffect(() => (clearData), [clearData]);
+  useEffect(() => (() => dispatch(resetState())), [dispatch]);
   useEffect(() => {
-    clearData();
-  }, [clearData]);
+    dispatch(resetState());
+  }, [dispatch]);
 
   const handleNewFoodClick = () => {
     dispatch(getFoodRecipeOfTheDay());
-    clearData();
+    dispatch(resetState());
   };
 
   const handleNewDrinkClick = () => {
     dispatch(getDrinkRecipeOfTheDay());
-    clearData();
+    dispatch(resetState());
   };
 
   const allFoodSuggestionsGone = foods.length === 0;
@@ -123,8 +123,4 @@ const mapStateToProps = ({ suggestionPageReducer: { foodSuggestion, drinkSuggest
   drinks: suggestionPool.drinks,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  clearData: () => dispatch(resetState()),
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(Suggestions);
+export default connect(mapStateToProps)(Suggestions);
