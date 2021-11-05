@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import { Redirect } from "react-router";
 import Button from "../components/Button";
 import Input from "../components/Input";
@@ -10,11 +10,12 @@ import { ageValidator, nameValidator } from "../services/formValidation";
 import { getLocalStorageKey } from "../services/localStorage";
 import Checkbox from "../components/Checkbox";
 
-const Preferences = ({ countries, getCountries }) => {
+const Preferences = ({ countries }) => {
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    getCountries();
-  }, [getCountries]);
+    dispatch(areaFetcher());
+  }, [dispatch]);
 
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -153,8 +154,4 @@ const mapStateToProps = ({ exploreReducer: { areas } }) => ({
   countries: areas && areas.filter((country) => country !== 'Unknown'),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getCountries: () => dispatch(areaFetcher()),
-});
-
-export default connect (mapStateToProps, mapDispatchToProps) (Preferences);
+export default connect (mapStateToProps) (Preferences);
