@@ -10,7 +10,7 @@ import { mainPageFetcher } from "../redux/actions/mainPage";
 
 const Header = ({ isItFood, title, isSearchResult }) => {
 	const [hideSearchBar, setHideSearchBar] = useState(false);
-	const profileIconImg = <img src={ profileIcon } alt="profileIcon" style={{ width: '50px' }} />;
+	const profileIconImg = <img src={ profileIcon } alt="profileIcon" style={{ width: '50px', height: '50px' }} />;
 	const searchIconImg = <img src={ searchIcon } alt="searchIcon" style={{ width: '50px', height: '50px' }} />;
 	const XIconImg = <img src={ x } alt="X" style={{ width: '50px', height: '50px' }} />;
 
@@ -28,16 +28,24 @@ const Header = ({ isItFood, title, isSearchResult }) => {
 		id: 'ClearSearch',
 	};
 
+	const profileButtonProps = {
+		name: profileIconImg,
+		onClick: () => null,
+		id: 'Profile Button',
+	}
+
   return (
 		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<div style={{ display: 'flex' }}>
-				<Button {...searchButtonProps} />
+			<div style={{ display: 'flex', height: '60px' }}>
+				{ !hideSearchBar && <Button {...searchButtonProps} />}
 				{ isSearchResult && <Button {...clearSearchResultsProps} />}
 				{ hideSearchBar && <SearchBar isItFood={isItFood} /> }
 			</div>
-			{ <h1>{title}</h1> }
+			<div>
+				{ <h1>{title}</h1> }
+			</div>
 			<Link to="/profile">
-				{ profileIconImg }
+				<Button {...profileButtonProps} />
 			</Link>
 		</div>
 	);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, connect } from 'react-redux';
 import { searching } from "../redux/actions/mainPage";
+import searchIcon from "../images/searchIcon.svg";
 import Input from "./Input";
 import Button from './Button';
 import RadioButton from "./RadioButton";
@@ -8,6 +9,7 @@ import RadioButton from "./RadioButton";
 const SearchBar = ({ isItFood }) => {
   const [searchValue, setSearchValue] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('Name');
+  const searchIconImg = <img src={ searchIcon } alt="searchIcon" style={{ width: '50px', height: '50px' }} />;
 
   const searchOptions = ['Name', 'Ingredient'];
 
@@ -33,13 +35,13 @@ const SearchBar = ({ isItFood }) => {
   };
 
   const searchButtonProps = {
-    name: 'Search',
+    name: searchIconImg,
     id: 'pesquisar',
     onClick: () => dispatch(searching(selectedFilter, searchValue, isItFood)),
   };
 
   return(
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', height: '50px' }}>
       <Input {...searchBarProps} />
       <RadioButton {...searchOptionsProps} />
       <Button {...searchButtonProps} />

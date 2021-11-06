@@ -23,7 +23,6 @@ const mainPageReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case SUCCESS:
       const apiResponse = list && list.map((recipe) => mainPageData(recipe));
-      console.log(isSearchResult)
       return { ...state, apiResponse, recipeList: apiResponse && apiResponse.slice(0, 15), loading: false, isSearchResult };
     case SHOULD_NOT_LOAD_MAIN_RECIPES:
       return { ...state, loading: true, shouldReloadRecipes: false };

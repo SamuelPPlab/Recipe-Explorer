@@ -37,7 +37,7 @@ const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
 
   useEffect(() => {
     if(surpriseMe) {
-      dispatch(fetchSixRandomRecipes(isItFood));
+      dispatch(fetchSixRandomRecipes(!isItFood));
     }
 
     if(!surpriseMe && foods && drinks) {
