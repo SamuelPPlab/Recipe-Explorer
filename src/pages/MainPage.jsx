@@ -44,7 +44,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
 
   if(goToSugestions) return <Redirect to="/suggestions" />;
   
-  if (recipeList.length < 1) return <NoResults />;
+  if (!recipeList || recipeList.length < 1) return <NoResults />;
 
   const length = apiResponse.length;
 
