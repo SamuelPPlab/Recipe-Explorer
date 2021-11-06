@@ -9,7 +9,7 @@ const SearchBar = ({ isItFood }) => {
   const [searchValue, setSearchValue] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('Name');
 
-  const searchOptions = ['Name', 'Ingredient', 'First Letter'];
+  const searchOptions = ['Name', 'Ingredient'];
 
   const dispatch = useDispatch();
 
@@ -25,6 +25,11 @@ const SearchBar = ({ isItFood }) => {
     name: 'Search',
     fieldValue: searchValue,
     setFieldValue: setSearchValue,
+    onKeyUp: ({ keyCode, target: { value } }) => {
+      if (keyCode === 13) {
+        dispatch(searching(selectedFilter, value, isItFood));
+      }
+    },
   };
 
   const searchButtonProps = {

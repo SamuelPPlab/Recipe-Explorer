@@ -9,12 +9,11 @@ import Header from "../components/Header";
 import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
-import ExploreButton from "../components/ExploreButton";
 import SwitchMainPage from "../components/SwitchMainPage";
 import Paginator from "../components/Paginator";
 import Button from "../components/Button";
 
-const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
+const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, location: { pathname } }) => {
   const [goToPreferences, setGoToPreferences] = useState(false);
   const [goToSugestions, setGoToSugestions] = useState(false);
   const dispatch = useDispatch();
@@ -69,10 +68,9 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
 
   return(
     <div>
-      <Header isItFood={isItFood} />
+      <Header isItFood={isItFood} pathname={pathname} />
       <Categories isItFood={isItFood} />
       <SwitchMainPage isItFood={isItFood} />
-      <ExploreButton />
       <Button {...setPreferencesProps} />
       <Button {...seeSuggestionsOfTheDayProps} />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
