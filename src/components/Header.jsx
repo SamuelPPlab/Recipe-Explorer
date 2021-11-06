@@ -35,18 +35,21 @@ const Header = ({ isItFood, title, isSearchResult }) => {
 	}
 
   return (
-		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<div style={{ display: 'flex', height: '60px' }}>
-				{ !hideSearchBar && <Button {...searchButtonProps} />}
-				{ isSearchResult && <Button {...clearSearchResultsProps} />}
-				{ hideSearchBar && <SearchBar isItFood={isItFood} /> }
+		<div>
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div style={{ display: 'flex', height: '60px' }}>
+					{ !hideSearchBar && <Button {...searchButtonProps} />}
+					{ isSearchResult && <Button {...clearSearchResultsProps} />}
+					{ hideSearchBar && <SearchBar isItFood={isItFood} /> }
+				</div>
+				<div>
+					{ <h1>{title}</h1> }
+				</div>
+				<Link to="/profile">
+					<Button {...profileButtonProps} />
+				</Link>
 			</div>
-			<div>
-				{ <h1>{title}</h1> }
-			</div>
-			<Link to="/profile">
-				<Button {...profileButtonProps} />
-			</Link>
+			
 		</div>
 	);
 }

@@ -24,7 +24,7 @@ const SearchBar = ({ isItFood }) => {
 
   const searchBarProps = {
     id: 'searchInput',
-    name: 'Search',
+    name: '',
     fieldValue: searchValue,
     setFieldValue: setSearchValue,
     onKeyUp: ({ keyCode, target: { value } }) => {
@@ -42,9 +42,9 @@ const SearchBar = ({ isItFood }) => {
 
   return(
     <div style={{ display: 'flex', flexWrap: 'wrap', height: '50px' }}>
-      <Input {...searchBarProps} />
-      <RadioButton {...searchOptionsProps} />
       <Button {...searchButtonProps} />
+      <RadioButton {...searchOptionsProps} />
+      <Input {...searchBarProps} />
     </div>
   );
 };
