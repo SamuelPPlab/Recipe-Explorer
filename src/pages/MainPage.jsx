@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { getLocalStorageKey } from "../services/localStorage";
-import { categorySelector, changePage, mainPageFetcher, recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
+import { categorySelector, changePage, mainPageFetcher,
+  recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
 import { Redirect } from "react-router";
 import '../css/crossOutText.css'
 import RecipeCard from "../components/RecipeCard";
@@ -13,9 +14,10 @@ import SwitchMainPage from "../components/SwitchMainPage";
 import Paginator from "../components/Paginator";
 import Button from "../components/Button";
 
-const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, location: { pathname } }) => {
+const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, isSearchResult, location: { pathname } }) => {
   const [goToPreferences, setGoToPreferences] = useState(false);
   const [goToSugestions, setGoToSugestions] = useState(false);
+
   const dispatch = useDispatch();
 
   const { vegan, drinker } = getLocalStorageKey('preferences');
@@ -66,9 +68,16 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
     scrollToTop: true,
   };
 
+  const headerProps = {
+    isItFood,
+    pathname,
+    title: isItFood ? 'Food Recipes' : 'Drinks',
+    isSearchResult,
+  };
+
   return(
     <div>
-      <Header isItFood={isItFood} pathname={pathname} />
+      <Header {...headerProps} />
       <Categories isItFood={isItFood} />
       <SwitchMainPage isItFood={isItFood} />
       <Button {...setPreferencesProps} />
@@ -92,13 +101,14 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   );
 };
 
-const mapStateToProps = ({ mainPageReducer: { shouldReloadRecipes, recipeList, loading, error, isItFood, apiResponse } }) => ({
+const mapStateToProps = ({ mainPageReducer: { shouldReloadRecipes, isSearchResult, recipeList, loading, error, isItFood, apiResponse } }) => ({
   recipeList,
   loading,
   error,
   isItFood,
   apiResponse,
   shouldReloadRecipes,
+  isSearchResult,
 });
 
 export default connect(mapStateToProps)(MainPage);
