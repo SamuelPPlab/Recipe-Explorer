@@ -5,12 +5,14 @@ import SearchBar from "./SearchBar";
 import Button from "./Button";
 import profileIcon from "../images/profileIcon.svg";
 import searchIcon from "../images/searchIcon.svg";
+import x from "../images/x-icon.png";
 import { mainPageFetcher } from "../redux/actions/mainPage";
 
 const Header = ({ isItFood, title, isSearchResult }) => {
 	const [hideSearchBar, setHideSearchBar] = useState(false);
 	const profileIconImg = <img src={ profileIcon } alt="profileIcon" style={{ width: '50px' }} />;
-	const searchIconImg = <img src={ searchIcon } alt="searchIcon" style={{ width: '50px' }} />;
+	const searchIconImg = <img src={ searchIcon } alt="searchIcon" style={{ width: '50px', height: '50px' }} />;
+	const XIconImg = <img src={ x } alt="X" style={{ width: '50px', height: '50px' }} />;
 
 	const dispatch = useDispatch();
 
@@ -21,19 +23,19 @@ const Header = ({ isItFood, title, isSearchResult }) => {
 	};
 
 	const clearSearchResultsProps = {
-		name: 'Clear Search Results',
+		name: XIconImg,
 		onClick: () => dispatch(mainPageFetcher(isItFood)),
 		id: 'ClearSearch',
 	};
 
   return (
 		<div style={{ display: 'flex', justifyContent: 'space-between' }}>
-			<div>
+			<div style={{ display: 'flex' }}>
 				<Button {...searchButtonProps} />
 				{ isSearchResult && <Button {...clearSearchResultsProps} />}
+				{ hideSearchBar && <SearchBar isItFood={isItFood} /> }
 			</div>
-			{ !hideSearchBar && <h1>{title}</h1> }
-			{ hideSearchBar && <SearchBar isItFood={isItFood} /> }
+			{ <h1>{title}</h1> }
 			<Link to="/profile">
 				{ profileIconImg }
 			</Link>

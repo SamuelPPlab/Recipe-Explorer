@@ -15,7 +15,7 @@ const Categories = ({ isItFood }) => {
   const dispatch = useDispatch();
   if(categoriesOptions.length < 1) return <Loading />
   return(
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
       {
         categoriesOptions.map((category) => (
           <Button

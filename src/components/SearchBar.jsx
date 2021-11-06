@@ -39,7 +39,7 @@ const SearchBar = ({ isItFood }) => {
   };
 
   return(
-    <div>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       <Input {...searchBarProps} />
       <RadioButton {...searchOptionsProps} />
       <Button {...searchButtonProps} />
