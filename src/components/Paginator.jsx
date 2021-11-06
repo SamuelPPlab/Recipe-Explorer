@@ -2,7 +2,7 @@ import React from "react";
 import { backToTop } from "../services/backToTop";
 import Button from "./Button";
 
-const Paginator = ({ length, pageChanger, pageSize = 15 }) => {
+const Paginator = ({ length, pageChanger, pageSize = 15, scrollToTop = false }) => {
   let pageNumber = Math.ceil(length / pageSize);
   const counter = [];
 
@@ -12,7 +12,7 @@ const Paginator = ({ length, pageChanger, pageSize = 15 }) => {
 
   const handleClick = (number) => {
     pageChanger(number);
-    backToTop();
+    scrollToTop && backToTop();
   };
 
   return(

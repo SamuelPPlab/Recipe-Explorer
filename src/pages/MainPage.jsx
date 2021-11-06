@@ -60,6 +60,12 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
     id: "See Recipes Of The Day",
     onClick: () => setGoToSugestions(!goToSugestions),
   };
+  
+  const paginatorProps = {
+    length: length,
+    pageChanger: (newPage) => dispatch(changePage(newPage)),
+    scrollToTop: true,
+  };
 
   return(
     <div>
@@ -83,7 +89,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </div>
-      <Paginator length={length} pageChanger={(newPage) => dispatch(changePage(newPage))} />
+      <Paginator {...paginatorProps} />
     </div>
   );
 };
