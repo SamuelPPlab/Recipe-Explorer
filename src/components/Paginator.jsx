@@ -1,4 +1,5 @@
 import React from "react";
+import { backToTop } from "../services/backToTop";
 import Button from "./Button";
 
 const Paginator = ({ length, pageChanger, pageSize = 15 }) => {
@@ -9,13 +10,18 @@ const Paginator = ({ length, pageChanger, pageSize = 15 }) => {
     counter.push(i);
   };
 
+  const handleClick = (number) => {
+    pageChanger(number);
+    backToTop();
+  };
+
   return(
     <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
       {
         counter.map((number) => (
           <Button
             key={number}
-            onClick={() => pageChanger(number)}
+            onClick={() => handleClick(number)}
             name={number}
             id={`go to page ${number}`}
           />

@@ -9,6 +9,8 @@ const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
     style: { width: '200px' },
   };
 
+  const dispatch = useDispatch();
+
   return(
     <div style={{ margin: '50px', textAlign: 'center' }}>
       <Link to='/main'>
