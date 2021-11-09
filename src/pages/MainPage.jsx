@@ -10,8 +10,8 @@ import Header from "../components/Header";
 import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
-import SwitchMainPage from "../components/SwitchMainPage";
 import Paginator from "../components/Paginator";
+import ShareMenu from "../components/ShareMenu";
 import Button from "../components/Button";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, isSearchResult, location: { pathname } }) => {
@@ -78,10 +78,8 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   return(
     <div>
       <Header {...headerProps} />
+      <ShareMenu pathname={pathname} />
       <Categories isItFood={isItFood} />
-      <SwitchMainPage isItFood={isItFood} />
-      <Button {...setPreferencesProps} />
-      <Button {...seeSuggestionsOfTheDayProps} />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {
           recipeList.map(({ id, name, image }, index) => (
