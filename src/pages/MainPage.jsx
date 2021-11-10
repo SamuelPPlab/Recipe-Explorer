@@ -11,8 +11,8 @@ import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
 import Paginator from "../components/Paginator";
-import ShareMenu from "../components/ShareMenu";
 import Button from "../components/Button";
+import ExploreLinks from "../components/ExploreLinks";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, isSearchResult, location: { pathname } }) => {
   const [goToPreferences, setGoToPreferences] = useState(false);
@@ -78,7 +78,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   return(
     <div>
       <Header {...headerProps} />
-      <ShareMenu pathname={pathname} />
+      <ExploreLinks />
       <Categories isItFood={isItFood} />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {
