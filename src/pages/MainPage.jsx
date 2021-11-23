@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { getLocalStorageKey } from "../services/localStorage";
 import { categorySelector, changePage, mainPageFetcher,
   recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
-import { Redirect } from "react-router";
 import '../css/crossOutText.css'
 import RecipeCard from "../components/RecipeCard";
 import Header from "../components/Header";
@@ -14,10 +13,7 @@ import Paginator from "../components/Paginator";
 import PreferencesButton from "../components/PreferencesButton";
 import ExploreLinks from "../components/ExploreLinks";
 
-const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, isSearchResult, location: { pathname } }) => {
-  const [goToPreferences, setGoToPreferences] = useState(false);
-  const [goToSugestions, setGoToSugestions] = useState(false);
-
+const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, location: { pathname } }) => {
   const dispatch = useDispatch();
 
   const { vegan, drinker } = getLocalStorageKey('preferences');
@@ -41,26 +37,10 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   }, [isItFood, shouldReloadRecipes, loading, vegan, drinker, dispatch]);
 
   if(loading) return <Loading />;
-
-  if(goToPreferences) return <Redirect to="/preferences" />;
-
-  if(goToSugestions) return <Redirect to="/suggestions" />;
   
   if (!recipeList || recipeList.length < 1) return <NoResults isItFood={isItFood} />;
 
   const length = apiResponse.length;
-
-  const setPreferencesProps = {
-    name: "Set Preferences",
-    id: "Set Preferences",
-    onClick: () => setGoToPreferences(!goToPreferences),
-  };
-
-  const seeSuggestionsOfTheDayProps = {
-    name: "See Recipes Of The Day",
-    id: "See Recipes Of The Day",
-    onClick: () => setGoToSugestions(!goToSugestions),
-  };
   
   const paginatorProps = {
     length: length,
@@ -72,14 +52,12 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
     isItFood,
     pathname,
     title: isItFood ? 'Food Recipes' : 'Drinks',
-    isSearchResult,
   };
 
   return(
     <div>
       <Header {...headerProps} />
       <ExploreLinks />
-      <PreferencesButton />
       <Categories isItFood={isItFood} />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {
@@ -107,7 +85,6 @@ const mapStateToProps = ({ mainPageReducer: { shouldReloadRecipes, isSearchResul
   isItFood,
   apiResponse,
   shouldReloadRecipes,
-  isSearchResult,
 });
 
 export default connect(mapStateToProps)(MainPage);

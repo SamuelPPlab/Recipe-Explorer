@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch, connect } from 'react-redux';
 import { searching } from "../redux/actions/mainPage";
+import { mainPageFetcher } from "../redux/actions/mainPage";
 import searchIcon from "../images/searchIcon.svg";
+import x from "../images/x-icon.png";
 import Input from "./Input";
 import Button from './Button';
 import RadioButton from "./RadioButton";
 
-const SearchBar = ({ isItFood }) => {
+const SearchBar = ({ isItFood, isSearchResult }) => {
   const [searchValue, setSearchValue] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('Name');
   const searchIconImg = <img src={ searchIcon } alt="searchIcon" style={{ width: '50px', height: '50px' }} />;
+	const XIconImg = <img src={ x } alt="X" style={{ width: '50px', height: '50px' }} />;
 
   const searchOptions = ['Name', 'Ingredient'];
 
@@ -34,6 +37,13 @@ const SearchBar = ({ isItFood }) => {
     },
   };
 
+	const clearSearchResultsProps = {
+		name: XIconImg,
+		onClick: () => dispatch(mainPageFetcher(isItFood)),
+		id: 'ClearSearch',
+	};
+
+
   const searchButtonProps = {
     name: searchIconImg,
     id: 'pesquisar',
@@ -49,8 +59,9 @@ const SearchBar = ({ isItFood }) => {
   );
 };
 
-const mapStateToProps = ({ mainPageReducer }) => ({
-  isItFood: mainPageReducer.isItFood,
+const mapStateToProps = ({ mainPageReducer: { isItFood, isSearchResult } }) => ({
+  isItFood,
+  isSearchResult,
 })
 
 export default connect(mapStateToProps)(SearchBar);
