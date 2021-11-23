@@ -11,7 +11,7 @@ import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
 import Paginator from "../components/Paginator";
-import Button from "../components/Button";
+import PreferencesButton from "../components/PreferencesButton";
 import ExploreLinks from "../components/ExploreLinks";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, isSearchResult, location: { pathname } }) => {
@@ -79,6 +79,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
     <div>
       <Header {...headerProps} />
       <ExploreLinks />
+      <PreferencesButton />
       <Categories isItFood={isItFood} />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {
