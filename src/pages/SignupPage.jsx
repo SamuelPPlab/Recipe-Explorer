@@ -30,25 +30,11 @@ const SignUp = () => {
     setDisableSignUp(true);
   }, [fullName, email, passwordInput, confirmPassword]);
 
-  const inputBoxTextStyle = {
-    width: '51px',
-    height: '27px',
-    fontSize: '18px',
-    lineHeight: '150%',
-    letterSpacing: '0.007em',
-    color: '#1C2025',
-    paddingTop: '30px',
-    paddingLeft: '25px',
-    paddingBottom: '50px'
-  };
-
   const nameProps = {
     id: 'nomeCompleto',
     name: 'Nome Completo',
     fieldValue: fullName,
     setFieldValue: setFullName,
-    style: inputBoxTextStyle,
-    className: 'inputBox',
   };
 
   const emailProps = {
@@ -57,8 +43,6 @@ const SignUp = () => {
     fieldValue: email,
     setFieldValue: setEmail,
     type: "email",
-    style: inputBoxTextStyle,
-    className: 'inputBox',
   };
 
   const passwordInputProps = {
@@ -67,8 +51,6 @@ const SignUp = () => {
     fieldValue: passwordInput,
     setFieldValue: setPasswordInput,
     type: "password",
-    style: inputBoxTextStyle,
-    className: 'inputBox',
   };
 
   const confirmPasswordProps = {
@@ -77,8 +59,6 @@ const SignUp = () => {
     fieldValue: confirmPassword,
     setFieldValue: setConfirmPassword,
     type: "password",
-    style: inputBoxTextStyle,
-    className: 'inputBox',
   };
 
   const signUpButtonProps = {
