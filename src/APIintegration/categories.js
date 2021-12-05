@@ -86,6 +86,7 @@ export const getRecipesByAlcoholicOption = (option) => {
 export const getRandomRecipe = (isItFood) => {
   const food = 'https://www.themealdb.com/api/json/v1/1/random.php';
   const drink = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+
   if(isItFood) {
     return fetch(food).then((r) => r.json().then(({ meals }) => meals[0]));
   }

@@ -43,18 +43,9 @@ export const fetchRandomRecipe = (isItFood) => ((dispatch) => {
   );
 });
 
-const randomRecipeLoop = async (isItFood) => {
-  const recipes = [];
-  for(let i = 0; i < 6; i += 1) {
-    await getRandomRecipe(isItFood).then((r) => recipes.push(r));
-  };
-  return recipes;
-}
-
-export const fetchSixRandomRecipes = (isItFood) => ((dispatch) => {
-  return randomRecipeLoop(isItFood).then(
-    (r) => dispatch(setRandomRecomendations(r))
-  );
+export const fetchSixRandomRecipes = (isItFood) => (async (dispatch) => {
+  const items = [...Array(6)];
+  return await Promise.all(items.map(() => getRandomRecipe(isItFood))).then((r) => dispatch(setRandomRecomendations(r)))
 });
 
 export const setSuggestionsBasedOnUser = (recomendations) => ({

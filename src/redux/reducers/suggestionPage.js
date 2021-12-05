@@ -22,9 +22,9 @@ const suggestionPageReducer = (state = INITIAL_STATE, action) => {
     case DRINK_SUGGESTION_POOL:
       return { ...state, suggestionPool: { ...suggestionPool, drinks } };
     case FOOD_RECIPE_OF_THE_DAY:
-      return { ...state, suggestionPool: { drinks: suggestionPool.drinks, foods: suggestionPool.foods.filter((item) => (item !== suggestionPool.foods[randomFoodIndex])) }, foodSuggestion: suggestionPool.foods[randomFoodIndex] };
+      return { ...state, suggestionPool: { drinks: suggestionPool.drinks, foods: suggestionPool.foods.filter((item) => (item !== suggestionPool.foods[randomFoodIndex])) }, foodSuggestion: suggestionPool.foods[randomFoodIndex]};
     case DRINK_RECIPE_OF_THE_DAY:
-      return { ...state, suggestionPool: { foods: suggestionPool.foods, drinks: suggestionPool.drinks.filter((item) => (item !== suggestionPool.drinks[randomDrinkIndex])) }, drinkSuggestion: suggestionPool.drinks[randomDrinkIndex] };
+      return { ...state, suggestionPool: { foods: suggestionPool.foods, drinks: suggestionPool.drinks.filter((item) => (item !== suggestionPool.drinks[randomDrinkIndex])) }, drinkSuggestion: suggestionPool.drinks[randomDrinkIndex]};
     case CLEAR_SUGGESTION_STATE:
       return { ...INITIAL_STATE };
     default:

@@ -1,4 +1,5 @@
 import { fetchSelectedCategoryItems, getRecipesByAlcoholicOption, getRecipesByArea } from "../../APIintegration/categories";
+import mainData from "../../APIintegration/mainPage";
 import { mainPageData } from "../../services/apiDataProcessor";
 import { getLocalStorageKey } from "../../services/localStorage";
 
@@ -16,8 +17,8 @@ const getUserFoodPreferences = async () => {
 
   if (!vegan && checkedCountries) {
     await Promise.all(checkedCountries.map((country) => getRecipesByArea(country).then((r) => foodPool.push(...r))));
-  }
-
+  } 
+  
   if (favoriteMeat) {
     await fetchSelectedCategoryItems(true, favoriteMeat).then((r) => foodPool.push(...r));
   }
@@ -25,6 +26,10 @@ const getUserFoodPreferences = async () => {
   if (vegan) {
     await fetchSelectedCategoryItems(true, 'Vegetarian').then((r) => foodPool.push(...r));
     await fetchSelectedCategoryItems(true, 'Vegan').then((r) => foodPool.push(...r));
+  }
+
+  if(!vegan && !checkedCountries && !favoriteMeat) {
+    await mainData(true).then((r) => foodPool.push(...r));
   }
 
   foodPool = foodPool.map((recipe) => mainPageData(recipe));
