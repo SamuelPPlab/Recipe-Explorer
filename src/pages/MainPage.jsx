@@ -10,7 +10,6 @@ import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
 import Paginator from "../components/Paginator";
-import PreferencesButton from "../components/PreferencesButton";
 import ExploreLinks from "../components/ExploreLinks";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, location: { pathname } }) => {
@@ -78,7 +77,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   );
 };
 
-const mapStateToProps = ({ mainPageReducer: { shouldReloadRecipes, isSearchResult, recipeList, loading, error, isItFood, apiResponse } }) => ({
+const mapStateToProps = ({ mainPageReducer: { shouldReloadRecipes, recipeList, loading, error, isItFood, apiResponse } }) => ({
   recipeList,
   loading,
   error,

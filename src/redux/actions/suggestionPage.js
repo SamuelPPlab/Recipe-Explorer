@@ -14,7 +14,7 @@ const getUserFoodPreferences = async () => {
   const { checkedCountries, vegan, favoriteMeat } = getLocalStorageKey('preferences');
   let foodPool = [];
 
-  if (!vegan) {
+  if (!vegan && checkedCountries) {
     await Promise.all(checkedCountries.map((country) => getRecipesByArea(country).then((r) => foodPool.push(...r))));
   }
 
@@ -26,6 +26,7 @@ const getUserFoodPreferences = async () => {
     await fetchSelectedCategoryItems(true, 'Vegetarian').then((r) => foodPool.push(...r));
     await fetchSelectedCategoryItems(true, 'Vegan').then((r) => foodPool.push(...r));
   }
+
   foodPool = foodPool.map((recipe) => mainPageData(recipe));
   return foodPool;
 };

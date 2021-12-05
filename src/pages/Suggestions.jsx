@@ -17,13 +17,13 @@ const Suggestions = ({ foodSuggestion, drinkSuggestion, foods, drinks, recipe })
   useLoadSuggestions(foods, drinks);
 
   useEffect(() => {
-    if (drinks && !drinkSuggestion) {
+    if (drinks && drinkSuggestion === false) {
       dispatch(getDrinkRecipeOfTheDay());
     }
   }, [dispatch, drinks, drinkSuggestion]);
 
   useEffect(() => {
-    if (foods && !foodSuggestion) {
+    if (foods && foodSuggestion === false) {
       dispatch(getFoodRecipeOfTheDay());
     }
   }, [dispatch, foods, foodSuggestion]);
