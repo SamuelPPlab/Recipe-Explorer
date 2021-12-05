@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Button from "./Button";
 import { waitRedirect } from "../redux/actions/detailPage";
 
 const RecomendationCard = ({ image, name, id, isItFood, handleClick }) => {
-  const [redirect, setRedirect] = useState(false);
   const dispatch = useDispatch();
 
   const goToRecipeButtonProps = {
@@ -13,7 +12,6 @@ const RecomendationCard = ({ image, name, id, isItFood, handleClick }) => {
     id: 'More Details Button',
     onClick: () => {
       handleClick();
-      setRedirect(!redirect);
       dispatch(waitRedirect());
     },
   };

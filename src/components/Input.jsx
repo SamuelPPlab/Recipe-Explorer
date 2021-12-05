@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Input({ name, fieldValue = null, checked = null,
+function Input({ name, fieldValue = null, checked = null, onKeyUp = null,
   setFieldValue = null, type = 'text', readOnly = false, style = null }) {
   const inputProps = {
     checked,
@@ -10,6 +10,7 @@ function Input({ name, fieldValue = null, checked = null,
     onChange: ({ target: { value } }) => setFieldValue(value),
     type: type,
     readOnly: readOnly,
+    onKeyUp,
   };
 
   return (

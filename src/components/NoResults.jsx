@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch } from 'react-redux';
-import { searching } from "../redux/actions/mainPage";
+import { mainPageFetcher } from "../redux/actions/mainPage";
 import Button from "./Button";
 
-const NoResults = () => {
+const NoResults = ({ isItFood }) => {
   const dispatch = useDispatch();
   const goBackProps = {
     name: 'Voltar',
     id: 'back to main',
-    onClick: () => dispatch(searching('Name', '', true)),
+    onClick: () => dispatch(mainPageFetcher(isItFood)),
   };
 
   return(

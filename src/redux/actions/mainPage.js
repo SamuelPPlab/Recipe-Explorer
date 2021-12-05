@@ -12,7 +12,7 @@ export const SWAP_MAIN_PAGE = 'SWAP MAIN PAGE';
 
 const loading = () => ({ type: LOADING });
 
-const success = (list) => ({ type: SUCCESS, list });
+const success = (list) => ({ type: SUCCESS, list, isSearchResult: false });
 
 const shouldNotLoadMainRecipes = () => ({ type: SHOULD_NOT_LOAD_MAIN_RECIPES });
 
@@ -24,11 +24,13 @@ export const shouldLoadMainRecipes = () => ({ type: SHOULD_LOAD_MAIN_RECIPES });
 
 export const swapMainPage = () => ({ type: SWAP_MAIN_PAGE });
 
+export const searchResults = (list) => ({ type: SUCCESS, list, isSearchResult: true })
+
 export const searching = (filter, value, food) => ((dispatch) => {
   dispatch(loading());
   dispatch(shouldNotLoadMainRecipes());
   return searchEngine(filter, value, food).then(
-    (r) => dispatch(success(r)),
+    (r) => dispatch(searchResults(r)),
     (e) => dispatch(error(e)),
   );
 });

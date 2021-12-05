@@ -6,6 +6,7 @@ import FlagCard from "../components/FlagCard";
 import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
 import Paginator from "../components/Paginator";
+import BackToMain from "../components/BackToMain";
 
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
 
@@ -20,6 +21,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
 
   return(
     <div>
+      <BackToMain />
       <ExploreHeader />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {

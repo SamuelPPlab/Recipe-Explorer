@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { getLocalStorageKey } from "../services/localStorage";
-import { categorySelector, changePage, mainPageFetcher, recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
-import { Redirect } from "react-router";
+import { categorySelector, changePage, mainPageFetcher,
+  recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
 import '../css/crossOutText.css'
 import RecipeCard from "../components/RecipeCard";
 import Header from "../components/Header";
 import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
-import ExploreButton from "../components/ExploreButton";
-import SwitchMainPage from "../components/SwitchMainPage";
 import Paginator from "../components/Paginator";
-import Button from "../components/Button";
+import ExploreLinks from "../components/ExploreLinks";
 
-const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
-  const [goToPreferences, setGoToPreferences] = useState(false);
-  const [goToSugestions, setGoToSugestions] = useState(false);
+const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, location: { pathname } }) => {
   const dispatch = useDispatch();
 
   const { vegan, drinker } = getLocalStorageKey('preferences');
@@ -40,26 +36,10 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   }, [isItFood, shouldReloadRecipes, loading, vegan, drinker, dispatch]);
 
   if(loading) return <Loading />;
-
-  if(goToPreferences) return <Redirect to="/preferences" />;
-
-  if(goToSugestions) return <Redirect to="/suggestions" />;
   
-  if (recipeList.length < 1) return <NoResults />;
+  if (!recipeList || recipeList.length < 1) return <NoResults isItFood={isItFood} />;
 
   const length = apiResponse.length;
-
-  const setPreferencesProps = {
-    name: "Set Preferences",
-    id: "Set Preferences",
-    onClick: () => setGoToPreferences(!goToPreferences),
-  };
-
-  const seeSuggestionsOfTheDayProps = {
-    name: "See Recipes Of The Day",
-    id: "See Recipes Of The Day",
-    onClick: () => setGoToSugestions(!goToSugestions),
-  };
   
   const paginatorProps = {
     length: length,
@@ -67,14 +47,17 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
     scrollToTop: true,
   };
 
+  const headerProps = {
+    isItFood,
+    pathname,
+    title: isItFood ? 'Food Recipes' : 'Drinks',
+  };
+
   return(
     <div>
-      <Header isItFood={isItFood} />
+      <Header {...headerProps} />
+      <ExploreLinks />
       <Categories isItFood={isItFood} />
-      <SwitchMainPage isItFood={isItFood} />
-      <ExploreButton />
-      <Button {...setPreferencesProps} />
-      <Button {...seeSuggestionsOfTheDayProps} />
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         {
           recipeList.map(({ id, name, image }, index) => (

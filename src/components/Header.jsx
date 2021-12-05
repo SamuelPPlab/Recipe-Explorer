@@ -1,29 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
-import SearchBar from "./SearchBar";
+import SwitchMainPage from "./SwitchMainPage";
 import Button from "./Button";
 import profileIcon from "../images/profileIcon.svg";
-import searchIcon from "../images/searchIcon.svg"
 
-const Header = ({ loadFood }) => {
-	const [hideSearchBar, setHideSearchBar] = useState(false);
-	const profileIconImg = <img src={ profileIcon } alt="profileIcon" />;
-	const searchIconImg = <img src={ searchIcon } alt="searchIcon" />;
+const Header = ({ isItFood, title }) => {
+	const profileIconImg = <img src={ profileIcon } alt="profileIcon" style={{ width: '50px', height: '50px' }} />;
 
-	const searchButtonProps = {
-		name: searchIconImg,
-		onClick: () => setHideSearchBar(!hideSearchBar),
-		id: "lookingGlass",
+	const profileButtonProps = {
+		name: profileIconImg,
+		onClick: () => null,
+		id: 'Profile Button',
 	};
 
   return (
 		<div>
-			<Link to="/profile">
-				{ profileIconImg }
-			</Link>
-			Titulo
-			<Button {...searchButtonProps} />
-			{ hideSearchBar && <SearchBar loadFood={loadFood} /> }
+			<div style={{ display: 'flex', justifyContent: 'space-between' }}>
+				<div>
+					<SwitchMainPage isItFood={isItFood} />
+				</div>
+				<div>
+					{ <h1>{title}</h1> }
+				</div>
+				<Link to="/profile">
+					<Button {...profileButtonProps} />
+				</Link>
+			</div>
 		</div>
 	);
 }
