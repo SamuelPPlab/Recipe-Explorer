@@ -10,6 +10,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import ExplorePage from './pages/ExplorePage';
 import Preferences from './pages/Preferences';
 import Suggestions from './pages/Suggestions';
+import SignupPage from './pages/SignupPage';
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route exact path="/explore" component={ ExplorePage } />
           <Route exact path="/preferences" component={ Preferences } />
           <Route exact path="/suggestions" component={ Suggestions } />
+          <Route exact path="/signup" component={ SignupPage } />
         </Switch>
       </BrowserRouter>
     </Provider>

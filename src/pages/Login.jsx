@@ -1,9 +1,9 @@
-/* eslint-disable react/jsx-curly-spacing */
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import checkLogin from '../services/loginValidator';
 import Input from '../components/Input';
 import Button from '../components/Button';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -40,11 +40,14 @@ function Login() {
     disabled:  isDisabled,
   };
 
+  const noAccount = <pre className="noAccount">Ainda não possui cadastro? <Link to="/signup">Cadastre-se</Link></pre>;
+
   return (
     <div>
       <Input {...nameInputProps} />
       <Input {...passwordInputProps} />
       <Button {...loginButtonProps} />
+      {noAccount}
     </div>
   );
 }
