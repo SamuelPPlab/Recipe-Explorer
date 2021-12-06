@@ -8,6 +8,7 @@ import {
   passwordLengthValidator,
   passwordMatcher, validateUserName
 } from "../services/validators";
+import Checkbox from "../components/Checkbox";
 
 
 const SignUp = () => {
@@ -16,8 +17,9 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [goToMain, setGoToMain] = useState(false);
+  const [allowRedirect, setAllowRedirect] = useState(false);
   const [disableSignUp, setDisableSignUp] = useState(true);
+  const [configurePreferences, setConfigurePreferences] = useState(true);
 
   useEffect(() => {
     const isUsernameValid = validateUserName(fullName);
@@ -65,10 +67,16 @@ const SignUp = () => {
     id: "Cadastrar",
     name: "Cadastrar",
     onClick: () => {
-      setGoToMain(true);
+      setAllowRedirect(true);
     },
     disabled: disableSignUp,
     className: disableSignUp ? 'submitLoginDisabled' : 'submitLoginEnabled',
+  };
+
+  const checkboxProps = {
+    text: 'Configurar preferências depois do cadastro?',
+    onChange: () => setConfigurePreferences(true),
+    startChecked: true,
   };
 
   const alreadySingnedUp = <pre className="noAccount">
@@ -88,7 +96,9 @@ const SignUp = () => {
       As senhas devem ser iguais.
     </div>;
 
-  if(goToMain) return <Redirect to="/main" />;
+  if(configurePreferences && allowRedirect) return <Redirect to="/preferences" />;
+
+  if(allowRedirect) return <Redirect to="/main" />;
 
   return (
     <div>
@@ -102,6 +112,7 @@ const SignUp = () => {
         {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
         <Input {...confirmPasswordProps} />
         {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
+        <Checkbox {...checkboxProps} />
         <div>{alreadySingnedUp}</div>
         <Button {...signUpButtonProps} />
       </div>
