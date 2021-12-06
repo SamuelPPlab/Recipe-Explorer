@@ -75,39 +75,35 @@ const SignUp = () => {
     Já possui um cadastro? <Link to="/">Login</Link>
   </pre>;
 
-  const nameWarning = <div className="warningText warningPadding">
+  const nameWarning = <div>
       O nome deve conter apenas letras!
     </div>;
-  const emailWarning = <div className="warningText warningPadding">
+  const emailWarning = <div>
       O email deve ter o formato correto.
     </div>;
-  const passwordLengthWarning = <div className="warningText warningPadding">
+  const passwordLengthWarning = <div>
       A senha deve ter pelo menos oito caracteres.
     </div>;
-  const differentPasswordsWarning = <div className="warningText warningPadding">
+  const differentPasswordsWarning = <div>
       As senhas devem ser iguais.
     </div>;
 
   if(goToMain) return <Redirect to="/main" />;
 
   return (
-    <div style={{ display: 'flex', height: '100vh' }}>
-      <div style={{ width: '50%', display: 'flex', justifyContent: 'center', paddingTop: '80px' }}>
-        <div id="signupFormContainer">
-          <h1 className="welcomeText">Cadastre-se</h1>
-          <Input {...nameProps} />
-          {(!validateUserName(fullName) && fullName !== '') && nameWarning}
-          <Input {...emailProps} />
-          {(!emailValidator(email) && email !== '') && emailWarning}
-          <Input {...passwordInputProps} />
-          {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
-          <Input {...confirmPasswordProps} />
-          {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
-          <div>{alreadySingnedUp}</div>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button {...signUpButtonProps} />
-          </div>
-        </div>
+    <div>
+      <div>
+        <h1>Cadastre-se</h1>
+        <Input {...nameProps} />
+        {(!validateUserName(fullName) && fullName !== '') && nameWarning}
+        <Input {...emailProps} />
+        {(!emailValidator(email) && email !== '') && emailWarning}
+        <Input {...passwordInputProps} />
+        {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
+        <Input {...confirmPasswordProps} />
+        {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
+        <div>{alreadySingnedUp}</div>
+        <Button {...signUpButtonProps} />
       </div>
     </div>
   );
