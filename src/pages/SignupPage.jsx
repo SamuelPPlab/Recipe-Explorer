@@ -102,20 +102,18 @@ const SignUp = () => {
 
   return (
     <div>
-      <div>
-        <h1>Cadastre-se</h1>
-        <Input {...nameProps} />
-        {(!validateUserName(fullName) && fullName !== '') && nameWarning}
-        <Input {...emailProps} />
-        {(!emailValidator(email) && email !== '') && emailWarning}
-        <Input {...passwordInputProps} />
-        {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
-        <Input {...confirmPasswordProps} />
-        {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
-        <Checkbox {...checkboxProps} />
-        <div>{alreadySingnedUp}</div>
-        <Button {...signUpButtonProps} />
-      </div>
+      <h1>Cadastre-se</h1>
+      <Input {...nameProps} />
+      {(!validateUserName(fullName) && fullName !== '') && nameWarning}
+      <Input {...emailProps} />
+      {(!emailValidator(email) && email !== '') && emailWarning}
+      <Input {...passwordInputProps} />
+      {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
+      <Input {...confirmPasswordProps} />
+      {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
+      <Checkbox {...checkboxProps} />
+      <div>{alreadySingnedUp}</div>
+      <Button {...signUpButtonProps} />
     </div>
   );
 };

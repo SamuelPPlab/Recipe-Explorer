@@ -17,7 +17,6 @@ const Preferences = ({ countries }) => {
     dispatch(areaFetcher());
   }, [dispatch]);
 
-  const [name, setName] = useState('');
   const [age, setAge] = useState('');
   const [drinker, setDrinker] = useState(`No, I don't`);
   const [lactoseIntolerance, setLactoseIntolerance] = useState(`No, I'm not`);
@@ -33,16 +32,14 @@ const Preferences = ({ countries }) => {
   const meatOptions = ['Beef', 'Chicken', 'Goat', 'Lamb', 'Pork', 'None'];
 
   useEffect(() => {
-    const isNameValid = nameValidator(name);
     const isAgeValid = ageValidator(age);
-    if (isNameValid && isAgeValid) return setValidInfo(true);
+    if (isAgeValid) return setValidInfo(true);
     setValidInfo(false);
-  }, [name, age]);
+  }, [age]);
 
   const handleSave = () => {
     let preferences = getLocalStorageKey('preferences');
     preferences = {
-      name,
       age,
       drinker: drinker.includes('Yes'),
       lactoseIntolerant: lactoseIntolerance.includes('Yes'),
@@ -52,13 +49,6 @@ const Preferences = ({ countries }) => {
     };
     localStorage.setItem('preferences', JSON.stringify(preferences));
     setGoToMain(!goToMain);
-  };
-
-  const nameProps = {
-    id: "preferences name",
-    name: "How do you want to be called?",
-    fieldValue: name,
-    setFieldValue: setName,
   };
 
   const ageProps = {
@@ -134,7 +124,6 @@ const Preferences = ({ countries }) => {
     <div>
       <BackToMain />
       <form>
-        <Input {...nameProps} />
         <Input {...ageProps} />
         { parseInt(age) > 18 && <RadioButton {...drinkerProps} /> }
         <RadioButton {...lactoseProps} />
