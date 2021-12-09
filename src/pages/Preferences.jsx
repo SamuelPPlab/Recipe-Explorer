@@ -6,7 +6,7 @@ import Input from "../components/Input";
 import RadioButton from "../components/RadioButton";
 import BackToMain from "../components/BackToMain";
 import { areaFetcher } from "../redux/actions/explorePage";
-import { ageValidator, nameValidator } from "../services/formValidation";
+import { ageValidator } from "../services/formValidation";
 import { getLocalStorageKey } from "../services/localStorage";
 import Checkbox from "../components/Checkbox";
 
@@ -113,6 +113,7 @@ const Preferences = ({ countries }) => {
     checkboxProps.onChange = () => handleCheckboxClick(country);
     checkboxProps.crossOut = true;
     checkboxProps.checked = checkedCountries.includes(country);
+
     return (
       <div key={country}>
         <Checkbox {...checkboxProps} />

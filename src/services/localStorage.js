@@ -4,7 +4,7 @@ export const getLocalStorageKey = (key) => {
   const doesKeyExist = JSON.parse(localStorage.getItem(key));
 
   if(!doesKeyExist) {
-    localStorage.setItem(key, JSON.stringify({}));
+    localStorage.setItem(key, '[]');
   } 
   return JSON.parse(localStorage.getItem(key));
 };
@@ -39,4 +39,13 @@ export const saveCookedDate = (id) => {
   currentRecipe = newData;
   IPR[id] = currentRecipe;
   localStorage.setItem('inProgressRecipes', JSON.stringify(IPR));
+};
+
+export const saveProfileData = (fullName, password, email) => {
+  const RU = getLocalStorageKey('registeredUsers');
+  // RU = Registered Users
+  const CR = { fullName, password, email };
+  console.log(CR)
+  // CR = Current Registration
+  localStorage.setItem('registeredUsers', JSON.stringify([...RU, CR]));
 };

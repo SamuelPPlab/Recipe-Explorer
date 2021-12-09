@@ -9,6 +9,7 @@ import {
   passwordMatcher, validateUserName
 } from "../services/validators";
 import Checkbox from "../components/Checkbox";
+import { saveProfileData } from "../services/localStorage";
 
 
 const SignUp = () => {
@@ -67,15 +68,17 @@ const SignUp = () => {
     id: "Cadastrar",
     name: "Cadastrar",
     onClick: () => {
+      saveProfileData(fullName, email, passwordInput);
       setAllowRedirect(true);
     },
     disabled: disableSignUp,
-    className: disableSignUp ? 'submitLoginDisabled' : 'submitLoginEnabled',
   };
 
   const checkboxProps = {
     text: 'Configurar preferências depois do cadastro?',
-    onChange: () => setConfigurePreferences(true),
+    onChange: () => {
+      setConfigurePreferences(true);
+    },
     startChecked: true,
   };
 
