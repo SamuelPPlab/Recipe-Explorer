@@ -45,7 +45,6 @@ export const saveProfileData = (fullName, password, email) => {
   const RU = getLocalStorageKey('registeredUsers');
   // RU = Registered Users
   const CR = { fullName, password, email };
-  console.log(CR)
   // CR = Current Registration
   localStorage.setItem('registeredUsers', JSON.stringify([...RU, CR]));
 };
