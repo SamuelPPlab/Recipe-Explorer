@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import MainRecipeDetails from "../components/MainRecipeDetails";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import { connect, useDispatch } from "react-redux";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey } from "../services/localStorage";
 import { fetchSixRandomRecipes, resetId, setSuggestionsBasedOnUser } from "../redux/actions/detailPage";
+import { useLocation } from "react-router-dom";
 import UnorganizedList from "../components/UnorganizedList";
 import Button from "../components/Button";
 import useLoadDetails from "../customHooks/useLoadDetails";
@@ -13,8 +14,10 @@ import Recomendations from "../components/Recomendations";
 import { swapMainPage } from "../redux/actions/mainPage";
 import useLoadSuggestions from "../customHooks/useLoadSuggestions";
 
-const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
+const RecipeDetails = ({ ingredients, loading, measures,
   getRandomRecomendations, isItFood, swapMain, foods, drinks }) => {
+
+  const { pathname } = useLocation()
 
   const [startRecipe, setStartRecipe] = useState(false);
   const id = pathname.split('/')[2];
@@ -62,7 +65,7 @@ const RecipeDetails = ({ location: { pathname }, ingredients, loading, measures,
     }
   }, [id, loading, dispatch]);
 
-  if (startRecipe) return <Redirect to={`${pathname}/in-progress`} />;
+  if (startRecipe) return <Navigate to={`${pathname}/in-progress`} />;
 
   const texts = !loading && ingredientAndMeasures(ingredients, measures);
 

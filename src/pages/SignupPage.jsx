@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from '../components/Input';
 import Button from '../components/Button';
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 import {
   emailValidator,
@@ -99,9 +99,9 @@ const SignUp = () => {
       As senhas devem ser iguais.
     </div>;
 
-  if(configurePreferences && allowRedirect) return <Redirect to="/preferences" />;
+  if(configurePreferences && allowRedirect) return <Navigate to="/preferences" />;
 
-  if(allowRedirect) return <Redirect to="/main" />;
+  if(allowRedirect) return <Navigate to="/main" />;
 
   return (
     <div>

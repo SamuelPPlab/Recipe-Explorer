@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import exploreIcon from '../images/exploreIcon.svg';
 import Button from "./Button";
 
 const ExploreButton = () => {
   const exploreImage = <img src={exploreIcon} alt="explore Icon" style={{ width: '50px' }} />;
   const [goToExplore, setGoToExplore] = useState(false);
-  if(goToExplore) return <Redirect to='/explore' />;
+  if(goToExplore) return <Navigate to='/explore' />;
 
   const exploreButtonProps = {
     name: exploreImage,

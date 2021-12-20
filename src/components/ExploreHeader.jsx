@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import Button from "../components/Button";
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
 import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
@@ -43,7 +43,7 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
     }
   }, [selectedRadioOption, showFood, isItFood, dispatch]);
 
-  if(redirect && id) return <Redirect to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
+  if(redirect && id) return <Navigate to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
 
   const searchIngredientsProps = {
     name: 'Search Ingredient',

@@ -11,8 +11,10 @@ import Loading from "../components/Loading";
 import Categories from "../components/Categories";
 import Paginator from "../components/Paginator";
 import ExploreLinks from "../components/ExploreLinks";
+import { useLocation } from "react-router-dom";
 
-const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse, location: { pathname } }) => {
+const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
+  const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   const { vegan, drinker } = getLocalStorageKey('preferences');

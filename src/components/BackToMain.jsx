@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Button from "./Button";
 import leftArrow from "../images/leftArrow.png"
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 
 const BackToMain = () => {
   const backArrow = <img src={leftArrow} style={{ width: '50px' }} alt="back arrow" />;
@@ -13,7 +13,7 @@ const BackToMain = () => {
     onClick: () => goBackToMain(!backToMain),
   };
 
-  if (backToMain) return <Redirect to='/main' />;
+  if (backToMain) return <Navigate to='/main' />;
   return(
     <Button {...backToMainProps} />
   );

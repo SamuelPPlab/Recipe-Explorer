@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router';
 import Button from './Button';
 
 const RecipeCard = ({ name, image, id, directory, onClick = null, children, redirectOnClick = true }) => {
   const [redirectDetails, setRedirectDetails] = useState(false);
   const [redirectProgress, setRedirectProgress] = useState(false);
 
-  if (redirectDetails && redirectOnClick) return <Redirect to={`${directory}/${id}`} />;
-  if (redirectProgress) return <Redirect to={`${directory}/${id}/in-progress`} />;
+  if (redirectDetails && redirectOnClick) return <Navigate to={`${directory}/${id}`} />;
+  if (redirectProgress) return <Navigate to={`${directory}/${id}/in-progress`} />;
   
   const handleClick = () => {
     setRedirectDetails(true);

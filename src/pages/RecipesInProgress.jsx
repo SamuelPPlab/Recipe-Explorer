@@ -5,7 +5,7 @@ import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatena
 import { getLocalStorageKey, saveCheckedItem, saveCookedDate } from "../services/localStorage";
 import { isItemChecked } from "../services/isItemChecked";
 import { progressChecker } from "../services/progressChecker";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import useLoadDetails from "../customHooks/useLoadDetails";
 import Checkbox from "../components/Checkbox";
@@ -40,7 +40,7 @@ const RecipesInProgress = ({ location: { pathname }, loading, ingredients, measu
 
   const texts = ingredientAndMeasures(ingredients, measures);
 
-  if (redirect) return <Redirect to="/done-recipes" />;
+  if (redirect) return <Navigate to="/done-recipes" />;
 
   const handleClick = () => {
     setRedirect(!redirect);

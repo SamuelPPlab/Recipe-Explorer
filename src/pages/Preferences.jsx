@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import Button from "../components/Button";
 import Input from "../components/Input";
 import RadioButton from "../components/RadioButton";
@@ -104,7 +104,7 @@ const Preferences = ({ countries }) => {
     setCheckedCountries([...checkedCountries, country]);
   };
 
-  if (goToMain) return <Redirect to='/main' />;
+  if (goToMain) return <Navigate to='/main' />;
 
   const checkboxProps = {};
 

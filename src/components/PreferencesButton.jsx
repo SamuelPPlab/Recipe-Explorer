@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router";
+import { Navigate } from "react-router";
 import preferences from "../images/preferences.png";
 import Button from "./Button";
 
@@ -12,7 +12,7 @@ const PreferencesButton = () => {
     onClick: () => setGoToPreferences(!goToPreferences),
   };
 
-  if (goToPreferences) return <Redirect to="/preferences" />;
+  if (goToPreferences) return <Navigate to="/preferences" />;
 
   return(
     <div>
