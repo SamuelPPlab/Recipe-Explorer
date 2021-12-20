@@ -21,7 +21,7 @@ const Recomendations = ({ recomendations, isItFood }) => {
 
   if (!recomendations) return <Loading />
   const length = recomendations.length;
-
+  console.log(recomendations)
   return(
     <div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>

@@ -6,6 +6,7 @@ import { getLocalStorageKey, saveCheckedItem, saveCookedDate } from "../services
 import { isItemChecked } from "../services/isItemChecked";
 import { progressChecker } from "../services/progressChecker";
 import { Navigate } from "react-router";
+import { useLocation } from "react-router-dom";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import useLoadDetails from "../customHooks/useLoadDetails";
 import Checkbox from "../components/Checkbox";
@@ -13,8 +14,9 @@ import Loading from "../components/Loading";
 import Button from "../components/Button";
 import ShareMenu from "../components/ShareMenu";
 
-const RecipesInProgress = ({ location: { pathname }, loading, ingredients, measures, name, image }) => {
+const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
 
+  const { pathname } = useLocation();
   useLoadDetails(pathname);
 
   const id = pathname.split('/')[2];

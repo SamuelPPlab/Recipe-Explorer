@@ -17,7 +17,7 @@ import useLoadSuggestions from "../customHooks/useLoadSuggestions";
 const RecipeDetails = ({ ingredients, loading, measures,
   getRandomRecomendations, isItFood, swapMain, foods, drinks }) => {
 
-  const { pathname } = useLocation()
+  const { pathname } = useLocation();
 
   const [startRecipe, setStartRecipe] = useState(false);
   const id = pathname.split('/')[2];
