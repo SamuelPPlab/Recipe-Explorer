@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import { FormControl, InputAdornment, InputLabel, TextField } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import { emailValidator, passwordLengthValidator } from '../services/validators';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,12 @@ function Login() {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    setIsDisabled(checkLogin(email, passwordInput));
+    const isEmailValid = emailValidator(email);
+    const isPasswordValid = passwordLengthValidator(passwordInput);
+    if (isEmailValid && isPasswordValid) {
+      return setIsDisabled(false);
+    }
+    return setIsDisabled(true);
   }, [email, passwordInput]);
 
   if (redirect) return <Navigate to="/main" />;
@@ -29,24 +35,22 @@ function Login() {
   const emailInputProps = {
     label: "Email",
     id: "explorer-email",
-    fieldValue: email,
-    setFieldValue: setEmail,
+    onChange: ({ target: { value } }) => setEmail(value),
     type: "email",
     variant: "filled",
     InputProps: {
-      endAdornment: <InputAdornment><EmailIcon color="primary" /></InputAdornment>,
+      endAdornment: <InputAdornment position="end"><EmailIcon color="primary" /></InputAdornment>,
     },
   };
 
   const passwordInputProps = {
     id: "password",
     label: "Password",
-    fieldValue: passwordInput,
-    setFieldValue: setPasswordInput,
+    onChange: ({ target: { value } }) => setPasswordInput(value),
     type: "password",
     variant: "filled",
     InputProps: {
-      endAdornment: <InputAdornment><VpnKeyIcon color="primary" /></InputAdornment>,
+      endAdornment: <InputAdornment position="end"><VpnKeyIcon color="primary" /></InputAdornment>,
     },
   };
 
@@ -54,6 +58,7 @@ function Login() {
     id: "submitLogin",
     onClick: () => setRedirect(true),
     disabled:  isDisabled,
+    color: 'primary',
     variant: 'contained'
   };
 
@@ -63,6 +68,9 @@ function Login() {
     <div>
       <TextField {...emailInputProps} />
       <TextField {...passwordInputProps} />
+      <Button {...loginButtonProps}>
+        Entrar
+      </Button>
     </div>
   );
 }
