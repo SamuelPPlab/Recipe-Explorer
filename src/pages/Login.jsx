@@ -12,12 +12,17 @@ import '@fontsource/roboto/700.css';
 
 function Login() {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+
   const [passwordInput, setPasswordInput] = useState('');
+
   const [isDisabled, setIsDisabled] = useState(true);
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const isEmailValid = emailValidator(email);
+    setEmailError(!isEmailValid);
+
     const isPasswordValid = passwordLengthValidator(passwordInput);
     if (isEmailValid && isPasswordValid) {
       return setIsDisabled(false);
@@ -38,6 +43,9 @@ function Login() {
       endAdornment: <InputAdornment position="end"><EmailIcon color="primary" /></InputAdornment>,
     },
     fullWidth: true,
+    error: emailError,
+    placeholder: 'user@host.com or user@host.com.br',
+    required: true,
   };
 
   const passwordInputProps = {
@@ -65,8 +73,7 @@ function Login() {
 
   return (
     <div style={{ height: '100vh', width: '100vw', marginLeft: '-8px', marginTop: '-8px', position: 'fixed', background: 'radial-gradient(circle, rgba(237,237,237,1) 53%, rgba(162,162,162,1) 100%)' }}>
-      <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column',
-        justifyContent: 'center' }}>
+      <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ width: '80%', height: '50%', marginLeft: '10%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
           <div style={{ width: '30vw', justifyContent: 'center' }}>
             <h1 style={{ fontWeight: "bold", fontSize: "3em", textAlign: "center", textShadow: '0 0 5px #3f51b5' }}>
