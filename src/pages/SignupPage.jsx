@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import {
   emailValidator,
   passwordLengthValidator,
@@ -9,19 +8,24 @@ import Checkbox from "../components/Checkbox";
 import { saveProfileData } from "../services/localStorage";
 import { Navigate } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
-import { InputAdornment, TextField } from '@material-ui/core';
+import { IconButton, InputAdornment, TextField } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const SignUp = () => {
 
   const [fullName, setFullName] = useState('');
+
   const [email, setEmail] = useState('');
+
   const [passwordInput, setPasswordInput] = useState('');
+  const [passwordHidden, setPasswordHidden] = useState(true);
+
   const [confirmPassword, setConfirmPassword] = useState('');
   const [allowRedirect, setAllowRedirect] = useState(false);
   const [disableSignUp, setDisableSignUp] = useState(true);
@@ -45,6 +49,9 @@ const SignUp = () => {
     fullWidth: true,
     required: true,
     label: 'Name',
+    InputProps: {
+      endAdornment: <InputAdornment position="end"><AccountBoxIcon color="primary" /></InputAdornment>
+    },
     onChange: ({ target: { value } }) => setFullName(value),
   };
 
@@ -55,6 +62,9 @@ const SignUp = () => {
     variant: 'filled',
     fullWidth: true,
     required: true,
+    InputProps: {
+      endAdornment: <InputAdornment position="end"><EmailIcon color="primary" /></InputAdornment>
+    },
     onChange: ({ target: { value } }) => setEmail(value),
     type: "email",
   };
@@ -67,7 +77,18 @@ const SignUp = () => {
     fullWidth: true,
     required: true,
     onChange: ({ target: { value } }) => setPasswordInput(value),
-    type: "password",
+    type: passwordHidden ? "password" : "text",
+    InputProps: {
+      endAdornment: <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={() => setPasswordHidden(!passwordHidden)}
+          edge="end"
+        >
+          { passwordHidden ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+        </IconButton>
+      </InputAdornment>
+    },
   };
 
   const confirmPasswordProps = {
@@ -79,11 +100,26 @@ const SignUp = () => {
     required: true,
     onChange: ({ target: { value } }) => setConfirmPassword(value),
     type: "password",
+    InputProps: {
+      endAdornment: <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={() => setPasswordHidden(!passwordHidden)}
+          edge="end"
+        >
+          { passwordHidden ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+        </IconButton>
+      </InputAdornment>
+    },
   };
 
   const signUpButtonProps = {
     id: "Cadastrar",
     name: "Cadastrar",
+    color: 'primary',
+    variant: 'contained',
+    size: 'large',
+    fullWidth: true,
     onClick: () => {
       saveProfileData(fullName, email, passwordInput);
       setAllowRedirect(true);
@@ -99,23 +135,6 @@ const SignUp = () => {
     startChecked: true,
   };
 
-  const alreadySingnedUp = <pre className="noAccount">
-    Já possui um cadastro? <Link to="/">Login</Link>
-  </pre>;
-
-  const nameWarning = <div>
-      O nome deve conter apenas letras!
-    </div>;
-  const emailWarning = <div>
-      O email deve ter o formato correto.
-    </div>;
-  const passwordLengthWarning = <div>
-      A senha deve ter pelo menos oito caracteres.
-    </div>;
-  const differentPasswordsWarning = <div>
-      As senhas devem ser iguais.
-    </div>;
-
   if(configurePreferences && allowRedirect) return <Navigate to="/preferences" />;
 
   if(allowRedirect) return <Navigate to="/main" />;
@@ -124,16 +143,19 @@ const SignUp = () => {
     <div>
       <h1>Cadastre-se</h1>
       <TextField {...nameProps} />
-      {(!validateUserName(fullName) && fullName !== '') && nameWarning}
       <TextField {...emailProps} />
-      {(!emailValidator(email) && email !== '') && emailWarning}
       <TextField {...passwordInputProps} />
-      {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
       <TextField {...confirmPasswordProps} />
-      {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
       <Checkbox {...checkboxProps} />
-      <div>{alreadySingnedUp}</div>
-      <Button {...signUpButtonProps} />
+      <Button {...signUpButtonProps}>
+        Signup
+      </Button>
+      <div style={{ display: 'flex' }}>
+        <p>Already have an account?</p>
+        <Button variant='text' color='primary' size="small" href="/" disableRipple disableFocusRipple>
+          Login
+        </Button>
+      </div>
     </div>
   );
 };

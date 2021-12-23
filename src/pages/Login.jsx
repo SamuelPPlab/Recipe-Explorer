@@ -4,7 +4,6 @@ import Button from "@material-ui/core/Button";
 import { InputAdornment, TextField } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { emailValidator, passwordLengthValidator } from '../services/validators';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
