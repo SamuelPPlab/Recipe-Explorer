@@ -15,15 +15,18 @@ function Login() {
   const [emailError, setEmailError] = useState(false);
 
   const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState(false);
 
   const [isDisabled, setIsDisabled] = useState(true);
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     const isEmailValid = emailValidator(email);
-    setEmailError(!isEmailValid);
+    setEmailError(!isEmailValid && email !== '');
 
     const isPasswordValid = passwordLengthValidator(passwordInput);
+    setPasswordError(!isPasswordValid && passwordInput !== '');
+
     if (isEmailValid && isPasswordValid) {
       return setIsDisabled(false);
     }
@@ -40,11 +43,11 @@ function Login() {
     type: "email",
     variant: "filled",
     InputProps: {
-      endAdornment: <InputAdornment position="end"><EmailIcon color="primary" /></InputAdornment>,
+      endAdornment: <InputAdornment position="end"><EmailIcon color={emailError ? "error" : "primary"} /></InputAdornment>,
     },
     fullWidth: true,
     error: emailError,
-    placeholder: 'user@host.com or user@host.com.br',
+    placeholder: 'user@host.com.br',
     required: true,
   };
 
@@ -56,9 +59,12 @@ function Login() {
     type: "password",
     variant: "filled",
     InputProps: {
-      endAdornment: <InputAdornment position="end"><VpnKeyIcon color="primary" /></InputAdornment>,
+      endAdornment: <InputAdornment position="end"><VpnKeyIcon color={passwordError ? "error" : "primary"} /></InputAdornment>,
     },
     fullWidth: true,
+    error: passwordError,
+    required: true,
+    helperText: passwordError && 'Password must be 8 characters long',
   };
 
   const loginButtonProps = {
