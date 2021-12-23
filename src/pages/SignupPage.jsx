@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Input from '../components/Input';
-import Button from '../components/Button';
-import { Navigate } from "react-router";
 import { Link } from "react-router-dom";
 import {
   emailValidator,
@@ -10,7 +7,15 @@ import {
 } from "../services/validators";
 import Checkbox from "../components/Checkbox";
 import { saveProfileData } from "../services/localStorage";
-
+import { Navigate } from 'react-router-dom';
+import Button from "@material-ui/core/Button";
+import { InputAdornment, TextField } from '@material-ui/core';
+import EmailIcon from '@material-ui/icons/Email';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 const SignUp = () => {
 
@@ -35,32 +40,44 @@ const SignUp = () => {
 
   const nameProps = {
     id: 'nomeCompleto',
-    name: 'Nome Completo',
-    fieldValue: fullName,
-    setFieldValue: setFullName,
+    margin: 'normal',
+    variant: 'filled',
+    fullWidth: true,
+    required: true,
+    label: 'Name',
+    onChange: ({ target: { value } }) => setFullName(value),
   };
 
   const emailProps = {
     id: "email",
-    name: "Email",
-    fieldValue: email,
-    setFieldValue: setEmail,
+    label: "Email",
+    margin: 'normal',
+    variant: 'filled',
+    fullWidth: true,
+    required: true,
+    onChange: ({ target: { value } }) => setEmail(value),
     type: "email",
   };
 
   const passwordInputProps = {
     id: "Senha",
-    name: "Senha",
-    fieldValue: passwordInput,
-    setFieldValue: setPasswordInput,
+    label: "Password",
+    margin: 'normal',
+    variant: 'filled',
+    fullWidth: true,
+    required: true,
+    onChange: ({ target: { value } }) => setPasswordInput(value),
     type: "password",
   };
 
   const confirmPasswordProps = {
     id: "ConfirmarSenha",
-    name: "Confirmar Senha",
-    fieldValue: confirmPassword,
-    setFieldValue: setConfirmPassword,
+    label: "Confirm password",
+    margin: 'normal',
+    variant: 'filled',
+    fullWidth: true,
+    required: true,
+    onChange: ({ target: { value } }) => setConfirmPassword(value),
     type: "password",
   };
 
@@ -106,13 +123,13 @@ const SignUp = () => {
   return (
     <div>
       <h1>Cadastre-se</h1>
-      <Input {...nameProps} />
+      <TextField {...nameProps} />
       {(!validateUserName(fullName) && fullName !== '') && nameWarning}
-      <Input {...emailProps} />
+      <TextField {...emailProps} />
       {(!emailValidator(email) && email !== '') && emailWarning}
-      <Input {...passwordInputProps} />
+      <TextField {...passwordInputProps} />
       {(!passwordLengthValidator(passwordInput) && passwordInput !== '') && passwordLengthWarning}
-      <Input {...confirmPasswordProps} />
+      <TextField {...confirmPasswordProps} />
       {!passwordMatcher(passwordInput, confirmPassword) && differentPasswordsWarning}
       <Checkbox {...checkboxProps} />
       <div>{alreadySingnedUp}</div>
