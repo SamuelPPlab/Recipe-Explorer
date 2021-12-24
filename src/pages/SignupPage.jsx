@@ -20,14 +20,18 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 const SignUp = () => {
 
   const [fullName, setFullName] = useState('');
+  const [nameError, setNameError] = useState(false);
 
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
 
   const [passwordInput, setPasswordInput] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
+  const [passwordError, setPasswordError] = useState(false)
 
   const [confirmPassword, setConfirmPassword] = useState('');
   const [hideConfirm, setHideConfirm] = useState(false);
+  const [confirmError, setConfirmError] = useState(false);
 
   const [allowRedirect, setAllowRedirect] = useState(false);
   const [disableSignUp, setDisableSignUp] = useState(true);
@@ -35,9 +39,17 @@ const SignUp = () => {
 
   useEffect(() => {
     const isUsernameValid = validateUserName(fullName);
+    setNameError(!isUsernameValid && fullName !== '');
+
     const isEmailValid = emailValidator(email);
+    setEmailError(!isEmailValid && email !== '');
+
     const isPasswordValid = passwordLengthValidator(passwordInput);
+    setPasswordError(!isPasswordValid && passwordInput !== '');
+
     const doPasswordsMatch = passwordMatcher(passwordInput, confirmPassword);
+    setConfirmError(!doPasswordsMatch && confirmPassword !== '');
+
     if(isEmailValid && isUsernameValid && isPasswordValid && doPasswordsMatch) {
       return setDisableSignUp(false);
     }
@@ -52,9 +64,10 @@ const SignUp = () => {
     required: true,
     label: 'Name',
     InputProps: {
-      endAdornment: <InputAdornment position="end"><AccountBoxIcon color="primary" /></InputAdornment>
+      endAdornment: <InputAdornment position="end"><AccountBoxIcon color={nameError ? "secondary" : "primary"} /></InputAdornment>
     },
     onChange: ({ target: { value } }) => setFullName(value),
+    error: nameError,
   };
 
   const emailProps = {
@@ -65,10 +78,11 @@ const SignUp = () => {
     fullWidth: true,
     required: true,
     InputProps: {
-      endAdornment: <InputAdornment position="end"><EmailIcon color="primary" /></InputAdornment>
+      endAdornment: <InputAdornment position="end"><EmailIcon color={emailError ? "secondary" : "primary"} /></InputAdornment>
     },
     onChange: ({ target: { value } }) => setEmail(value),
     type: "email",
+    error: emailError,
   };
 
   const passwordInputProps = {
@@ -87,10 +101,11 @@ const SignUp = () => {
           onClick={() => setPasswordHidden(!passwordHidden)}
           edge="end"
         >
-          { passwordHidden ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+          { passwordHidden ? <VisibilityOff color={passwordError ? "secondary" : "primary"} /> : <Visibility color="primary" />}
         </IconButton>
       </InputAdornment>
     },
+    error: passwordError,
   };
 
   const confirmPasswordProps = {
@@ -101,7 +116,7 @@ const SignUp = () => {
     fullWidth: true,
     required: true,
     onChange: ({ target: { value } }) => setConfirmPassword(value),
-    type: passwordHidden ? "password" : "text",
+    type: hideConfirm ? "password" : "text",
     InputProps: {
       endAdornment: <InputAdornment position="end">
         <IconButton
@@ -109,10 +124,11 @@ const SignUp = () => {
           onClick={() => setHideConfirm(!hideConfirm)}
           edge="end"
         >
-          { hideConfirm ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+          { hideConfirm ? <VisibilityOff color={confirmError ? "secondary" : "primary"} /> : <Visibility color="primary" />}
         </IconButton>
       </InputAdornment>
     },
+    error: confirmError,
   };
 
   const signUpButtonProps = {
