@@ -2,10 +2,8 @@ import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
 import Button from "../components/Button";
-import Input from "../components/Input";
-import RadioButton from "../components/RadioButton";
 import BackToMain from "../components/BackToMain";
-import { FormControl, FormControlLabel, InputAdornment, TextField } from "@material-ui/core";
+import { FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { areaFetcher } from "../redux/actions/explorePage";
 import { ageValidator } from "../services/formValidation";
 import * as CakeRoundedIcon from '@material-ui/icons';
@@ -30,6 +28,7 @@ const Preferences = ({ countries }) => {
   const [vegan, setVegan] = useState(false);
 
   const [favoriteMeat, setFavoriteMeat] = useState('None');
+
   const [checkedCountries, setCheckedCountries] = useState([]);
   const [validInfo, setValidInfo] = useState(false);
   const [goToMain, setGoToMain] = useState(false);
@@ -68,14 +67,6 @@ const Preferences = ({ countries }) => {
     fullWidth: true,
     required: true,
     type: 'number',
-  };
-
-  const favoriteMeatProps = {
-    id: "Favorite Meat",
-    options: meatOptions,
-    selectedFilter: favoriteMeat,
-    setSelectedFilter: setFavoriteMeat,
-    name: "What kind of meat you prefer?",
   };
 
   const saveButtonProps = {
@@ -144,7 +135,18 @@ const Preferences = ({ countries }) => {
             />
           }
         />
-        { !vegan && <RadioButton {...favoriteMeatProps} />}
+        {
+          !vegan && <FormControl>
+            <FormLabel>What is your favorite meat?</FormLabel>
+            <RadioGroup value={favoriteMeat} onChange={({ target: { value } }) => setFavoriteMeat(value)}>
+              {
+                meatOptions.map((meat) => (
+                  <FormControlLabel key={meat} control={<Radio />} label={meat} value={meat} />
+                ))
+              }
+            </RadioGroup>
+          </FormControl>
+        }
         {
           !vegan && <div>
             Do you have a preference for food of any of these coutries?
