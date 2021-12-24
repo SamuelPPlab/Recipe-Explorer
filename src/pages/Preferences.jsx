@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import Button from "../components/Button";
 import BackToMain from "../components/BackToMain";
-import { FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
+import { Button, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { areaFetcher } from "../redux/actions/explorePage";
 import { ageValidator } from "../services/formValidation";
 import * as CakeRoundedIcon from '@material-ui/icons';
@@ -47,10 +46,10 @@ const Preferences = ({ countries }) => {
     let preferences = getLocalStorageKey('preferences');
     preferences = {
       age,
-      drinker: drinker.includes('Yes'),
-      lactoseIntolerant: lactoseIntolerance.includes('Yes'),
-      vegan: vegan.includes('Yes'),
-      favoriteMeat: (vegan.includes('No') && !favoriteMeat === 'None') && favoriteMeat,
+      drinker,
+      lactoseIntolerance,
+      vegan,
+      favoriteMeat: favoriteMeat,
       checkedCountries,
     };
     localStorage.setItem('preferences', JSON.stringify(preferences));
@@ -73,9 +72,11 @@ const Preferences = ({ countries }) => {
 
   const saveButtonProps = {
     id: "Done",
-    name: "Save Preferences",
     disabled: !validInfo,
     onClick: handleSave,
+    variant: 'contained',
+    size: 'large',
+    color: 'primary'
   };
 
   const handleCheckboxClick = (country) => {
@@ -86,21 +87,6 @@ const Preferences = ({ countries }) => {
   };
 
   if (goToMain) return <Navigate to='/main' />;
-
-  const checkboxProps = {};
-
-  const countryList = countries && countries.map((country) => {
-    checkboxProps.text = country;
-    checkboxProps.onChange = () => handleCheckboxClick(country);
-    checkboxProps.crossOut = true;
-    checkboxProps.checked = checkedCountries.includes(country);
-
-    return (
-      <div key={country}>
-        <Checkbox {...checkboxProps} />
-      </div>
-    );
-  });
 
   return (
     <div>
@@ -167,7 +153,9 @@ const Preferences = ({ countries }) => {
             }
           </FormControl>
         }
-        <Button {...saveButtonProps} />
+        <Button {...saveButtonProps}>
+          Save preferences
+        </Button>
       </form>
     </div>
   );
