@@ -27,6 +27,8 @@ const SignUp = () => {
   const [passwordHidden, setPasswordHidden] = useState(true);
 
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [hideConfirm, setHideConfirm] = useState(false);
+
   const [allowRedirect, setAllowRedirect] = useState(false);
   const [disableSignUp, setDisableSignUp] = useState(true);
   const [configurePreferences, setConfigurePreferences] = useState(true);
@@ -99,15 +101,15 @@ const SignUp = () => {
     fullWidth: true,
     required: true,
     onChange: ({ target: { value } }) => setConfirmPassword(value),
-    type: "password",
+    type: passwordHidden ? "password" : "text",
     InputProps: {
       endAdornment: <InputAdornment position="end">
         <IconButton
           aria-label="toggle password visibility"
-          onClick={() => setPasswordHidden(!passwordHidden)}
+          onClick={() => setHideConfirm(!hideConfirm)}
           edge="end"
         >
-          { passwordHidden ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
+          { hideConfirm ? <VisibilityOff color="primary" /> : <Visibility color="primary" />}
         </IconButton>
       </InputAdornment>
     },
