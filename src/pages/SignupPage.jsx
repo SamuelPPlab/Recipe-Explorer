@@ -30,7 +30,7 @@ const SignUp = () => {
   const [passwordError, setPasswordError] = useState(false)
 
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [hideConfirm, setHideConfirm] = useState(false);
+  const [hideConfirm, setHideConfirm] = useState(true);
   const [confirmError, setConfirmError] = useState(false);
 
   const [configurePreferences, setConfigurePreferences] = useState(true);
@@ -155,30 +155,34 @@ const SignUp = () => {
   if(allowRedirect) return <Navigate to="/main" />;
 
   return (
-    <div style={{ width: '40%' }}>
-      <h1>Cadastre-se</h1>
-      <TextField {...nameProps} />
-      <TextField {...emailProps} />
-      <TextField {...passwordInputProps} />
-      <TextField {...confirmPasswordProps} />
-      <FormControlLabel
-        label="Configure preferences next?"
-        control={
-          <Checkbox
-            checked={configurePreferences}
-            onChange={() => setConfigurePreferences(!configurePreferences)}
-            color="primary"
+    <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100vh', position: 'fixed', width: '100vw', marginTop: '-8px', marginLeft: '-8px', background: 'radial-gradient(circle, rgba(237,237,237,1) 53%, rgba(162,162,162,1) 100%)' }}>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ width: '30%', border: '3px solid gray', borderRadius: '20px', padding: '40px', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 rgba(0, 0, 0, 0.19)' }}>
+          <h1 style={{ fontSize: '3em', textAlign: 'center' }}>Sign up</h1>
+          <TextField {...nameProps} />
+          <TextField {...emailProps} />
+          <TextField {...passwordInputProps} />
+          <TextField {...confirmPasswordProps} />
+          <FormControlLabel
+            label="Configure preferences next?"
+            control={
+              <Checkbox
+                checked={configurePreferences}
+                onChange={() => setConfigurePreferences(!configurePreferences)}
+                color="primary"
+              />
+            }
           />
-        }
-      />
-      <Button {...signUpButtonProps}>
-        Signup
-      </Button>
-      <div style={{ display: 'flex' }}>
-        <p>Already have an account?</p>
-        <Button variant='text' color='primary' size="small" href="/" disableRipple disableFocusRipple>
-          Login
-        </Button>
+          <Button {...signUpButtonProps}>
+            Signup
+          </Button>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <p>Already have an account?</p>
+            <Button variant='text' color='primary' size="small" href="/" disableRipple disableFocusRipple>
+              Login
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
