@@ -117,7 +117,7 @@ const Preferences = ({ countries }) => {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: '50vw', padding: '40px', border: '3px solid gray', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px' }}>
+      <div style={{ width: '50vw', padding: '40px', background: 'rgba(237,237,237,1)', border: '3px solid gray', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px' }}>
         <div style={{ width: '100%', display: 'flex' }}>
           <BackToMain />
           <h1 style={{ marginLeft: '25%' }}>What do you like? </h1>
