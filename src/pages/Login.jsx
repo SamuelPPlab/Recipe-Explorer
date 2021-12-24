@@ -89,7 +89,7 @@ function Login() {
             <TextField {...passwordInputProps} />
             <div style={{ width: '80%', marginTop: '4%', marginLeft: '10%', display: 'flex', justifyContent: 'center' }}>
               <Button {...loginButtonProps}>
-                Entrar
+                Login
               </Button>
             </div>
             <div style={{ display: 'flex', marginTop: '2%', justifyContent: 'center' }}>

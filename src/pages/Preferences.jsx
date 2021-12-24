@@ -5,11 +5,15 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import RadioButton from "../components/RadioButton";
 import BackToMain from "../components/BackToMain";
+import { InputAdornment, TextField } from "@material-ui/core";
 import { areaFetcher } from "../redux/actions/explorePage";
 import { ageValidator } from "../services/formValidation";
+import * as CakeRoundedIcon from '@material-ui/icons';
+import Cake from '@material-ui/icons/Cake';
 import { getLocalStorageKey } from "../services/localStorage";
 import Checkbox from "../components/Checkbox";
 
+console.log(CakeRoundedIcon)
 const Preferences = ({ countries }) => {
   const dispatch = useDispatch()
 
@@ -53,9 +57,16 @@ const Preferences = ({ countries }) => {
 
   const ageProps = {
     id: "Age",
-    name: "What's your age?",
-    fieldValue: age,
-    setFieldValue: setAge,
+    label: "What's your age?",
+    InputProps: {
+      endAdornment: <InputAdornment position="end"><Cake color="primary" /></InputAdornment>
+    },
+    onChange: ({ target: { value } }) => setAge(value),
+    margin: 'normal',
+    variant: 'filled',
+    fullWidth: true,
+    required: true,
+    type: 'number',
   };
 
   const drinkerProps = {
@@ -125,7 +136,7 @@ const Preferences = ({ countries }) => {
     <div>
       <BackToMain />
       <form>
-        <Input {...ageProps} />
+        <TextField {...ageProps} />
         { parseInt(age) > 18 && <RadioButton {...drinkerProps} /> }
         <RadioButton {...lactoseProps} />
         <RadioButton {...veganProps} />
