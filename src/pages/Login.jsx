@@ -81,9 +81,9 @@ function Login() {
     <div style={{ height: '100vh', width: '100vw', marginLeft: '-8px', marginTop: '-8px', position: 'fixed', background: 'radial-gradient(circle, rgba(237,237,237,1) 53%, rgba(162,162,162,1) 100%)' }}>
       <div style={{ height: '100%', width: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
         <div style={{ width: '80%', height: '50%', marginLeft: '10%', display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-          <div style={{ width: '30vw', justifyContent: 'center' }}>
-            <h1 style={{ fontWeight: "bold", fontSize: "3em", textAlign: "center", textShadow: '0 0 5px #3f51b5' }}>
-              Seja bem-vindo!
+          <div style={{ width: '30vw', padding: '40px', border: '3px solid gray', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px', justifyContent: 'center' }}>
+            <h1 style={{ fontWeight: "bold", fontSize: "3em", textAlign: "center" }}>
+              Welcome!
             </h1>
             <TextField {...emailInputProps} />
             <TextField {...passwordInputProps} />
@@ -93,9 +93,9 @@ function Login() {
               </Button>
             </div>
             <div style={{ display: 'flex', marginTop: '2%', justifyContent: 'center' }}>
-              <p>Ainda não possui cadastro?</p>
+              <p>Don't have an account?</p>
                 <Button variant='text' color='primary' size="small" href="/signup" disableRipple disableFocusRipple>
-                  Cadastre-se!
+                  Sign up!
                 </Button>
             </div>
           </div>
