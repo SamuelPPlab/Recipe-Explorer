@@ -30,7 +30,9 @@ const Preferences = ({ countries }) => {
   const [favoriteMeat, setFavoriteMeat] = useState('None');
 
   const [checkedCountries, setCheckedCountries] = useState([]);
+
   const [validInfo, setValidInfo] = useState(false);
+
   const [goToMain, setGoToMain] = useState(false);
 
   const meatOptions = ['Beef', 'Chicken', 'Goat', 'Lamb', 'Pork', 'None'];
@@ -141,17 +143,29 @@ const Preferences = ({ countries }) => {
             <RadioGroup value={favoriteMeat} onChange={({ target: { value } }) => setFavoriteMeat(value)}>
               {
                 meatOptions.map((meat) => (
-                  <FormControlLabel key={meat} control={<Radio />} label={meat} value={meat} />
+                  <FormControlLabel key={meat} control={<Radio color="primary" />} label={meat} value={meat} />
                 ))
               }
             </RadioGroup>
           </FormControl>
         }
         {
-          !vegan && <div>
-            Do you have a preference for food of any of these coutries?
-            {countryList}
-          </div>
+          !vegan && <FormControl>
+            <FormLabel>Do you have a preference for food from any of these countries?</FormLabel>
+            {
+              countries && countries.map((country) => (
+                <FormControlLabel
+                  label={country}
+                  control={
+                    <Checkbox
+                      checked={checkedCountries.includes(country)}
+                      onChange={() => handleCheckboxClick(country)}
+                    />
+                  }
+                />
+              ))
+            }
+          </FormControl>
         }
         <Button {...saveButtonProps} />
       </form>
