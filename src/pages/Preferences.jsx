@@ -70,6 +70,33 @@ const Preferences = ({ countries }) => {
     type: 'number',
   };
 
+  const alcoholProps = {
+    label: "Do you drink alcohol?",
+    control: <Checkbox
+      checked={drinker}
+      onChange={() => setDrinker(!drinker)}
+      color="primary"
+    />,
+  };
+
+  const lactoseProps = {
+    label: "Are you lactose intolerant?",
+    control: <Checkbox
+      checked={lactoseIntolerance}
+      onChange={() => setLactoseIntolerance(!lactoseIntolerance)}
+      color="primary"
+    />,
+  };
+
+  const veganProps = {
+    label: "Are you a vegan or vegetarian?",
+    control: <Checkbox
+      checked={vegan}
+      onChange={() => setVegan(!vegan)}
+      color="primary"
+    />,
+  };
+
   const saveButtonProps = {
     id: "Done",
     disabled: !validInfo,
@@ -89,74 +116,61 @@ const Preferences = ({ countries }) => {
   if (goToMain) return <Navigate to='/main' />;
 
   return (
-    <div>
-      <BackToMain />
-      <form>
-        <TextField {...ageProps} />
-        {age > 18 && <FormControlLabel
-          label="Do you drink alcohol?"
-          control={
-            <Checkbox
-              checked={drinker}
-              onChange={() => setDrinker(!drinker)}
-              color="primary"
-            />
-          }
-        />}
-        <FormControlLabel
-          label="Are you lactose intolerant?"
-          control={
-            <Checkbox
-              checked={lactoseIntolerance}
-              onChange={() => setLactoseIntolerance(!lactoseIntolerance)}
-              color="primary"
-            />
-          }
-        />
-        <FormControlLabel
-          label="Are you a vegan or vegetarian?"
-          control={
-            <Checkbox
-              checked={vegan}
-              onChange={() => setVegan(!vegan)}
-              color="primary"
-            />
-          }
-        />
-        {
-          !vegan && <FormControl>
-            <FormLabel>What is your favorite meat?</FormLabel>
-            <RadioGroup value={favoriteMeat} onChange={({ target: { value } }) => setFavoriteMeat(value)}>
-              {
-                meatOptions.map((meat) => (
-                  <FormControlLabel key={meat} control={<Radio color="primary" />} label={meat} value={meat} />
-                ))
-              }
-            </RadioGroup>
-          </FormControl>
-        }
-        {
-          !vegan && <FormControl>
-            <FormLabel>Do you have a preference for food from any of these countries?</FormLabel>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
+      <div style={{ width: '50vw', padding: '40px', border: '3px solid gray', boxShadow: '0 4px 8px 0 grey, 0 6px 20px 0 rgba(0, 0, 0, 0.19)', borderRadius: '20px' }}>
+        <form>
+          <div style={{ width: '100%' }}><TextField {...ageProps} /></div>
+          <div style={{ width: '100%', margin: '10px' }}>{age > 18 && <FormControlLabel {...alcoholProps} />}</div>
+          <div style={{ width: '100%', margin: '10px' }}><FormControlLabel {...lactoseProps} /></div>
+          <div style={{ width: '100%', margin: '10px' }}><FormControlLabel {...veganProps} /></div>
+          <div style={{ width: '100%' }}>
             {
-              countries && countries.map((country) => (
-                <FormControlLabel
-                  label={country}
-                  control={
-                    <Checkbox
-                      checked={checkedCountries.includes(country)}
-                      onChange={() => handleCheckboxClick(country)}
-                    />
-                  }
-                />
-              ))
+              !vegan && <FormControl>
+                <h3 style={{ fontFamily: 'Roboto', marginLeft: '10px', fontSize: '1.3em' }}>What is your favorite meat?</h3>
+                <div>
+                  <RadioGroup value={favoriteMeat} onChange={({ target: { value } }) => setFavoriteMeat(value)}>
+                    {
+                      meatOptions.map((meat) => (
+                        <FormControlLabel
+                          key={meat}
+                          control={<Radio color="primary" />}
+                          label={meat}
+                          value={meat}
+                        />
+                      ))
+                    }
+                  </RadioGroup>
+                </div>
+              </FormControl>
             }
-          </FormControl>
-        }
-        <Button {...saveButtonProps}>
-          Save preferences
-        </Button>
-      </form>
+          </div>
+          <div style={{ width: '100%' }}>
+            {
+              !vegan && <FormControl>
+                <h3 style={{ fontFamily: 'Roboto', marginLeft: '10px', fontSize: '1.3em' }}>Do you have a preference for food from any of these countries?</h3>
+                {
+                  countries && countries.map((country) => (
+                    <FormControlLabel
+                      label={country}
+                      control={
+                        <Checkbox
+                          checked={checkedCountries.includes(country)}
+                          onChange={() => handleCheckboxClick(country)}
+                        />
+                      }
+                    />
+                  ))
+                }
+              </FormControl>
+            }
+          </div>
+          <div style={{ width: '100%' }}>
+            <Button {...saveButtonProps}>
+              Save preferences
+            </Button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
