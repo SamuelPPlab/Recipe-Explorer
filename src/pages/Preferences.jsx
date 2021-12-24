@@ -129,12 +129,21 @@ const Preferences = ({ countries }) => {
           control={
             <Checkbox
               checked={lactoseIntolerance}
-              onChange={() => setDrinker(!lactoseIntolerance)}
+              onChange={() => setLactoseIntolerance(!lactoseIntolerance)}
               color="primary"
             />
           }
         />
-  
+        <FormControlLabel
+          label="Are you a vegan or vegetarian?"
+          control={
+            <Checkbox
+              checked={vegan}
+              onChange={() => setVegan(!vegan)}
+              color="primary"
+            />
+          }
+        />
         { !vegan && <RadioButton {...favoriteMeatProps} />}
         {
           !vegan && <div>
