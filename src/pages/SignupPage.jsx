@@ -4,11 +4,11 @@ import {
   passwordLengthValidator,
   passwordMatcher, validateUserName
 } from "../services/validators";
-import Checkbox from "../components/Checkbox";
+import Checkbox from '@material-ui/core/Checkbox';
 import { saveProfileData } from "../services/localStorage";
 import { Navigate } from 'react-router-dom';
 import Button from "@material-ui/core/Button";
-import { IconButton, InputAdornment, TextField } from '@material-ui/core';
+import { FormControlLabel, IconButton, InputAdornment, TextField } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import '@fontsource/roboto/300.css';
@@ -33,9 +33,10 @@ const SignUp = () => {
   const [hideConfirm, setHideConfirm] = useState(false);
   const [confirmError, setConfirmError] = useState(false);
 
+  const [configurePreferences, setConfigurePreferences] = useState(true);
+
   const [allowRedirect, setAllowRedirect] = useState(false);
   const [disableSignUp, setDisableSignUp] = useState(true);
-  const [configurePreferences, setConfigurePreferences] = useState(true);
 
   useEffect(() => {
     const isUsernameValid = validateUserName(fullName);
@@ -149,26 +150,27 @@ const SignUp = () => {
     disabled: disableSignUp,
   };
 
-  const checkboxProps = {
-    text: 'Configurar preferências depois do cadastro?',
-    onChange: () => {
-      setConfigurePreferences(true);
-    },
-    startChecked: true,
-  };
-
   if(configurePreferences && allowRedirect) return <Navigate to="/preferences" />;
 
   if(allowRedirect) return <Navigate to="/main" />;
 
   return (
-    <div>
+    <div style={{ width: '40%' }}>
       <h1>Cadastre-se</h1>
       <TextField {...nameProps} />
       <TextField {...emailProps} />
       <TextField {...passwordInputProps} />
       <TextField {...confirmPasswordProps} />
-      <Checkbox {...checkboxProps} />
+      <FormControlLabel
+        label="Configure preferences next?"
+        control={
+          <Checkbox
+            checked={configurePreferences}
+            onChange={() => setConfigurePreferences(!configurePreferences)}
+            color="primary"
+          />
+        }
+      />
       <Button {...signUpButtonProps}>
         Signup
       </Button>
