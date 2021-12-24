@@ -68,6 +68,7 @@ const SignUp = () => {
     },
     onChange: ({ target: { value } }) => setFullName(value),
     error: nameError,
+    helperText: nameError && 'No special characters or numbers allowed.'
   };
 
   const emailProps = {
@@ -83,6 +84,7 @@ const SignUp = () => {
     onChange: ({ target: { value } }) => setEmail(value),
     type: "email",
     error: emailError,
+    helperText: emailError && 'Email must have the correct format.'
   };
 
   const passwordInputProps = {
@@ -106,6 +108,7 @@ const SignUp = () => {
       </InputAdornment>
     },
     error: passwordError,
+    helperText: passwordError && 'Password must have at least 8 characters.'
   };
 
   const confirmPasswordProps = {
@@ -124,11 +127,12 @@ const SignUp = () => {
           onClick={() => setHideConfirm(!hideConfirm)}
           edge="end"
         >
-          { hideConfirm ? <VisibilityOff color={confirmError ? "secondary" : "primary"} /> : <Visibility color="primary" />}
+          { hideConfirm ? <VisibilityOff color={confirmError ? "secondary" : "primary"} /> : <Visibility color={confirmError ? "secondary" : "primary"} />}
         </IconButton>
       </InputAdornment>
     },
     error: confirmError,
+    helperText: confirmError && 'Passwords must match.'
   };
 
   const signUpButtonProps = {
