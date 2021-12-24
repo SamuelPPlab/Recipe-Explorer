@@ -25,15 +25,15 @@ const Preferences = ({ countries }) => {
 
   const [drinker, setDrinker] = useState(false);
 
-  const [lactoseIntolerance, setLactoseIntolerance] = useState(`No, I'm not`);
-  const [vegan, setVegan] = useState(`No, I'm neither`);
+  const [lactoseIntolerance, setLactoseIntolerance] = useState(false);
+
+  const [vegan, setVegan] = useState(false);
+
   const [favoriteMeat, setFavoriteMeat] = useState('None');
   const [checkedCountries, setCheckedCountries] = useState([]);
   const [validInfo, setValidInfo] = useState(false);
   const [goToMain, setGoToMain] = useState(false);
 
-  const lactoseOptions = ['Yes, I am', `No, I'm not`];
-  const veganOptions = [`Yes, I'm a proud vegan`, `Yes, I'm a vegetarian`, `No, I'm neither`];
   const meatOptions = ['Beef', 'Chicken', 'Goat', 'Lamb', 'Pork', 'None'];
 
   useEffect(() => {
@@ -70,22 +70,6 @@ const Preferences = ({ countries }) => {
     type: 'number',
   };
 
-  const lactoseProps = {
-    id: "lactose",
-    options: lactoseOptions,
-    selectedFilter: lactoseIntolerance,
-    setSelectedFilter: setLactoseIntolerance,
-    name: "Are you lactose intolerant?",
-  };
-
-  const veganProps = {
-    id: "Vegan",
-    options: veganOptions,
-    selectedFilter: vegan,
-    setSelectedFilter: setVegan,
-    name: "Are you a vegetarian or vegan?",
-  };
-  
   const favoriteMeatProps = {
     id: "Favorite Meat",
     options: meatOptions,
@@ -130,7 +114,7 @@ const Preferences = ({ countries }) => {
       <BackToMain />
       <form>
         <TextField {...ageProps} />
-        <FormControlLabel
+        {age > 18 && <FormControlLabel
           label="Do you drink alcohol?"
           control={
             <Checkbox
@@ -139,12 +123,21 @@ const Preferences = ({ countries }) => {
               color="primary"
             />
           }
+        />}
+        <FormControlLabel
+          label="Are you lactose intolerant?"
+          control={
+            <Checkbox
+              checked={lactoseIntolerance}
+              onChange={() => setDrinker(!lactoseIntolerance)}
+              color="primary"
+            />
+          }
         />
-        <RadioButton {...lactoseProps} />
-        <RadioButton {...veganProps} />
-        { vegan.includes('No') && <RadioButton {...favoriteMeatProps} />}
+  
+        { !vegan && <RadioButton {...favoriteMeatProps} />}
         {
-          vegan.includes('No') && <div>
+          !vegan && <div>
             Do you have a preference for food of any of these coutries?
             {countryList}
           </div>
