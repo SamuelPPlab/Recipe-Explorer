@@ -5,7 +5,7 @@ import Button from "../components/Button";
 import Input from "../components/Input";
 import RadioButton from "../components/RadioButton";
 import BackToMain from "../components/BackToMain";
-import { InputAdornment, TextField } from "@material-ui/core";
+import { FormControl, FormControlLabel, InputAdornment, TextField } from "@material-ui/core";
 import { areaFetcher } from "../redux/actions/explorePage";
 import { ageValidator } from "../services/formValidation";
 import * as CakeRoundedIcon from '@material-ui/icons';
@@ -22,7 +22,9 @@ const Preferences = ({ countries }) => {
   }, [dispatch]);
 
   const [age, setAge] = useState('');
-  const [drinker, setDrinker] = useState(`No, I don't`);
+
+  const [drinker, setDrinker] = useState(false);
+
   const [lactoseIntolerance, setLactoseIntolerance] = useState(`No, I'm not`);
   const [vegan, setVegan] = useState(`No, I'm neither`);
   const [favoriteMeat, setFavoriteMeat] = useState('None');
@@ -30,7 +32,6 @@ const Preferences = ({ countries }) => {
   const [validInfo, setValidInfo] = useState(false);
   const [goToMain, setGoToMain] = useState(false);
 
-  const drinkerOptions = [`Yes, I drink`, `No, I don't`];
   const lactoseOptions = ['Yes, I am', `No, I'm not`];
   const veganOptions = [`Yes, I'm a proud vegan`, `Yes, I'm a vegetarian`, `No, I'm neither`];
   const meatOptions = ['Beef', 'Chicken', 'Goat', 'Lamb', 'Pork', 'None'];
@@ -67,14 +68,6 @@ const Preferences = ({ countries }) => {
     fullWidth: true,
     required: true,
     type: 'number',
-  };
-
-  const drinkerProps = {
-    name: "Do you drink alcohol?",
-    id: "Do you Drink",
-    options: drinkerOptions,
-    selectedFilter: drinker,
-    setSelectedFilter: setDrinker,
   };
 
   const lactoseProps = {
@@ -137,7 +130,16 @@ const Preferences = ({ countries }) => {
       <BackToMain />
       <form>
         <TextField {...ageProps} />
-        { parseInt(age) > 18 && <RadioButton {...drinkerProps} /> }
+        <FormControlLabel
+          label="Do you drink alcohol?"
+          control={
+            <Checkbox
+              checked={drinker}
+              onChange={() => setDrinker(!drinker)}
+              color="primary"
+            />
+          }
+        />
         <RadioButton {...lactoseProps} />
         <RadioButton {...veganProps} />
         { vegan.includes('No') && <RadioButton {...favoriteMeatProps} />}
