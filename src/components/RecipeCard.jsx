@@ -1,6 +1,7 @@
+import { ButtonGroup, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { Navigate } from 'react-router';
-import Button from './Button';
+import { Button } from "@material-ui/core";
 
 const RecipeCard = ({ name, image, id, directory, onClick = null, children, redirectOnClick = true }) => {
   const [redirectDetails, setRedirectDetails] = useState(false);
@@ -15,34 +16,42 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
   };
 
   const seeDetailsProps = {
-    name: 'See Details',
     id: 'See Details Props',
     onClick: () => handleClick(),
+    variant: 'contained',
+    color: 'primary'
   };
 
   const startCookingRecipeProps = {
-    name: 'Start Cooking Recipe',
     id: 'Start Cooking Recipe',
     onClick: () => setRedirectProgress(true),
-  };
-
-  const recipeImageProps = {
-    style: { height: '300px' },
-    src: image,
+    variant: 'contained',
+    color: 'primary',
   };
 
   return (
-    <div className="recipe-card" style={{ width: '300px', margin: '20px', textAlign: 'center' }} >
-      <img alt="Recipe" {...recipeImageProps}/>
-      <div>
-        <h5>{name}</h5>
-        <Button {...seeDetailsProps} />
-      </div>
-      <div>
-        {children}
-      </div>
-      <Button {...startCookingRecipeProps} />
-    </div>
+    <Card style={{ maxWidth: '300px', height: '505px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <CardMedia
+        style={{ width: '300px', height: '300px' }}
+        component="img"
+        image={image}
+        alt={name}
+      />
+      <CardContent>
+        <Typography
+          align='center'
+          variant="h5"
+        >
+          {name.toString()}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <ButtonGroup fullWidth>
+          <Button {...seeDetailsProps} >See details</Button>
+          <Button {...startCookingRecipeProps} >Start cooking</Button>
+        </ButtonGroup>
+      </CardActions>
+    </Card>
   );
 };
 
