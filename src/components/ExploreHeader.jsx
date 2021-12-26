@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import { Button, Drawer, List, FormControlLabel, FormLabel, ListItem, ListItemIcon, ListItemText, Radio, RadioGroup, TextField } from "@material-ui/core";
+import { Button, Drawer, List, TextField } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
 import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
 import { swapMainPage } from "../redux/actions/mainPage";
+import ListMenuItem from "./ListMenuItem";
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 
@@ -90,59 +91,33 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
     color: 'primary',
   };
 
-  const exploreOptionsProps = showFood ? foodExploreOptions : drinkExploreOptions;
-
   return(
     <div style={{ display: 'flex' }}>
       <Drawer variant="permanent" anchor="left">
         <List>
-          <ListItem button onClick={() => setShowFood(false)}>
-            <ListItemIcon><LocalBarIcon color="primary" /></ListItemIcon>
-            <ListItemText>Explore drinks by</ListItemText>
-          </ListItem>
-          {
-            !showFood && <RadioGroup value={selectedRadioOption} style={{ marginLeft: '40px' }} onChange={({ target: { value } }) => setSelectedRadioOption(value)}>
-              {
-                drinkExploreOptions.map((option) => (
-                  <FormControlLabel
-                    key={option}
-                    control={<Radio color="primary" />}
-                    label={option}
-                    value={option}
-                  />
-                ))
-              }
-            </RadioGroup>
-          }
-          <ListItem button onClick={() => setShowFood(true)}>
-            <ListItemIcon><FastfoodIcon color="primary" /></ListItemIcon>
-            <ListItemText>Explore foods by</ListItemText>
-          </ListItem>
-          {
-            showFood && <RadioGroup value={selectedRadioOption} style={{ marginLeft: '40px' }} onChange={({ target: { value } }) => setSelectedRadioOption(value)}>
-              {
-                foodExploreOptions.map((option) => (
-                  <FormControlLabel
-                    key={option}
-                    control={<Radio color="primary" />}
-                    label={option}
-                    value={option}
-                  />
-                ))
-              }
-            </RadioGroup>
-          }
+          <ListMenuItem
+            icon={<LocalBarIcon color="primary" />}
+            itemText="Explore drinks by"
+            currentOption={selectedRadioOption}
+            setCurrentOption={setSelectedRadioOption}
+            options={drinkExploreOptions}
+          />
+          <ListMenuItem
+            icon={<FastfoodIcon color="primary" />}
+            itemText="Explore foods by"
+            currentOption={selectedRadioOption}
+            setCurrentOption={setSelectedRadioOption}
+            options={foodExploreOptions}
+          />
         </List>
       </Drawer>
-      <div>
         {
-          selectedRadioOption === 'Ingredients' && !loading && <div>
+          selectedRadioOption === 'Ingredients' && !loading && <div style={{ marginLeft: '30%' }}>
             <TextField {...searchIngredientsProps} />
             <Button {...searchButtonProps} ><SearchIcon /></Button>
             <Button {...clearSearchButtonProps} />
           </div>
         }
-      </div>
     </div>
   );
 };
