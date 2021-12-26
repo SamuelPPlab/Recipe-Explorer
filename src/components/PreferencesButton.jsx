@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { Navigate } from "react-router";
-import preferences from "../images/preferences.png";
+import React from "react";
 import SettingsIcon from '@material-ui/icons/Settings';
 import { Button } from "@material-ui/core";
 
@@ -13,11 +11,9 @@ const PreferencesButton = () => {
   };
 
   return(
-    <div>
-      <Button {...setPreferencesProps} style={{ width: '50px', height: '50px' }} >
-        <SettingsIcon fontSize="large" />
-      </Button>
-    </div>
+    <Button {...setPreferencesProps} style={{ width: '50px', height: '50px' }} >
+      <SettingsIcon fontSize="large" />
+    </Button>
   );
 };
 

@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import { Navigate } from "react-router";
-import suggestionIcon from '../images/suggestionIcon.png';
+import React from "react";
+import EmojiObjectsIcon from '@material-ui/icons/EmojiObjects';
+import { Button } from "@material-ui/core";
 
 const GoBackToSuggestions = () => {
-  const [redirect, setRedirect] = useState(false);
+  const suggestionProps = {
+    id: 'suggestions',
+    variant: 'contained',
+    color: 'primary',
+    href: '/suggestions',
+  };
 
-  if(redirect) return <Navigate to='/suggestions' />;
-  const suggestionIMG = <img src={suggestionIcon} alt='suggetion icon' style={{ width: '50px' }} />;
   return(
-    <div>
-      <button onClick={() => setRedirect(!redirect)}>
-        {suggestionIMG}
-      </button>
-    </div>
+    <Button style={{ width: '50px', height: '50px' }} {...suggestionProps}>
+      <EmojiObjectsIcon fontSize="large" />
+    </Button>
   );
 }
 
