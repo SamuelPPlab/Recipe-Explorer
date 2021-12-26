@@ -5,6 +5,7 @@ import { recipesByAlcoholOption } from "../redux/actions/mainPage";
 import alcoholIcon from "../images/alcoholIcon.png";
 import noAlcoholIcon from "../images/noAlcoholIcon.png";
 import optionalAlcohol from "../images/optionalAlcohol.png";
+import { Button, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
 
 const AlcoholicOptionCard = ({ option, getRecipes }) => {
   const options = {
@@ -15,20 +16,34 @@ const AlcoholicOptionCard = ({ option, getRecipes }) => {
 
   const dispatch = useDispatch();
 
-  const optionIconProps = {
-    src: options[option],
-    style: { width: '200px' },
+  const goToRecipesProps = {
+    onClick: () => dispatch(recipesByAlcoholOption(option)),
+    variant: "contained",
+    color: 'primary',
+    style: {
+      margin: '10px',
+      width: '280px',
+    },
   };
 
   return(
-    <div style={{ margin: '50px', textAlign: 'center' }}>
-      <Link to='/main'>
-        <button onClick={() => dispatch(recipesByAlcoholOption(option))}>
-          <img alt={option} {...optionIconProps} />
-          <h3>{option}</h3>
-        </button>
-      </Link>
-    </div>
+    <Card style={{ maxWidth: '300px' }}>
+      <CardMedia
+        image={options[option]}
+        alt={option}
+        component="img"
+      />
+      <CardContent>
+        <Typography align="center" variant="h6">
+          {option}
+        </Typography>
+      </CardContent>
+    <Link to='/main' style={{ textDecoration: 'none' }}>
+      <Button {...goToRecipesProps} >
+        See Recipes
+      </Button>
+    </Link>
+    </Card>
   );
 };
 

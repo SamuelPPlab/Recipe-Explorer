@@ -26,13 +26,13 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
       <ExploreHeader />
       <Grid container spacing={2}>
         {
-          areas && areas.map((area) => area !== 'Unknown' && <FlagCard key={area} area={area} />)
+          areas && areas.map((area) => area !== 'Unknown' && <Grid item><FlagCard key={area} area={area} /></Grid>)
         }
         {
           ingredients && ingredients.map((ingredient) => <Grid item><IngredientCard key={ingredient} isItFood={isItFood} ingredient={ingredient} /></Grid>)
         }
         {
-          alcoholicOptions && alcoholicOptions.map((option) => <AlcoholicOptionCard key={option} option={option} />)
+          alcoholicOptions && alcoholicOptions.map((option) => <Grid item><AlcoholicOptionCard key={option} option={option} /></Grid>)
         }
       </Grid>
       {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
