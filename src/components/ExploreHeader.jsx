@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import { Button, TextField } from "@material-ui/core";
+import { Button, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
 import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
@@ -90,17 +90,25 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
     color: 'primary',
   };
 
-  const exploreOptionsProps = {
-    options: showFood ? foodExploreOptions : drinkExploreOptions,
-    selectedFilter: selectedRadioOption,
-    setSelectedFilter: setSelectedRadioOption,
-  };
+  const exploreOptionsProps = showFood ? foodExploreOptions : drinkExploreOptions;
 
   return(
     <div>
       <Button {...exploreDrinksProps} >Explore drinks</Button>
       <Button {...exploreFoodsProps} >Explore Foods</Button>
-      {!loading && <RadioButton {...exploreOptionsProps} />}
+      {
+        !loading && <RadioGroup value={selectedRadioOption} onChange={({ target: { value } }) => setSelectedRadioOption(value)}>
+          {
+            exploreOptionsProps.map((option) => (
+              <FormControlLabel
+                key={option}
+                control={<Radio color="primary" />}
+                label={option}
+                value={option}
+              />
+            ))
+          }
+        </RadioGroup>}
       {
         selectedRadioOption === 'Ingredients' && !loading && <div>
           <TextField {...searchIngredientsProps} />
