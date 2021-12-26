@@ -12,6 +12,7 @@ import Categories from "../components/Categories";
 import Paginator from "../components/Paginator";
 import ExploreLinks from "../components/ExploreLinks";
 import { useLocation } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
   const { pathname } = useLocation();
@@ -60,20 +61,22 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
       <Header {...headerProps} />
       <ExploreLinks />
       <Categories isItFood={isItFood} />
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+      <Grid container spacing={4}>
         {
           recipeList.map(({ id, name, image }, index) => (
-            <RecipeCard
-              key={id}
-              directory={isItFood ? '/foods' : '/drinks'}
-              name={name}
-              id={id}
-              image={image}
-              index={index}
-            />
+            <Grid item>
+              <RecipeCard
+                key={id}
+                directory={isItFood ? '/foods' : '/drinks'}
+                name={name}
+                id={id}
+                image={image}
+                index={index}
+              />
+            </Grid>
           ))
         }
-      </div>
+      </Grid>
       <Paginator {...paginatorProps} />
     </div>
   );
