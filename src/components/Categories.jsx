@@ -17,10 +17,12 @@ const Categories = ({ isItFood }) => {
   if(categoriesOptions.length < 1) return <Loading />;
 
   return(
-    <ButtonGroup variant="contained" color="primary" fullWidth style={{ marginTop: '20px', marginBottom: '20px' }}>
+    <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', marginTop: '20px', marginBottom: '20px' }}>
       {
         categoriesOptions.map((category) => (
           <Button
+            color="primary"
+            variant="contained"
             key={category}
             id={category}
             onClick={() => dispatch(categorySelector(isItFood, category))}
@@ -29,8 +31,8 @@ const Categories = ({ isItFood }) => {
           </Button>
         ))
       }
-    </ButtonGroup>
-  );
+    </div>
+  )
 };
 
 export default Categories;
