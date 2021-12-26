@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Button, Card, CardContent, CardMedia, Typography } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
 import { recipesByIngredients } from "../redux/actions/mainPage";
 
 const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
@@ -11,24 +12,34 @@ const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
   const buttonProps = {
     onClick: () => dispatch(recipesByIngredients(isItFood, ingredient)),
     variant: 'contained',
-    color: 'primary'
+    color: 'primary',
+    size: 'large',
+    style: {
+      margin: '10px',
+      
+    }
   }
 
   return(
-    <Card>
-      <Button {...buttonProps} >
-        <CardMedia
-          component="img"
-          style={{ width: '200px' }}
-          image={ingredientIMG}
-          alt={ingredient}
-        />
-        <CardContent align="center" variant="h5">
-          <Typography>
-            {ingredient}
-          </Typography>
-        </CardContent>
-      </Button>
+    <Card style={{ maxWidth: '200px', height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+      <CardMedia
+        component="img"
+        style={{ width: '200px', marginTop: '10px' }}
+        image={ingredientIMG}
+        alt={ingredient}
+      />
+      <CardContent >
+        <Typography align="center" variant="h6">
+          {ingredient}
+        </Typography>
+      </CardContent>
+      <Link to="/main" style={{ textDecoration: 'none' }}>
+        <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
+          <Button {...buttonProps} >
+            See recipes
+          </Button>
+        </CardActions>
+      </Link>
     </Card>
   );
 };
