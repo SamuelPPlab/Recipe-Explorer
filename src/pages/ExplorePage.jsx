@@ -7,7 +7,7 @@ import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
 import Paginator from "../components/Paginator";
 import BackToMain from "../components/BackToMain";
-import { Grid } from "@material-ui/core";
+import { Button, Drawer, Grid, List, ListItem } from "@material-ui/core";
 
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
 
@@ -22,8 +22,8 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
 
   return(
     <div>
+      <ExploreHeader/>
       <BackToMain />
-      <ExploreHeader />
       <Grid container spacing={2}>
         {
           areas && areas.map((area) => area !== 'Unknown' && <Grid item><FlagCard key={area} area={area} /></Grid>)
