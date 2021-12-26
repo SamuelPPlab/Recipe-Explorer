@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import { Button, Drawer, List, TextField } from "@material-ui/core";
+import { Button, Drawer, List, TextField, Typography } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
 import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
@@ -49,7 +49,10 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
 
   const searchIngredientsProps = {
     onChange: ({ target: { value } }) => setSearchIng(value),
-    variant: 'outlined'
+    variant: 'outlined',
+    margin: 'normal',
+    style: { width: '500px' },
+    placeholder: 'Search for an ingredient'
   };
 
   const searchButtonProps = {
@@ -60,10 +63,11 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
     },
     style: {
       width: '55px',
-      height: '55px'
+      height: '55px',
+      marginTop: '17px'
     },
     color: 'primary',
-    variant: 'contained'
+    variant: 'contained',
   };
 
   const clearSearchButtonProps = {
@@ -75,6 +79,9 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
   return(
     <div style={{ display: 'flex' }}>
       <Drawer variant="permanent" anchor="left">
+        <Typography variant="h4" align="center">
+          Options
+        </Typography>
         <List>
           <ListMenuItem
             active={!showFood}

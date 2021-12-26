@@ -7,7 +7,7 @@ import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
 import Paginator from "../components/Paginator";
 import BackToMain from "../components/BackToMain";
-import { Grid } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
 
@@ -21,21 +21,22 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
   const length = apiResponse && apiResponse.length;
 
   return(
-    <div>
-      <ExploreHeader/>
-      <BackToMain />
-      <Grid container spacing={2}>
-        {
-          areas && areas.map((area) => area !== 'Unknown' && <Grid key={area} item><FlagCard area={area} /></Grid>)
-        }
-        {
-          ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard isItFood={isItFood} ingredient={ingredient} /></Grid>)
-        }
-        {
-          alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
-        }
-      </Grid>
-      {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
+    <div style={{ maxWidth: '100vw' }}>
+      <ExploreHeader />
+      <div style={{ marginLeft: '220px', width: 'calc(100vw - 270px)', marginTop: '30px' }}>
+        <Grid container spacing={4}>
+          {
+            areas && areas.map((area) => area !== 'Unknown' && <Grid key={area} item><FlagCard area={area} /></Grid>)
+          }
+          {
+            ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard isItFood={isItFood} ingredient={ingredient} /></Grid>)
+          }
+          {
+            alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
+          }
+        </Grid>
+        {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
+      </div>
     </div>
   );
 };
