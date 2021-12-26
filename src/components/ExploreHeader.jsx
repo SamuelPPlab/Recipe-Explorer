@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import Button from "../components/Button";
+import { Button, Drawer, List, TextField, Typography } from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
 import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
 import { swapMainPage } from "../redux/actions/mainPage";
-import Input from "./Input";
-import RadioButton from "./RadioButton";
+import ListMenuItem from "./ListMenuItem";
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 const ExploreHeader = ({ loading, isItFood, id }) => {
   const [showFood, setShowFood] = useState(false);
@@ -46,61 +48,68 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
   if(redirect && id) return <Navigate to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
 
   const searchIngredientsProps = {
-    name: 'Search Ingredient',
-    fieldValue: searchIng,
-    setFieldValue: setSearchIng,
+    onChange: ({ target: { value } }) => setSearchIng(value),
+    variant: 'outlined',
+    margin: 'normal',
+    style: { width: '500px' },
+    placeholder: 'Search for an ingredient'
   };
 
   const searchButtonProps = {
-    name: 'Search',
     id: 'Search Ingredient',
     onClick: () => {
       dispatch(ingredientSearch(searchIng));
       setSearchIng('');
-    }
+    },
+    style: {
+      width: '55px',
+      height: '55px',
+      marginTop: '17px'
+    },
+    color: 'primary',
+    variant: 'contained',
   };
 
   const clearSearchButtonProps = {
-    name: 'Clear Search Results',
+    label: 'Clear Search Results',
     id: 'Clear Search Results',
     onClick: () => {dispatch(ingredientFetcher(showFood))},
   };
 
-  const exploreDrinksProps = {
-    id: "Explore Drinks",
-    name: "Explore Drinks",
-    onClick: () => {
-      setShowFood(false);
-    },
-  };
-
-  const exploreFoodsProps = {
-    id: "Explore Foods",
-    name: "Explore Foods",
-    onClick: () => {
-      setShowFood(true);
-      setSearchIng('');
-    },
-  };
-
-  const exploreOptionsProps = {
-    options: showFood ? foodExploreOptions : drinkExploreOptions,
-    selectedFilter: selectedRadioOption,
-    setSelectedFilter: setSelectedRadioOption,
-  };
-
   return(
-    <div>
-      <Button {...exploreDrinksProps} />
-      <Button {...exploreFoodsProps} />
-      {!loading && <RadioButton {...exploreOptionsProps} />}
-      {
-        selectedRadioOption === 'Ingredients' && !loading && <div>
-          <Input {...searchIngredientsProps} />
-          <Button {...searchButtonProps} />
-          <Button {...clearSearchButtonProps} />
-        </div>
-      }
+    <div style={{ display: 'flex' }}>
+      <Drawer variant="permanent" anchor="left">
+        <Typography variant="h4" align="center">
+          Options
+        </Typography>
+        <List>
+          <ListMenuItem
+            active={!showFood}
+            setActive={() => setShowFood(!showFood)}
+            icon={<LocalBarIcon color="primary" />}
+            itemText="Explore drinks by"
+            currentOption={selectedRadioOption}
+            setCurrentOption={setSelectedRadioOption}
+            options={drinkExploreOptions}
+          />
+          <ListMenuItem
+            active={showFood}
+            setActive={() => setShowFood(!showFood)}
+            icon={<FastfoodIcon color="primary" />}
+            itemText="Explore foods by"
+            currentOption={selectedRadioOption}
+            setCurrentOption={setSelectedRadioOption}
+            options={foodExploreOptions}
+          />
+        </List>
+      </Drawer>
+        {
+          selectedRadioOption === 'Ingredients' && !loading && <div style={{ marginLeft: '30%' }}>
+            <TextField {...searchIngredientsProps} />
+            <Button {...searchButtonProps} ><SearchIcon /></Button>
+            <Button {...clearSearchButtonProps} />
+          </div>
+        }
     </div>
   );
 };

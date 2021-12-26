@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchCategories } from "../APIintegration/categories";
 import { useDispatch } from "react-redux";
-import { Button, ButtonGroup } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import Loading from "./Loading";
 import { categorySelector } from "../redux/actions/mainPage";
 

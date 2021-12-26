@@ -7,6 +7,7 @@ import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
 import Paginator from "../components/Paginator";
 import BackToMain from "../components/BackToMain";
+import { Grid, Typography } from "@material-ui/core";
 
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
 
@@ -20,21 +21,22 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
   const length = apiResponse && apiResponse.length;
 
   return(
-    <div>
-      <BackToMain />
+    <div style={{ maxWidth: '100vw' }}>
       <ExploreHeader />
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
-        {
-          areas && areas.map((area) => area !== 'Unknown' && <FlagCard key={area} area={area} />)
-        }
-        {
-          ingredients && ingredients.map((ingredient) => <IngredientCard key={ingredient} isItFood={isItFood} ingredient={ingredient} />)
-        }
-        {
-          alcoholicOptions && alcoholicOptions.map((option) => <AlcoholicOptionCard key={option} option={option} />)
-        }
+      <div style={{ marginLeft: '220px', width: 'calc(100vw - 270px)', marginTop: '30px' }}>
+        <Grid container spacing={4}>
+          {
+            areas && areas.map((area) => area !== 'Unknown' && <Grid key={area} item><FlagCard area={area} /></Grid>)
+          }
+          {
+            ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard isItFood={isItFood} ingredient={ingredient} /></Grid>)
+          }
+          {
+            alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
+          }
+        </Grid>
+        {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
       </div>
-      {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
     </div>
   );
 };
