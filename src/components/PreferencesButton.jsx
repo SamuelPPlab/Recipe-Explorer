@@ -7,7 +7,7 @@ const PreferencesButton = () => {
     id: "Set Preferences",
     color: 'primary',
     variant: 'contained',
-    href: '/preferences'
+    href: '/preferences',
   };
 
   return(

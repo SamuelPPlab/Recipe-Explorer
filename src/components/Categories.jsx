@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchCategories } from "../APIintegration/categories";
 import { useDispatch } from "react-redux";
-import Button from "./Button";
+import { Button, ButtonGroup } from "@material-ui/core";
 import Loading from "./Loading";
 import { categorySelector } from "../redux/actions/mainPage";
 
@@ -17,18 +17,19 @@ const Categories = ({ isItFood }) => {
   if(categoriesOptions.length < 1) return <Loading />;
 
   return(
-    <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
+    <ButtonGroup variant="contained" color="primary" fullWidth style={{ marginTop: '20px', marginBottom: '20px' }}>
       {
         categoriesOptions.map((category) => (
           <Button
             key={category}
             id={category}
-            name={category}
             onClick={() => dispatch(categorySelector(isItFood, category))}
-          />
+          >
+            {category}
+          </Button>
         ))
       }
-    </div>
+    </ButtonGroup>
   );
 };
 
