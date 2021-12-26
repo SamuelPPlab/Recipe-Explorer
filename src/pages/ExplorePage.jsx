@@ -26,10 +26,10 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
       <BackToMain />
       <Grid container spacing={2}>
         {
-          areas && areas.map((area) => area !== 'Unknown' && <Grid key={areas} item><FlagCard key={area} area={area} /></Grid>)
+          areas && areas.map((area) => area !== 'Unknown' && <Grid key={area} item><FlagCard area={area} /></Grid>)
         }
         {
-          ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard key={ingredient} isItFood={isItFood} ingredient={ingredient} /></Grid>)
+          ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard isItFood={isItFood} ingredient={ingredient} /></Grid>)
         }
         {
           alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)

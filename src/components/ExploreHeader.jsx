@@ -77,6 +77,8 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
       <Drawer variant="permanent" anchor="left">
         <List>
           <ListMenuItem
+            active={!showFood}
+            setActive={() => setShowFood(!showFood)}
             icon={<LocalBarIcon color="primary" />}
             itemText="Explore drinks by"
             currentOption={selectedRadioOption}
@@ -84,6 +86,8 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
             options={drinkExploreOptions}
           />
           <ListMenuItem
+            active={showFood}
+            setActive={() => setShowFood(!showFood)}
             icon={<FastfoodIcon color="primary" />}
             itemText="Explore foods by"
             currentOption={selectedRadioOption}
