@@ -42,7 +42,7 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
           align='center'
           variant="h5"
         >
-          {name.toString()}
+          {name}
         </Typography>
       </CardContent>
       <CardActions>
