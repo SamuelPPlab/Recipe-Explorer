@@ -1,21 +1,19 @@
-import React, { useState } from "react";
-import { Navigate } from "react-router";
-import exploreIcon from '../images/exploreIcon.svg';
-import Button from "./Button";
+import React from "react";
+import ExploreIcon from '@material-ui/icons/Explore';
+import { Button } from "@material-ui/core";
 
 const ExploreButton = () => {
-  const exploreImage = <img src={exploreIcon} alt="explore Icon" style={{ width: '50px' }} />;
-  const [goToExplore, setGoToExplore] = useState(false);
-  if(goToExplore) return <Navigate to='/explore' />;
-
   const exploreButtonProps = {
-    name: exploreImage,
     id: 'explore button',
-    onClick: () => setGoToExplore(!goToExplore),
+    variant: 'contained',
+    color: 'primary',
+    href: '/explore',
   };
 
   return(
-    <Button {...exploreButtonProps} />
+    <Button {...exploreButtonProps} style={{ width: '50px', height: '50px' }}>
+      <ExploreIcon fontSize="large" />
+    </Button>
   );
 };
 

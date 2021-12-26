@@ -1,16 +1,14 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Button } from "@material-ui/core";
 import SwitchMainPage from "./SwitchMainPage";
-import Button from "./Button";
-import profileIcon from "../images/profileIcon.svg";
+import PersonIcon from '@material-ui/icons/Person';
 
 const Header = ({ isItFood, title }) => {
-	const profileIconImg = <img src={ profileIcon } alt="profileIcon" style={{ width: '50px', height: '50px' }} />;
-
-	const profileButtonProps = {
-		name: profileIconImg,
-		onClick: () => null,
-		id: 'Profile Button',
+	const profileProps = {
+		id: 'profile',
+		variant: 'contained',
+		color: 'primary',
+		href: '/profile',
 	};
 
   return (
@@ -22,9 +20,9 @@ const Header = ({ isItFood, title }) => {
 				<div>
 					{ <h1>{title}</h1> }
 				</div>
-				<Link to="/profile">
-					<Button {...profileButtonProps} />
-				</Link>
+				<Button style={{ width: '50px', height: '50px' }} {...profileProps} >
+					<PersonIcon fontSize="large" />
+				</Button>
 			</div>
 		</div>
 	);

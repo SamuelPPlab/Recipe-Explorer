@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import BackToMain from "../components/BackToMain";
-import { Button, FormControl, FormControlLabel, FormLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
+import { Button, FormControl, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { areaFetcher } from "../redux/actions/explorePage";
 import { ageValidator } from "../services/formValidation";
 import * as CakeRoundedIcon from '@material-ui/icons';
@@ -154,6 +153,7 @@ const Preferences = ({ countries }) => {
                 {
                   countries && countries.map((country) => (
                     <FormControlLabel
+                      key={country}
                       label={country}
                       control={
                         <Checkbox
