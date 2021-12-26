@@ -72,25 +72,6 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
     onClick: () => {dispatch(ingredientFetcher(showFood))},
   };
 
-  const exploreDrinksProps = {
-    id: "Explore Drinks",
-    onClick: () => {
-      setShowFood(false);
-    },
-    variant: 'contained',
-    color: 'primary',
-  };
-
-  const exploreFoodsProps = {
-    id: "Explore Foods",
-    onClick: () => {
-      setShowFood(true);
-      setSearchIng('');
-    },
-    variant: 'contained',
-    color: 'primary',
-  };
-
   return(
     <div style={{ display: 'flex' }}>
       <Drawer variant="permanent" anchor="left">

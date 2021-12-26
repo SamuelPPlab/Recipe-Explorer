@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { recipesByAreaFetcher } from "../redux/actions/mainPage";
 import { countryFlags } from "../services/countryFlags";
-import { Card, CardContent, CardMedia, Typography, Button, CardActions, Container } from "@material-ui/core";
+import { Card, CardContent, CardMedia, Typography, Button, CardActions } from "@material-ui/core";
 
 const FlagCard = ({ area, isItFood }) => {
   const dispatch = useDispatch();
