@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import Button from "../components/Button";
+import { Button, TextField } from "@material-ui/core";
+import SearchIcon from '@material-ui/icons/Search';
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
 import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
 import { swapMainPage } from "../redux/actions/mainPage";
@@ -46,41 +47,47 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
   if(redirect && id) return <Navigate to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
 
   const searchIngredientsProps = {
-    name: 'Search Ingredient',
-    fieldValue: searchIng,
-    setFieldValue: setSearchIng,
+    onChange: ({ target: { value } }) => setSearchIng(value),
+    variant: 'outlined'
   };
 
   const searchButtonProps = {
-    name: 'Search',
     id: 'Search Ingredient',
     onClick: () => {
       dispatch(ingredientSearch(searchIng));
       setSearchIng('');
-    }
+    },
+    style: {
+      width: '55px',
+      height: '55px'
+    },
+    color: 'primary',
+    variant: 'contained'
   };
 
   const clearSearchButtonProps = {
-    name: 'Clear Search Results',
+    label: 'Clear Search Results',
     id: 'Clear Search Results',
     onClick: () => {dispatch(ingredientFetcher(showFood))},
   };
 
   const exploreDrinksProps = {
     id: "Explore Drinks",
-    name: "Explore Drinks",
     onClick: () => {
       setShowFood(false);
     },
+    variant: 'contained',
+    color: 'primary',
   };
 
   const exploreFoodsProps = {
     id: "Explore Foods",
-    name: "Explore Foods",
     onClick: () => {
       setShowFood(true);
       setSearchIng('');
     },
+    variant: 'contained',
+    color: 'primary',
   };
 
   const exploreOptionsProps = {
@@ -91,13 +98,13 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
 
   return(
     <div>
-      <Button {...exploreDrinksProps} />
-      <Button {...exploreFoodsProps} />
+      <Button {...exploreDrinksProps} >Explore drinks</Button>
+      <Button {...exploreFoodsProps} >Explore Foods</Button>
       {!loading && <RadioButton {...exploreOptionsProps} />}
       {
         selectedRadioOption === 'Ingredients' && !loading && <div>
-          <Input {...searchIngredientsProps} />
-          <Button {...searchButtonProps} />
+          <TextField {...searchIngredientsProps} />
+          <Button {...searchButtonProps} ><SearchIcon /></Button>
           <Button {...clearSearchButtonProps} />
         </div>
       }

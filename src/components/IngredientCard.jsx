@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from "@material-ui/core";
 import { recipesByIngredients } from "../redux/actions/mainPage";
 
-const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
+const IngredientCard = ({ isItFood, ingredient }) => {
   const ingredientIMG = `https://www.themealdb.com/images/ingredients/${ingredient}.png`;
 
   const dispatch = useDispatch();
@@ -16,9 +16,8 @@ const IngredientCard = ({ isItFood, ingredient, loadSelectedRecipes }) => {
     size: 'large',
     style: {
       margin: '10px',
-      
-    }
-  }
+    },
+  };
 
   return(
     <Card style={{ maxWidth: '200px', height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
