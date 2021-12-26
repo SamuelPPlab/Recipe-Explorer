@@ -3,28 +3,25 @@ import mealIcon from '../images/mealIcon.svg';
 import { useDispatch } from 'react-redux';
 import drinkIcon from '../images/drinkIcon.svg';
 import { swapMainPage } from "../redux/actions/mainPage";
-import Button from "./Button";
+import LocalBarIcon from '@material-ui/icons/LocalBar';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
+import { Button } from "@material-ui/core";
 
 const SwitchMainPage = ({ isItFood }) => {
-  const mealImage = <img src={mealIcon} alt="meal Icon" style={{ width: '50px' }} />;
-  const drinkImage = <img src={drinkIcon} alt="explore Icon" style={{ width: '50px' }} />;
-
-  const [buttonName, setButtonName] = useState(isItFood ? drinkImage : mealImage);
   const dispatch = useDispatch();
-  const handleSwitch = () => {
-    setButtonName(isItFood ? mealImage : drinkImage);
-    dispatch(swapMainPage());
-  };
 
   const switchMainPageProps = {
-    name: buttonName,
-    onClick: handleSwitch,
+    onClick: () => dispatch(swapMainPage()),
     id: 'switch',
-    type: "button",
+    variant: 'contained',
+    size: 'large',
+    color: 'primary',
   };
 
   return(
-    <Button {...switchMainPageProps} />
+    <Button {...switchMainPageProps} >
+      { isItFood ? <LocalBarIcon fontSize="large"/> : <FastfoodIcon fontSize="large" /> }
+    </Button>
   );
 };
 
