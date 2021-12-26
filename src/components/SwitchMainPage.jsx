@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import mealIcon from '../images/mealIcon.svg';
+import React from "react";
 import { useDispatch } from 'react-redux';
-import drinkIcon from '../images/drinkIcon.svg';
 import { swapMainPage } from "../redux/actions/mainPage";
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
@@ -19,8 +17,8 @@ const SwitchMainPage = ({ isItFood }) => {
   };
 
   return(
-    <Button {...switchMainPageProps} >
-      { isItFood ? <LocalBarIcon fontSize="large"/> : <FastfoodIcon fontSize="large" /> }
+    <Button style={{ width: '50px', height: '50px' }} {...switchMainPageProps} >
+      {isItFood ? <LocalBarIcon fontSize="large"/> : <FastfoodIcon fontSize="large" />}
     </Button>
   );
 };
