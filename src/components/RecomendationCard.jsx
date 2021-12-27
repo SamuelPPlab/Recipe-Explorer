@@ -1,29 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import Button from "./Button";
+import { Card, CardContent, CardMedia, Typography, Button, CardActions } from "@material-ui/core";
 import { waitRedirect } from "../redux/actions/detailPage";
 
 const RecomendationCard = ({ image, name, id, isItFood, handleClick }) => {
   const dispatch = useDispatch();
 
   const goToRecipeButtonProps = {
-    name: 'More Details',
+    href: isItFood ? `/drinks/${id}` : `/foods/${id}`,
     id: 'More Details Button',
     onClick: () => {
       handleClick();
       dispatch(waitRedirect());
     },
+    variant: "contained",
+    color: "primary",
+    fullWidth: true,
   };
 
   return(
-    <div style={{ width: '400px', textAlign: 'center' }}>
-      <img src={image} style={{ width: '400px' }} alt={name} />
-      <h3 style={{ textAlign: 'center' }} >{name}</h3>
-      <Link to={isItFood ? `/drinks/${id}` : `/foods/${id}`}>
-        <Button {...goToRecipeButtonProps} />
-      </Link>
-    </div>
+    <Card style={{ width: '400px', textAlign: 'center' }}>
+      <CardMedia
+        component="img"
+        alt={name}
+        image={image}
+      />
+      <CardContent>
+        <Typography variant="h5">
+          {name}
+        </Typography>
+      </CardContent>
+      <CardActions style={{ display: 'flex', justifyContent: 'center' }}>
+        <Button {...goToRecipeButtonProps}>
+          More details
+        </Button>
+      </CardActions>
+    </Card>
   );
 }
 
