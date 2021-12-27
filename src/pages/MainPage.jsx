@@ -79,8 +79,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </Grid>
-      <Pagination count={Math.round(length / 10)} />
-      <Paginator {...paginatorProps} />
+      <Pagination count={Math.round(length / 10)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), 10))} />
     </div>
   );
 };
