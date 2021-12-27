@@ -37,7 +37,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
             alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
           }
         </Grid>
-        {ingredients && <Pagination count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changeIngredientPage(parseInt(innerText), pageSize))} />}
+        {ingredients && <Pagination hideNextButton hidePrevButton size="large" count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changeIngredientPage(parseInt(innerText), pageSize))} /> }
       </div>
     </div>
   );

@@ -81,7 +81,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </Grid>
-      <Pagination count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), pageSize))} />
+      <Pagination size="large" hideNextButton hidePrevButton count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), pageSize))} />
     </div>
   );
 };
