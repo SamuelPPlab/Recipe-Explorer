@@ -18,7 +18,7 @@ const shouldNotLoadMainRecipes = () => ({ type: SHOULD_NOT_LOAD_MAIN_RECIPES });
 
 const error = (error) => ({ type: ERROR, error });
 
-export const changePage = (newPage) => ({ type: CHANGE_PAGE, newPage });
+export const changePage = (newPage, pageSize) => ({ type: CHANGE_PAGE, newPage, pageSize });
  
 export const shouldLoadMainRecipes = () => ({ type: SHOULD_LOAD_MAIN_RECIPES });
 

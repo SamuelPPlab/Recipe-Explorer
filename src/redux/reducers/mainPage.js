@@ -15,7 +15,7 @@ const INITIAL_STATE = {
 };
 
 const mainPageReducer = (state = INITIAL_STATE, action) => {
-  const { list, error, newPage, isSearchResult } = action;
+  const { list, error, newPage, isSearchResult, pageSize } = action;
   const { isItFood } = state;
 
   switch(action.type) {
@@ -23,7 +23,7 @@ const mainPageReducer = (state = INITIAL_STATE, action) => {
       return { ...state, loading: true };
     case SUCCESS:
       const apiResponse = list && list.map((recipe) => mainPageData(recipe));
-      return { ...state, apiResponse, recipeList: apiResponse && apiResponse.slice(0, 15), loading: false, isSearchResult };
+      return { ...state, apiResponse, recipeList: apiResponse && apiResponse.slice(0, 10), loading: false, isSearchResult };
     case SHOULD_NOT_LOAD_MAIN_RECIPES:
       return { ...state, loading: true, shouldReloadRecipes: false };
     case SHOULD_LOAD_MAIN_RECIPES:
@@ -33,7 +33,7 @@ const mainPageReducer = (state = INITIAL_STATE, action) => {
     case SWAP_MAIN_PAGE:
       return { ...state, isItFood: !isItFood, loading: true };
     case CHANGE_PAGE:
-      return { ...state, currentPage: newPage, recipeList: state.apiResponse.slice((newPage - 1) * 15, newPage * 15) };
+      return { ...state, currentPage: newPage, recipeList: state.apiResponse.slice((newPage - 1) * pageSize, newPage * pageSize) };
     default:
       return state;
   };

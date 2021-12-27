@@ -12,6 +12,7 @@ import Categories from "../components/Categories";
 import Paginator from "../components/Paginator";
 import ExploreLinks from "../components/ExploreLinks";
 import { useLocation } from "react-router-dom";
+import Pagination from '@material-ui/lab/Pagination';
 import { Grid } from "@material-ui/core";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
@@ -46,6 +47,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   
   const paginatorProps = {
     length: length,
+    pageSize: 10,
     pageChanger: (newPage) => dispatch(changePage(newPage)),
     scrollToTop: true,
   };
@@ -77,6 +79,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </Grid>
+      <Pagination count={Math.round(length / 10)} />
       <Paginator {...paginatorProps} />
     </div>
   );
