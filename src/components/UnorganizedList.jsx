@@ -1,17 +1,22 @@
 import React from "react";
+import { List, ListItem, ListItemIcon } from "@material-ui/core";
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 const UnorganizedList = ({ texts }) => {
   return (
-    <ul>
-    {
-      texts.map((text, index) => (
-        <li key={`${text}${index}`}>
-          {text}
-        </li>
-      ))
-    }
-    </ul>
+    <List>
+      {
+        texts.map((text, index) => (
+          <ListItem key={`${text}${index}`}>
+            <ListItemIcon>
+              <KeyboardArrowRightIcon color="primary" />
+            </ListItemIcon>
+            {text}
+          </ListItem>
+        ))
+      }
+    </List>
   );
-}
+};
 
 export default UnorganizedList;
