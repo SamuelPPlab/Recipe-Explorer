@@ -7,7 +7,7 @@ import { getLocalStorageKey } from "../services/localStorage";
 import { resetId } from "../redux/actions/detailPage";
 import { useLocation } from "react-router-dom";
 import UnorganizedList from "../components/UnorganizedList";
-import Button from "../components/Button";
+import { Button } from "@material-ui/core";
 import useLoadDetails from "../customHooks/useLoadDetails";
 import ShareMenu from "../components/ShareMenu";
 import Recomendations from "../components/Recomendations";
@@ -45,9 +45,11 @@ const RecipeDetails = ({ ingredients, loading, measures, isItFood, swapMain, foo
   const texts = !loading && ingredientAndMeasures(ingredients, measures);
 
   const startRecipeButtonProps = {
-    name: inProgress[id] ? "Continue Cooking" : "Start Recipe",
     id: "start recipe",
     onClick: () => setStartRecipe(!startRecipe),
+    color: "primary",
+    variant: "contained",
+    fullWidth: true,
   };
 
   return(
@@ -57,7 +59,9 @@ const RecipeDetails = ({ ingredients, loading, measures, isItFood, swapMain, foo
         <UnorganizedList texts={texts} />
       </MainRecipeDetails>
       <Recomendations pathname={pathname} />
-      <Button {...startRecipeButtonProps} />
+      <Button {...startRecipeButtonProps}>
+        {inProgress[id] ? "Continue Cooking" : "Start Recipe"}
+      </Button>
     </div>
   );
 };
