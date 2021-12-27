@@ -1,7 +1,8 @@
+import { Grid } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
-import Paginator from "../components/Paginator";
 import { fetchSixRandomRecipes, setSuggestionsBasedOnUser } from "../redux/actions/detailPage";
 import { swapMainPage } from "../redux/actions/mainPage";
 import Loading from "./Loading";
@@ -55,12 +56,11 @@ const Recomendations = ({ recomendations, isItFood, foods, drinks }) => {
 
   return(
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-          {
-            recipesShowing.map(({ name, image, isAlcoholic, category, id }) => (
+      <Grid container spacing={2}>
+        {
+          recipesShowing.map(({ name, image, isAlcoholic, category, id }) => (
+            <Grid item key={name}>
               <RecomendationCard
-                key={name}
                 id={id}
                 isItFood={isItFood}
                 name={name}
@@ -69,13 +69,11 @@ const Recomendations = ({ recomendations, isItFood, foods, drinks }) => {
                 category={category}
                 handleClick={() => dispatch(swapMainPage())}
               />
-            ))
-          }
-        </div>
-      </div>
-      <div>
-        <Paginator length={length} pageChanger={changeRecipes} pageSize={2} />
-      </div>
+            </Grid>
+          ))
+        }
+      </Grid>
+      <Pagination size="large" hidePrevButton hideNextButton count={Math.ceil(length / 2)} onClick={({ target: { innerText } }) => changeRecipes(parseInt(innerText))} />
     </div>
   );
 };

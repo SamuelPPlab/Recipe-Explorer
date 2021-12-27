@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Card, CardContent, CardMedia, Typography, Button, CardActions } from "@material-ui/core";
 import { waitRedirect } from "../redux/actions/detailPage";
