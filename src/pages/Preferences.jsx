@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import { Button, FormControl, FormControlLabel, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
+import { Button, FormControl, FormControlLabel, Checkbox, InputAdornment, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { areaFetcher } from "../redux/actions/explorePage";
 import { ageValidator } from "../services/formValidation";
 import Cake from '@material-ui/icons/Cake';
 import { getLocalStorageKey } from "../services/localStorage";
-import Checkbox from "../components/Checkbox";
 
 const Preferences = ({ countries }) => {
   const dispatch = useDispatch()

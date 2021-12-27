@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
-const CheckboxItem = ({ text }) => {
+const CheckboxItem = ({ text, onChange }) => {
   const [checked, setChecked] = useState(false);
 
   return (
@@ -10,12 +10,16 @@ const CheckboxItem = ({ text }) => {
       control={
         <Checkbox
           checked={checked}
-          onChange={() => setChecked(!checked)}
+          disabled={checked}
+          onChange={() => {
+            onChange();
+            setChecked(!checked);
+          }}
           color="primary"
         />
       }
     />
   );
-}
+};
 
 export default CheckboxItem;

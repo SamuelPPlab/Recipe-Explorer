@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { mapDetailsStateToProps } from "../services/mapDetailsStateToProps";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey, saveCheckedItem, saveCookedDate } from "../services/localStorage";
-import { Checkbox, FormControlLabel, List, ListItem, ListItemIcon } from "@material-ui/core";
+import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import { progressChecker } from "../services/progressChecker";
 import { Navigate } from "react-router";
 import { useLocation } from "react-router-dom";
@@ -12,6 +12,7 @@ import useLoadDetails from "../customHooks/useLoadDetails";
 import Loading from "../components/Loading";
 import Button from "../components/Button";
 import ShareMenu from "../components/ShareMenu";
+import CheckboxItem from "../components/CheckboxItem";
 
 const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
 
@@ -26,6 +27,7 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
   const handleChange = (value) => {
     saveCheckedItem(id, value, name, image, isFood);
     const inProgress = getLocalStorageKey('inProgressRecipes')[id].boughtIngredients;
+    console.log(progressChecker(ingredients, inProgress))
     setLock(!progressChecker(ingredients, inProgress));
   };
 
@@ -48,12 +50,6 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
     saveCookedDate(id);
   };
 
-  const checkboxProps = {
-    onChange: (value) => handleChange(value),
-    disable: true,
-    crossOut: true,
-  };
-
   const finishRecipeProps = {
     id: "finish",
     disabled: lock,
@@ -67,15 +63,11 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
         <ShareMenu id={id} pathname={pathname} />
         <List>
           {
-            texts.map((text) => {
-              <ListItem>
-                <ListItemIcon>
-                  <Checkbox
-                    checked
-                  />
-                </ListItemIcon>
+            texts.map((text) => (
+              <ListItem key={text}>
+                <CheckboxItem text={text.toUpperCase()} onChange={() => handleChange(text)} />
               </ListItem>
-            })
+            ))
           }
         </List>
       </MainRecipeDetails>
