@@ -8,7 +8,6 @@ const FavoriteButton = ({ id }) => {
   const currentRecipe = getLocalStorageKey('inProgressRecipes');
   const favorite = currentRecipe[id] ? currentRecipe[id].favorite : false;
 
-
   const [fav, setFav] = useState(favorite);
 
   return (
@@ -20,7 +19,7 @@ const FavoriteButton = ({ id }) => {
       color="primary"
       variant="outlined"
     >
-      {favorite ? <FavoriteIcon fontSize="large" /> : <FavoriteBorderIcon fontSize="large" />}
+      {favorite ? <FavoriteIcon color="error" fontSize="large" /> : <FavoriteBorderIcon color="error" fontSize="large" />}
     </Button>
   );
 };
