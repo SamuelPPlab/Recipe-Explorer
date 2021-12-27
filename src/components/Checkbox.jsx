@@ -1,29 +1,21 @@
 import React, { useState } from "react";
-import '../css/crossOutText.css'
+import { FormControlLabel, Checkbox } from "@material-ui/core";
 
-const Checkbox = ({ text, onChange = null, startChecked = false, crossOut = false, disable = false }) => {
-  const [checked, setChecked] = useState(startChecked);
-  const classCSS = checked ? 'crossedOutText' : 'normalText';
-
-  const inputProps = {
-    id: text,
-    disabled: disable && checked,
-    type: "checkbox",
-    checked: checked,
-    onChange: ({ target }) => {
-      setChecked(!checked);
-      onChange && onChange(target.id);
-    }
-  };
+const CheckboxItem = ({ text }) => {
+  const [checked, setChecked] = useState(false);
 
   return (
-    <div>
-      <label htmlFor={text} className={ crossOut ? classCSS : ''} >
-        <input {...inputProps} />
-        {text}
-      </label>
-    </div>
+    <FormControlLabel
+      label={text}
+      control={
+        <Checkbox
+          checked={checked}
+          onChange={() => setChecked(!checked)}
+          color="primary"
+        />
+      }
+    />
   );
 }
 
-export default Checkbox;
+export default CheckboxItem;

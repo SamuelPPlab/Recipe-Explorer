@@ -3,13 +3,12 @@ import { connect } from "react-redux";
 import { mapDetailsStateToProps } from "../services/mapDetailsStateToProps";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey, saveCheckedItem, saveCookedDate } from "../services/localStorage";
-import { isItemChecked } from "../services/isItemChecked";
+import { Checkbox, FormControlLabel, List, ListItem, ListItemIcon } from "@material-ui/core";
 import { progressChecker } from "../services/progressChecker";
 import { Navigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import useLoadDetails from "../customHooks/useLoadDetails";
-import Checkbox from "../components/Checkbox";
 import Loading from "../components/Loading";
 import Button from "../components/Button";
 import ShareMenu from "../components/ShareMenu";
@@ -55,16 +54,6 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
     crossOut: true,
   };
 
-  const ingredientList = texts.map((text, index) => {
-    checkboxProps.startChecked = isItemChecked(text, id);
-    checkboxProps.text = text;
-    return (
-      <div key={`${index}${index}`}>
-        <Checkbox {...checkboxProps} />
-      </div>
-    );
-  });
-
   const finishRecipeProps = {
     id: "finish",
     disabled: lock,
@@ -76,7 +65,19 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
     <div>
       <MainRecipeDetails pathname={pathname} >
         <ShareMenu id={id} pathname={pathname} />
-        {ingredientList}
+        <List>
+          {
+            texts.map((text) => {
+              <ListItem>
+                <ListItemIcon>
+                  <Checkbox
+                    checked
+                  />
+                </ListItemIcon>
+              </ListItem>
+            })
+          }
+        </List>
       </MainRecipeDetails>
       <Button {...finishRecipeProps} />
     </div>
