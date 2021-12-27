@@ -58,6 +58,8 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
     title: isItFood ? 'Food Recipes' : 'Drinks',
   };
 
+  const pageSize = 10;
+
   return(
     <div>
       <Header {...headerProps} />
@@ -79,7 +81,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </Grid>
-      <Pagination count={Math.round(length / 10)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), 10))} />
+      <Pagination count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), pageSize))} />
     </div>
   );
 };
