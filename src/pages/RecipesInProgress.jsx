@@ -3,14 +3,13 @@ import { connect } from "react-redux";
 import { mapDetailsStateToProps } from "../services/mapDetailsStateToProps";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey, saveCheckedItem, saveCookedDate } from "../services/localStorage";
-import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import { Button, List, ListItem } from "@material-ui/core";
 import { progressChecker } from "../services/progressChecker";
 import { Navigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import useLoadDetails from "../customHooks/useLoadDetails";
 import Loading from "../components/Loading";
-import Button from "../components/Button";
 import ShareMenu from "../components/ShareMenu";
 import CheckboxItem from "../components/CheckboxItem";
 
@@ -53,7 +52,10 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
     id: "finish",
     disabled: lock,
     onClick: () => handleClick(),
-    name: "Finish Recipe",
+    color: 'primary',
+    variant: 'contained',
+    size: 'large',
+    fullWidth: true
   };
 
   return(
@@ -62,15 +64,17 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
         <ShareMenu id={id} pathname={pathname} />
         <List>
           {
-            texts.map((text) => (
-              <ListItem key={text}>
+            texts.map((text, index) => (
+              <ListItem key={`${text}${index}`}>
                 <CheckboxItem text={text.toUpperCase()} startChecked={inProgress.includes(text)} onChange={() => handleChange(text)} />
               </ListItem>
             ))
           }
         </List>
       </MainRecipeDetails>
-      <Button {...finishRecipeProps} />
+      <Button {...finishRecipeProps}>
+        Finish Recipe
+      </Button>
     </div>
   );
 };
