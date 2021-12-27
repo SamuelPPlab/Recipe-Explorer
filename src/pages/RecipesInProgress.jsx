@@ -31,10 +31,10 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
   };
 
   const localStorageData = getLocalStorageKey('inProgressRecipes');
-  const currentRecipes = localStorageData[id] !== undefined ? localStorageData[id].boughtIngredients : [];
+  const inProgress = localStorageData[id] ? localStorageData[id].boughtIngredients : [];
   useEffect(() => {
     if(!loading) {
-      setLock(!progressChecker(ingredients, currentRecipes));
+      setLock(!progressChecker(ingredients, inProgress));
     }
   }, [loading, id, ingredients]);
 
@@ -64,7 +64,7 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
           {
             texts.map((text) => (
               <ListItem key={text}>
-                <CheckboxItem text={text.toUpperCase()} onChange={() => handleChange(text)} />
+                <CheckboxItem text={text.toUpperCase()} startChecked={inProgress.includes(text)} onChange={() => handleChange(text)} />
               </ListItem>
             ))
           }
