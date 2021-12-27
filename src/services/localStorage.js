@@ -1,10 +1,10 @@
 import { template } from './localStorageRecipeTemplate';
 
 export const getLocalStorageKey = (key) => {
-  const doesKeyExist = JSON.parse(localStorage.getItem(key));
-
-  if(!doesKeyExist) {
-    localStorage.setItem(key, '[]');
+  const doesKeyExist = localStorage.getItem(key);
+  if(doesKeyExist !== null) {
+    console.log(doesKeyExist)
+    localStorage.setItem(key, JSON.stringify([]));
   } 
   return JSON.parse(localStorage.getItem(key));
 };
@@ -12,6 +12,7 @@ export const getLocalStorageKey = (key) => {
 export const saveCheckedItem = (id, item, name, image, isFood) => {
   const IPR = getLocalStorageKey('inProgressRecipes');
   // IPR = in progress recipes
+
   const RDE = IPR[id]
   ? { ...IPR[id], boughtIngredients: [...IPR[id].boughtIngredients, item], name, image }
   : { ...template, name, image, boughtIngredients: [item], isFood };

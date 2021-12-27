@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { FormControlLabel, Checkbox } from "@material-ui/core";
 
-const CheckboxItem = ({ text, onChange }) => {
-  const [checked, setChecked] = useState(false);
+const CheckboxItem = ({ text, onChange, startChecked }) => {
+  const [checked, setChecked] = useState(startChecked);
 
   return (
     <FormControlLabel

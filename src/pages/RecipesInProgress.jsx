@@ -27,15 +27,14 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
   const handleChange = (value) => {
     saveCheckedItem(id, value, name, image, isFood);
     const inProgress = getLocalStorageKey('inProgressRecipes')[id].boughtIngredients;
-    console.log(progressChecker(ingredients, inProgress))
     setLock(!progressChecker(ingredients, inProgress));
   };
 
+  const localStorageData = getLocalStorageKey('inProgressRecipes');
+  const currentRecipes = localStorageData[id] !== undefined ? localStorageData[id].boughtIngredients : [];
   useEffect(() => {
-    const localStorageData = getLocalStorageKey('inProgressRecipes');
-    const inProgress = localStorageData[id] ? localStorageData[id].boughtIngredients : [];
     if(!loading) {
-      setLock(!progressChecker(ingredients, inProgress));
+      setLock(!progressChecker(ingredients, currentRecipes));
     }
   }, [loading, id, ingredients]);
 
