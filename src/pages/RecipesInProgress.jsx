@@ -3,16 +3,15 @@ import { connect } from "react-redux";
 import { mapDetailsStateToProps } from "../services/mapDetailsStateToProps";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey, saveCheckedItem, saveCookedDate } from "../services/localStorage";
-import { isItemChecked } from "../services/isItemChecked";
+import { Button, List, ListItem } from "@material-ui/core";
 import { progressChecker } from "../services/progressChecker";
 import { Navigate } from "react-router";
 import { useLocation } from "react-router-dom";
 import MainRecipeDetails from "../components/MainRecipeDetails";
 import useLoadDetails from "../customHooks/useLoadDetails";
-import Checkbox from "../components/Checkbox";
 import Loading from "../components/Loading";
-import Button from "../components/Button";
 import ShareMenu from "../components/ShareMenu";
+import CheckboxItem from "../components/CheckboxItem";
 
 const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
 
@@ -30,9 +29,9 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
     setLock(!progressChecker(ingredients, inProgress));
   };
 
+  const localStorageData = getLocalStorageKey('inProgressRecipes');
+  const inProgress = localStorageData[id] ? localStorageData[id].boughtIngredients : [];
   useEffect(() => {
-    const localStorageData = getLocalStorageKey('inProgressRecipes');
-    const inProgress = localStorageData[id] ? localStorageData[id].boughtIngredients : [];
     if(!loading) {
       setLock(!progressChecker(ingredients, inProgress));
     }
@@ -49,36 +48,33 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
     saveCookedDate(id);
   };
 
-  const checkboxProps = {
-    onChange: (value) => handleChange(value),
-    disable: true,
-    crossOut: true,
-  };
-
-  const ingredientList = texts.map((text, index) => {
-    checkboxProps.startChecked = isItemChecked(text, id);
-    checkboxProps.text = text;
-    return (
-      <div key={`${index}${index}`}>
-        <Checkbox {...checkboxProps} />
-      </div>
-    );
-  });
-
   const finishRecipeProps = {
     id: "finish",
     disabled: lock,
     onClick: () => handleClick(),
-    name: "Finish Recipe",
+    color: 'primary',
+    variant: 'contained',
+    size: 'large',
+    fullWidth: true
   };
 
   return(
     <div>
       <MainRecipeDetails pathname={pathname} >
         <ShareMenu id={id} pathname={pathname} />
-        {ingredientList}
+        <List>
+          {
+            texts.map((text, index) => (
+              <ListItem key={`${text}${index}`}>
+                <CheckboxItem text={text.toUpperCase()} startChecked={inProgress.includes(text)} onChange={() => handleChange(text)} />
+              </ListItem>
+            ))
+          }
+        </List>
       </MainRecipeDetails>
-      <Button {...finishRecipeProps} />
+      <Button {...finishRecipeProps}>
+        Finish Recipe
+      </Button>
     </div>
   );
 };

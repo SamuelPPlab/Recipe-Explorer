@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import React from "react";
 import { connect } from "react-redux";
 import { countryFlags } from "../services/countryFlags";
@@ -15,16 +16,24 @@ const MainRecipeDetails = ({ loading, recipe:
   return(
     <div style={{ width: '50%' }}>
       <img src={image} alt={name} />
-      <h1>{name}</h1>
+      <Typography variant="h1">
+        {name}
+      </Typography>
       {area && <img src={countryFlags[area]} alt={`${area} flag`} />}
-      {area && <p>{category}</p>}
-      {isAlcoholic}
+      {area && <Typography variant="h5">
+        {category}
+      </Typography> }
+      <Typography variant="subtitle1">
+        {isAlcoholic}
+      </Typography>
       {children}
-      <p>{instructions}</p>
+      <Typography variant="body2">
+        {instructions}
+      </Typography>
       {(video) && videoEmbeder(video)}
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = ({ detailReducer }) => ({
   loading: detailReducer.loading,

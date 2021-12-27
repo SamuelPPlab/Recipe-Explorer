@@ -4,25 +4,23 @@ import { Navigate } from "react-router";
 import { connect, useDispatch } from "react-redux";
 import { ingredientAndMeasures } from "../services/ingredientAndMeasureConcatenator";
 import { getLocalStorageKey } from "../services/localStorage";
-import { fetchSixRandomRecipes, resetId, setSuggestionsBasedOnUser } from "../redux/actions/detailPage";
+import { resetId } from "../redux/actions/detailPage";
 import { useLocation } from "react-router-dom";
 import UnorganizedList from "../components/UnorganizedList";
-import Button from "../components/Button";
+import { Button } from "@material-ui/core";
 import useLoadDetails from "../customHooks/useLoadDetails";
 import ShareMenu from "../components/ShareMenu";
 import Recomendations from "../components/Recomendations";
 import { swapMainPage } from "../redux/actions/mainPage";
 import useLoadSuggestions from "../customHooks/useLoadSuggestions";
 
-const RecipeDetails = ({ ingredients, loading, measures,
-  getRandomRecomendations, isItFood, swapMain, foods, drinks }) => {
+const RecipeDetails = ({ ingredients, loading, measures, isItFood, swapMain, foods, drinks }) => {
 
   const { pathname } = useLocation();
 
   const [startRecipe, setStartRecipe] = useState(false);
   const id = pathname.split('/')[2];
   const inProgress = getLocalStorageKey('inProgressRecipes');
-  const [surpriseMe, setSurpriseMe] = useState(false);
 
   useLoadDetails(pathname);
   useLoadSuggestions(foods, drinks);
@@ -36,29 +34,6 @@ const RecipeDetails = ({ ingredients, loading, measures,
     }
   }, [isItFood, swapMain, dispatch, pathnameIsFood]);
 
-  const getRandomArrayItem = (array, index) => (array[index]);
-
-  useEffect(() => {
-    if(surpriseMe) {
-      dispatch(fetchSixRandomRecipes(!isItFood));
-    }
-
-    if(!surpriseMe && foods && drinks) {
-      const recomendations = [];
-      let suggestionPool = isItFood ? drinks : foods;
-      const removeItemfromSuggestion = (index) => (
-        suggestionPool = suggestionPool.filter((currentItem) =>
-          (currentItem !== suggestionPool[index]))
-      );
-      for(let i = 0; i < 6; i += 1) {
-        const randomIndex = Math.floor(Math.random() * suggestionPool.length);
-        recomendations.push(getRandomArrayItem(suggestionPool, randomIndex));
-        removeItemfromSuggestion(randomIndex);
-      }
-      dispatch(setSuggestionsBasedOnUser(recomendations));
-    }
-  }, [pathnameIsFood, getRandomRecomendations, isItFood, surpriseMe, foods, drinks, dispatch]);
-
   useEffect(() => {
     if (id && !loading) {
       dispatch(resetId());
@@ -69,16 +44,12 @@ const RecipeDetails = ({ ingredients, loading, measures,
 
   const texts = !loading && ingredientAndMeasures(ingredients, measures);
 
-  const surpriseMeButtonProps = {
-    name: surpriseMe ? 'See Chosen Suggestions' : 'Get Random Suggestions',
-    id: 'Surprise Button',
-    onClick: () => setSurpriseMe(!surpriseMe),
-  };
-
   const startRecipeButtonProps = {
-    name: inProgress[id] ? "Continue Cooking" : "Start Recipe",
     id: "start recipe",
     onClick: () => setStartRecipe(!startRecipe),
+    color: "primary",
+    variant: "contained",
+    fullWidth: true,
   };
 
   return(
@@ -87,9 +58,10 @@ const RecipeDetails = ({ ingredients, loading, measures,
         <ShareMenu id={id} pathname={pathname} />
         <UnorganizedList texts={texts} />
       </MainRecipeDetails>
-      <Button {...surpriseMeButtonProps} />
       <Recomendations pathname={pathname} />
-      <Button {...startRecipeButtonProps} />
+      <Button {...startRecipeButtonProps}>
+        {inProgress[id] ? "Continue Cooking" : "Start Recipe"}
+      </Button>
     </div>
   );
 };

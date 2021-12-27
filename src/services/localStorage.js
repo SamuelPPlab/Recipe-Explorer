@@ -1,10 +1,9 @@
 import { template } from './localStorageRecipeTemplate';
 
 export const getLocalStorageKey = (key) => {
-  const doesKeyExist = JSON.parse(localStorage.getItem(key));
-
-  if(!doesKeyExist) {
-    localStorage.setItem(key, '[]');
+  const doesKeyExist = localStorage.getItem(key);
+  if(doesKeyExist === null) {
+    localStorage.setItem(key, '{}');
   } 
   return JSON.parse(localStorage.getItem(key));
 };

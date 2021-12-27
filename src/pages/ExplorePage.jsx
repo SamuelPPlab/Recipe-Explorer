@@ -5,9 +5,8 @@ import ExploreHeader from "../components/ExploreHeader";
 import FlagCard from "../components/FlagCard";
 import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
-import Paginator from "../components/Paginator";
-import BackToMain from "../components/BackToMain";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import { Pagination } from "@material-ui/lab";
 
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
 
@@ -19,6 +18,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
   }, [loadIngredients, dispatch]);
 
   const length = apiResponse && apiResponse.length;
+  const pageSize = 14;
 
   return(
     <div style={{ maxWidth: '100vw' }}>
@@ -35,7 +35,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
             alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
           }
         </Grid>
-        {ingredients && <Paginator pageChanger={(newPage) => dispatch(changeIngredientPage(newPage))} length={length} />}
+        {ingredients && <Pagination hideNextButton hidePrevButton size="large" count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changeIngredientPage(parseInt(innerText), pageSize))} /> }
       </div>
     </div>
   );

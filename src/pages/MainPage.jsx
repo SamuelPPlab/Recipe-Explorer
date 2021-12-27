@@ -9,9 +9,9 @@ import Header from "../components/Header";
 import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
-import Paginator from "../components/Paginator";
 import ExploreLinks from "../components/ExploreLinks";
 import { useLocation } from "react-router-dom";
+import Pagination from '@material-ui/lab/Pagination';
 import { Grid } from "@material-ui/core";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
@@ -43,18 +43,14 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   if (!recipeList || recipeList.length < 1) return <NoResults isItFood={isItFood} />;
 
   const length = apiResponse.length;
-  
-  const paginatorProps = {
-    length: length,
-    pageChanger: (newPage) => dispatch(changePage(newPage)),
-    scrollToTop: true,
-  };
 
   const headerProps = {
     isItFood,
     pathname,
     title: isItFood ? 'Food Recipes' : 'Drinks',
   };
+
+  const pageSize = 10;
 
   return(
     <div>
@@ -77,7 +73,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </Grid>
-      <Paginator {...paginatorProps} />
+      <Pagination size="large" hideNextButton hidePrevButton count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), pageSize))} />
     </div>
   );
 };

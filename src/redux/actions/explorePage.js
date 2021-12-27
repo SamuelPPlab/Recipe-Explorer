@@ -40,7 +40,7 @@ const error = (error) => ({
 
 export const ingredientSearch = (query) => ({ type: INGREDIENT_SEARCH, query });
 
-export const changeIngredientPage = (newPage) => ({ type: CHANGE_INGREDIENT_PAGE, newPage });
+export const changeIngredientPage = (newPage, pageSize) => ({ type: CHANGE_INGREDIENT_PAGE, newPage, pageSize });
 
 export const clearState = () => ({ type: CLEAR_STATE });
 

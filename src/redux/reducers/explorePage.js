@@ -20,7 +20,7 @@ const queryFinder = (query, state) => {
 };
 
 const exploreReducer = (state = INITIAL_STATE, action) => {
-  const { ingredients, newPage, query } = action;
+  const { ingredients, newPage, query, pageSize } = action;
   const { apiResponse } = state;
   switch(action.type) {
     case LOADING:
@@ -30,7 +30,7 @@ const exploreReducer = (state = INITIAL_STATE, action) => {
     case SUCCESS_AREAS:
       return { ...INITIAL_STATE, loading: false, areas: action.areas };
     case SUCCESS_INGREDIENTS:
-      return { ...INITIAL_STATE, loading: false, ingredients: ingredients.slice(0, 15), apiResponse: ingredients };
+      return { ...INITIAL_STATE, loading: false, ingredients: ingredients.slice(0, 14), apiResponse: ingredients };
     case CLEAR_STATE:
       return { ...INITIAL_STATE };
     case SUCCESS_GLASSES:
@@ -38,7 +38,7 @@ const exploreReducer = (state = INITIAL_STATE, action) => {
     case SUCCESS_ALCOHOLIC:
       return { ...INITIAL_STATE, loading: false, alcoholicOptions: action.alcoholicOptions };
     case CHANGE_INGREDIENT_PAGE:
-      return { ...state, currentPage: newPage, ingredients: apiResponse.slice((newPage - 1) * 15, newPage * 15) };
+      return { ...state, currentPage: newPage, ingredients: apiResponse.slice((newPage - 1) * pageSize, newPage * pageSize) };
     case INGREDIENT_SEARCH:
       return queryFinder(query, state);
     default:
