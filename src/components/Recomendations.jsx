@@ -1,7 +1,7 @@
-import { Grid } from "@material-ui/core";
-import { Pagination } from "@material-ui/lab";
 import React, { useEffect, useState } from "react";
+import { Pagination } from "@material-ui/lab";
 import { connect, useDispatch } from "react-redux";
+import { Button, Grid } from "@material-ui/core";
 import { useLocation } from "react-router-dom";
 import { fetchSixRandomRecipes, setSuggestionsBasedOnUser } from "../redux/actions/detailPage";
 import { swapMainPage } from "../redux/actions/mainPage";
@@ -51,11 +51,19 @@ const Recomendations = ({ recomendations, isItFood, foods, drinks }) => {
     setRecipesShowing(recomendations.slice((page - 1) * 2, page * 2));
   };
 
-  if (!recomendations) return <Loading />
+  if (!recomendations) return <Loading />;
+
   const length = recomendations.length;
 
   return(
     <div>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setSurpriseMe(!surpriseMe)}
+      >
+        {surpriseMe ? "See chosen suggestions" : "See random suggestions"}
+      </Button>
       <Grid container spacing={2}>
         {
           recipesShowing.map(({ name, image, isAlcoholic, category, id }) => (
