@@ -9,7 +9,6 @@ import Header from "../components/Header";
 import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
-import Paginator from "../components/Paginator";
 import ExploreLinks from "../components/ExploreLinks";
 import { useLocation } from "react-router-dom";
 import Pagination from '@material-ui/lab/Pagination';
@@ -44,13 +43,6 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   if (!recipeList || recipeList.length < 1) return <NoResults isItFood={isItFood} />;
 
   const length = apiResponse.length;
-  
-  const paginatorProps = {
-    length: length,
-    pageSize: 10,
-    pageChanger: (newPage) => dispatch(changePage(newPage)),
-    scrollToTop: true,
-  };
 
   const headerProps = {
     isItFood,

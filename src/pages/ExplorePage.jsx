@@ -5,8 +5,6 @@ import ExploreHeader from "../components/ExploreHeader";
 import FlagCard from "../components/FlagCard";
 import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
-import Paginator from "../components/Paginator";
-import BackToMain from "../components/BackToMain";
 import { Grid } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 

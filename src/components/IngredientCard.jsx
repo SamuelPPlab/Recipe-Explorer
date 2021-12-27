@@ -20,7 +20,7 @@ const IngredientCard = ({ isItFood, ingredient }) => {
   };
 
   return(
-    <Card style={{ maxWidth: '200px', height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <Card style={{ maxWidth: '200px', height: '410px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <CardMedia
         component="img"
         style={{ width: '200px', marginTop: '10px' }}
