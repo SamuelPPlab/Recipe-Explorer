@@ -21,7 +21,6 @@ const RecipeDetails = ({ ingredients, loading, measures, isItFood, swapMain, foo
   const [startRecipe, setStartRecipe] = useState(false);
   const id = pathname.split('/')[2];
   const inProgress = getLocalStorageKey('inProgressRecipes');
-  const [surpriseMe, setSurpriseMe] = useState(false);
 
   useLoadDetails(pathname);
   useLoadSuggestions(foods, drinks);

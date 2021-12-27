@@ -11,7 +11,7 @@ const UnorganizedList = ({ texts }) => {
             <ListItemIcon>
               <KeyboardArrowRightIcon color="primary" />
             </ListItemIcon>
-            {text}
+            {text.toUpperCase()}
           </ListItem>
         ))
       }
