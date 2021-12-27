@@ -1,30 +1,27 @@
 import React, { useState } from "react";
-import blackHeartIcon from "../images/blackHeartIcon.svg";
-import whiteHeartIcon from "../images/whiteHeartIcon.svg";
 import { getLocalStorageKey, setFavorite } from "../services/localStorage";
-import Button from "./Button";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Button } from "@material-ui/core";
 
 const FavoriteButton = ({ id }) => {
   const currentRecipe = getLocalStorageKey('inProgressRecipes');
   const favorite = currentRecipe[id] ? currentRecipe[id].favorite : false;
 
-  const whiteHeart = <img src={whiteHeartIcon} alt="white heart" style={{ width: '50px'}} />;
-  const blackHeart = <img src={blackHeartIcon} alt="black heart" style={{ width: '50px'}} />;
 
   const [fav, setFav] = useState(favorite);
 
-  const favButtonProps = {
-    type: "button",
-    id: "favorite",
-    name: fav ? blackHeart : whiteHeart,
-    onClick: () => {
-      setFavorite(id, favorite);
-      setFav(!fav);
-    },
-  };
-
   return (
-    <Button {...favButtonProps} />
+    <Button
+      onClick={() => {
+        setFavorite(id, favorite);
+        setFav(!fav);
+      }}
+      color="primary"
+      variant="outlined"
+    >
+      {favorite ? <FavoriteIcon fontSize="large" /> : <FavoriteBorderIcon fontSize="large" />}
+    </Button>
   );
 };
 
