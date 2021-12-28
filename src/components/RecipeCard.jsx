@@ -43,9 +43,6 @@ const useStyles = makeStyles(() => {
         margin: '0',
         fontFamily: `'Russo One', sans-serif;`,
         color: '#424242',
-        overflow: 'hidden',
-        textOverflow: 'clip',
-        whiteSpace: 'break-spaces',
       }
     }
   );
