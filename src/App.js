@@ -11,24 +11,32 @@ import ExplorePage from './pages/ExplorePage';
 import Preferences from './pages/Preferences';
 import Suggestions from './pages/Suggestions';
 import SignupPage from './pages/SignupPage';
+import { createTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core';
 import './App.css';
+
+const theme = createTheme({
+
+});
 
 function App() {
   return (
-    <Provider store ={ store }>
-      <Routes>
-        <Route exact path="/" element={ <Login /> } />
-        <Route exact path="/main" element={ <MainPage /> } />
-        <Route exact path="/foods/:id" element={ <RecipeDetails /> } />
-        <Route exact path="/drinks/:id" element={  <RecipeDetails /> } />
-        <Route exact path="/drinks/:id/in-progress" element={ <RecipesInProgress /> } />
-        <Route exact path="/foods/:id/in-progress" element={ <RecipesInProgress /> } />
-        <Route exact path="/done-recipes" element={ <DoneRecipes /> } />
-        <Route exact path="/explore" element={ <ExplorePage /> } />
-        <Route exact path="/preferences" element={ <Preferences /> } />
-        <Route exact path="/suggestions" element={ <Suggestions /> } />
-        <Route exact path="/signup" element={ <SignupPage /> } />
-      </Routes>
+    <Provider store ={store}>
+      <ThemeProvider theme={theme}>
+        <Routes>
+          <Route exact path="/" element={ <Login /> } />
+          <Route exact path="/main" element={ <MainPage /> } />
+          <Route exact path="/foods/:id" element={ <RecipeDetails /> } />
+          <Route exact path="/drinks/:id" element={  <RecipeDetails /> } />
+          <Route exact path="/drinks/:id/in-progress" element={ <RecipesInProgress /> } />
+          <Route exact path="/foods/:id/in-progress" element={ <RecipesInProgress /> } />
+          <Route exact path="/done-recipes" element={ <DoneRecipes /> } />
+          <Route exact path="/explore" element={ <ExplorePage /> } />
+          <Route exact path="/preferences" element={ <Preferences /> } />
+          <Route exact path="/suggestions" element={ <Suggestions /> } />
+          <Route exact path="/signup" element={ <SignupPage /> } />
+        </Routes>
+      </ThemeProvider>
     </Provider>
   );
 }

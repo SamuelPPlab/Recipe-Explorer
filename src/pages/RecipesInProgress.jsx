@@ -19,8 +19,11 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
   useLoadDetails(pathname);
 
   const id = pathname.split('/')[2];
+
   const [lock, setLock] = useState(true);
   const [redirect, setRedirect] = useState(false);
+  const [inProgress, setInprogress] = useState([]);
+
   const isFood = pathname.includes('foods');
 
   const handleChange = (value) => {
@@ -30,12 +33,17 @@ const RecipesInProgress = ({ loading, ingredients, measures, name, image }) => {
   };
 
   const localStorageData = getLocalStorageKey('inProgressRecipes');
-  const inProgress = localStorageData[id] ? localStorageData[id].boughtIngredients : [];
+
+
+  if(localStorageData[id]) {
+    setInprogress(localStorageData[id].boughtIngredients);
+  }
+
   useEffect(() => {
     if(!loading) {
       setLock(!progressChecker(ingredients, inProgress));
     }
-  }, [loading, id, ingredients]);
+  }, [loading, id, ingredients, inProgress]);
 
   if (loading) return <Loading />;
 

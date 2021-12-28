@@ -60,9 +60,9 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
       <Grid container spacing={4}>
         {
           recipeList.map(({ id, name, image }, index) => (
-            <Grid item>
+            <Grid item key={id}>
               <RecipeCard
-                key={id}
+                isItFood={isItFood}
                 directory={isItFood ? '/foods' : '/drinks'}
                 name={name}
                 id={id}
