@@ -1,11 +1,30 @@
 import { ButtonGroup, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
+import { makeStyles } from '@mui/styles';
 import { Navigate } from 'react-router';
 import { Button } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  cardContainer: {
+    maxWidth: '300px',
+    height: '505px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  cardMedia: {
+    width: '300px',
+    height: '300px',
+    marginTop: '-8px',
+    transform: "skewY(-3deg)",
+  },
+});
 
 const RecipeCard = ({ name, image, id, directory, onClick = null, children, redirectOnClick = true }) => {
   const [redirectDetails, setRedirectDetails] = useState(false);
   const [redirectProgress, setRedirectProgress] = useState(false);
+
+  const classes = useStyles();
 
   if (redirectDetails && redirectOnClick) return <Navigate to={`${directory}/${id}`} />;
   if (redirectProgress) return <Navigate to={`${directory}/${id}/in-progress`} />;
@@ -30,9 +49,9 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, redi
   };
 
   return (
-    <Card style={{ maxWidth: '300px', height: '505px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+    <Card className={classes.cardContainer}>
       <CardMedia
-        style={{ width: '300px', height: '300px' }}
+        className={classes.cardMedia}
         component="img"
         image={image}
         alt={name}
