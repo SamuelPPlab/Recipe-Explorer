@@ -1,4 +1,4 @@
-import { ButtonGroup, Card, CardActions, CardContent, CardMedia, Typography } from '@material-ui/core';
+import { ButtonGroup, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
 import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Navigate } from 'react-router';
@@ -7,6 +7,7 @@ import { useTheme } from '@material-ui/styles';
 
 const useStyles = makeStyles(() => {
   const theme = useTheme();
+  const { palette: { primary, secondary } } = theme;
   return(
     {
       cardContainer: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(() => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        background: 'red'
+        backgroundImage: 'repeating-linear-gradient(-5deg, #ccc, #ccc 10px, #dbdbdb 60px, #dbdbdb 120px);'
       },
       cardMedia: {
         width: '300px',
@@ -23,7 +24,11 @@ const useStyles = makeStyles(() => {
         marginTop: '-8px',
         transform: "skewY(-3deg)",
       },
-      
+      recipeName: {
+        fontFamily: `'Russo One', sans-serif;`,
+        fontSize: '2em',
+        color: (isItFood) => isItFood ? primary.dark : secondary.dark
+      }
     }
   )
 });
@@ -63,12 +68,11 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, isIt
         alt={name}
       />
       <CardContent>
-        <Typography
-          align='center'
-          variant="h5"
+        <h3
+          className={classes.recipeName}
         >
           {name}
-        </Typography>
+        </h3>
       </CardContent>
       <CardActions>
         {children}
