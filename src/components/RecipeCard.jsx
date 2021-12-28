@@ -11,12 +11,17 @@ const useStyles = makeStyles(() => {
   return(
     {
       cardContainer: {
-        maxWidth: '300px',
-        height: '505px',
+        width: '300px',
+        height: '520px',
         display: 'flex',
+        boxShadow: '4px 4px 4px grey',
         flexDirection: 'column',
         justifyContent: 'space-between',
-        backgroundImage: 'repeating-linear-gradient(-5deg, #ccc, #ccc 10px, #dbdbdb 60px, #dbdbdb 120px);'
+        backgroundImage: `repeating-linear-gradient(-5deg, #ccc, #ccc 10px, #dbdbdb 60px, #dbdbdb 120px);`,
+        border: '1px solid gray',
+        '&:hover': {
+          boxShadow: '10px 10px 10px grey',
+        }
       },
       cardMedia: {
         width: '300px',
@@ -25,9 +30,10 @@ const useStyles = makeStyles(() => {
         transform: "skewY(-3deg)",
       },
       recipeName: {
+        margin: '0',
         fontFamily: `'Russo One', sans-serif;`,
         fontSize: '2em',
-        color: (isItFood) => isItFood ? primary.dark : secondary.dark
+        color: 'grey'
       }
     }
   )
