@@ -21,7 +21,7 @@ const useStyles = makeStyles(() => {
     {
       cardContainer: {
         width: '300px',
-        height: (isItFood) => isItFood ? '600px' : '505px',
+        height: ({ isItFood }) => isItFood ? '550px' : '505px',
         display: 'flex',
         boxShadow: '4px 4px 4px grey',
         flexDirection: 'column',
@@ -39,10 +39,13 @@ const useStyles = makeStyles(() => {
         transform: "skewY(-3deg)",
       },
       recipeName: {
+        fontSize: ({ nameSize }) => nameSize > 40 ? '1.5em' : '2em',
         margin: '0',
         fontFamily: `'Russo One', sans-serif;`,
-        fontSize: '2em',
         color: '#424242',
+        overflow: 'hidden',
+        textOverflow: 'clip',
+        whiteSpace: 'break-spaces',
       }
     }
   );
@@ -52,7 +55,7 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, isIt
   const [redirectDetails, setRedirectDetails] = useState(false);
   const [redirectProgress, setRedirectProgress] = useState(false);
 
-  const classes = useStyles(isItFood);
+  const classes = useStyles({ isItFood, nameSize: name.length });
 
   if (redirectDetails && redirectOnClick) return <Navigate to={`${directory}/${id}`} />;
   if (redirectProgress) return <Navigate to={`${directory}/${id}/in-progress`} />;
