@@ -14,12 +14,12 @@ import SignupPage from './pages/SignupPage';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core';
 import './App.css';
-import { orange, teal } from '@material-ui/core/colors';
+import { indigo, purple } from '@material-ui/core/colors';
 
 const theme = createTheme({
   palette: {
-    primary: orange,
-    secondary: teal,
+    primary: indigo,
+    secondary: purple,
   }
 });
 
