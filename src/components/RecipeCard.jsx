@@ -3,28 +3,30 @@ import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Navigate } from 'react-router';
 import { Button } from "@material-ui/core";
+import { useTheme } from '@material-ui/styles';
 
-const useStyles = makeStyles((theme) => (
-  {
-    cardContainer: {
-      maxWidth: '300px',
-      height: '505px',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      background: 'red'
-    },
-    cardMedia: {
-      width: '300px',
-      height: '300px',
-      marginTop: '-8px',
-      transform: "skewY(-3deg)",
-    },
-    buttonGroup: {
-      color: 'primary',
-    },
-  }
-));
+const useStyles = makeStyles(() => {
+  const theme = useTheme();
+  return(
+    {
+      cardContainer: {
+        maxWidth: '300px',
+        height: '505px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        background: 'red'
+      },
+      cardMedia: {
+        width: '300px',
+        height: '300px',
+        marginTop: '-8px',
+        transform: "skewY(-3deg)",
+      },
+      
+    }
+  )
+});
 
 const RecipeCard = ({ name, image, id, directory, onClick = null, children, isItFood, redirectOnClick = true }) => {
   const [redirectDetails, setRedirectDetails] = useState(false);
@@ -70,7 +72,7 @@ const RecipeCard = ({ name, image, id, directory, onClick = null, children, isIt
       </CardContent>
       <CardActions>
         {children}
-        <ButtonGroup className={classes.buttonGroup}>
+        <ButtonGroup color={isItFood ? 'primary' : 'secondary'} fullWidth>
           <Button {...seeDetailsProps} >See details</Button>
           <Button {...startCookingRecipeProps} >Start cooking</Button>
         </ButtonGroup>
