@@ -5,9 +5,13 @@ const ListMenuItem = ({ currentOption, setCurrentOption, options, itemText, icon
 
   return(
     <div>
-      <ListItem button onClick={() => {
-        setActive();
-      }}>
+      <ListItem
+        button
+        onClick={() => {
+          setActive();
+        }}
+        style={active ? { background: '#e9ecef', borderTop: '1px solid #adb5bd', borderBottom: '1px solid #adb5bd' } : null}
+      >
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText>{itemText}</ListItemText>
       </ListItem>

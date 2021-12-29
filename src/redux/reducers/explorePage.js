@@ -30,7 +30,7 @@ const exploreReducer = (state = INITIAL_STATE, action) => {
     case SUCCESS_AREAS:
       return { ...INITIAL_STATE, loading: false, areas: action.areas };
     case SUCCESS_INGREDIENTS:
-      return { ...INITIAL_STATE, loading: false, ingredients: ingredients.slice(0, 14), apiResponse: ingredients };
+      return { ...INITIAL_STATE, loading: false, ingredients: ingredients.slice(0, 21), apiResponse: ingredients };
     case CLEAR_STATE:
       return { ...INITIAL_STATE };
     case SUCCESS_GLASSES:

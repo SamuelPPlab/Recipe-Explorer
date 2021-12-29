@@ -18,7 +18,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
   }, [loadIngredients, dispatch]);
 
   const length = apiResponse && apiResponse.length;
-  const pageSize = 14;
+  const pageSize = 21;
 
   return(
     <div style={{ maxWidth: '100vw' }}>
