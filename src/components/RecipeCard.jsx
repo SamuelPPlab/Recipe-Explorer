@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles';
 import { Navigate } from 'react-router';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import { Button } from "@material-ui/core";
-import { useTheme } from '@material-ui/styles';
 import { createTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core';
 import { orange, teal } from '@material-ui/core/colors';

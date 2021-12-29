@@ -9,12 +9,10 @@ import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
 import ExploreLinks from "../components/ExploreLinks";
-import { useLocation } from "react-router-dom";
 import Pagination from '@material-ui/lab/Pagination';
 import { Grid } from "@material-ui/core";
 
 const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiResponse }) => {
-  const { pathname } = useLocation();
   const dispatch = useDispatch();
 
   const { vegan, drinker } = getLocalStorageKey('preferences');
@@ -43,19 +41,24 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
 
   const length = apiResponse.length;
 
-  const headerProps = {
-    isItFood,
-    pathname,
-    title: isItFood ? 'Food Recipes' : 'Drinks',
-  };
-
   const pageSize = 10;
+
+  const paginationProps = {
+    size: "large",
+    color: 'primary',
+    hideNextButton: true,
+    hidePrevButton: true,
+    count: Math.ceil(length / pageSize),
+    onClick: ({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), pageSize)),
+  };
 
   return(
     <div>
-      <ExploreLinks isItFood={isItFood} />
-      <Categories isItFood={isItFood} />
-      <Grid container spacing={4}>
+      <div style={{ width: '100%', borderTop: '2px solid black', borderBottom: '2px solid black', marginBottom: '30px', paddingTop: '20px', background: 'linear-gradient(180deg, rgba(244,244,244,1) 69%, rgba(206,217,254,1) 100%)' }}>
+        <ExploreLinks isItFood={isItFood} />
+        <Categories isItFood={isItFood} />
+      </div>
+      <Grid container spacing={4} style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
         {
           recipeList.map(({ id, name, image }, index) => (
             <Grid item key={id}>
@@ -71,7 +74,9 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
           ))
         }
       </Grid>
-      <Pagination size="large" hideNextButton hidePrevButton count={Math.ceil(length / pageSize)} onClick={({ target: { innerText } }) => dispatch(changePage(parseInt(innerText), pageSize))} />
+      <div style={{ marginTop: '30px', marginBottom: '10px', display: 'flex', justifyContent: 'center' }}>
+        <Pagination {...paginationProps} />
+      </div>
     </div>
   );
 };
