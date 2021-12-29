@@ -18,7 +18,7 @@ const SwitchMainPage = ({ isItFood }) => {
   };
 
   return(
-    <Tooltip title={isItFood ? 'See Driks' : 'See Foods'}>
+    <Tooltip title={isItFood ? 'See Driks' : 'See Foods'} placement="right">
       <Button style={{ width: '50px', height: '50px' }} {...switchMainPageProps} >
         {isItFood ? <LocalBarIcon fontSize="large"/> : <FastfoodIcon fontSize="large" />}
       </Button>
