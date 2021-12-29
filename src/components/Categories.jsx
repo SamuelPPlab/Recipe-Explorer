@@ -1,12 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { fetchCategories } from "../APIintegration/categories";
 import { useDispatch } from "react-redux";
-import { Button } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import Loading from "./Loading";
 import { categorySelector, setSelectedCategory } from "../redux/actions/mainPage";
 import { connect } from "react-redux";
+import { makeStyles } from "@mui/styles";
+import { useTheme } from "@mui/styles";
+
+const useStyles = makeStyles(() => (
+    {
+      categoriesContainer: {
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        padding: '20px'
+      },
+      selected: {
+        boxShadow: '5px, 5px, 5px gray'
+      }
+    }
+  )
+);
 
 const Categories = ({ isItFood, category }) => {
+  const classes = useStyles();
+
   const [categoriesOptions, setCategoriesOptions] = useState([]);
 
   useEffect(() => {
@@ -15,29 +34,31 @@ const Categories = ({ isItFood, category }) => {
 
   const dispatch = useDispatch();
 
-  const handleClick = (category) => {
-    dispatch(setSelectedCategory(category));
-    dispatch(categorySelector(isItFood, category));
+  const handleClick = (newCategory) => {
+    dispatch(setSelectedCategory(newCategory));
+    dispatch(categorySelector(isItFood, newCategory));
   };
 
   if(categoriesOptions.length < 1) return <Loading />;
 
   return(
-    <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', marginTop: '20px', marginBottom: '20px' }}>
+    <Grid container spacing={2} className={classes.categoriesContainer}>
       {
-        categoriesOptions.map((category) => (
-          <Button
-            color="primary"
-            variant="contained"
-            key={category}
-            id={category}
-            onClick={() => handleClick(category)}
-          >
-            {category}
-          </Button>
+        categoriesOptions.map((currentCategory) => (
+          <Grid key={currentCategory} item>
+            <Button
+              color="primary"
+              variant={currentCategory === category ? "contained" : "outlined"}
+              className={classes.selected}
+              id={currentCategory}
+              onClick={() => handleClick(currentCategory)}
+            >
+              {currentCategory}
+            </Button>
+          </Grid>
         ))
       }
-    </div>
+    </Grid>
   )
 };
 
