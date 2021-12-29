@@ -2,6 +2,7 @@ import React from "react";
 import ExploreButton from "./ExploreButton";
 import GoBackToSuggestions from './GoBackToSuggestions';
 import PreferencesButton from "./PreferencesButton";
+import ProfileButton from "./ProfileButton";
 import SwitchMainPage from './SwitchMainPage';
 
 const ExploreLinks = ({ isItFood }) => {
@@ -11,6 +12,7 @@ const ExploreLinks = ({ isItFood }) => {
       <ExploreButton />
       <GoBackToSuggestions />
       <PreferencesButton />
+      <ProfileButton />
     </div>
   )
 };

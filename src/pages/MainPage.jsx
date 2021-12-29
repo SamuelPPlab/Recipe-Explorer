@@ -5,7 +5,6 @@ import { categorySelector, changePage, mainPageFetcher,
   recipesByAlcoholOption, shouldLoadMainRecipes } from "../redux/actions/mainPage";
 import '../css/crossOutText.css'
 import RecipeCard from "../components/RecipeCard";
-import Header from "../components/Header";
 import NoResults from "../components/NoResults";
 import Loading from "../components/Loading";
 import Categories from "../components/Categories";
@@ -54,7 +53,6 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
 
   return(
     <div>
-      <Header {...headerProps} />
       <ExploreLinks isItFood={isItFood} />
       <Categories isItFood={isItFood} />
       <Grid container spacing={4}>

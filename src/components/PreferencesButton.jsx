@@ -11,7 +11,7 @@ const PreferencesButton = () => {
   };
 
   return(
-    <Tooltip title="Configure Preferences" placement="left">
+    <Tooltip title="Configure Preferences" placement="right">
       <Button {...setPreferencesProps} style={{ width: '50px', height: '50px' }} >
         <SettingsIcon fontSize="large" />
       </Button>
