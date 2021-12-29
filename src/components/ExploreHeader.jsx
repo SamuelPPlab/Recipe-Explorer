@@ -79,7 +79,7 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
   return(
     <div style={{ display: 'flex' }}>
       <Drawer variant="permanent" anchor="left">
-        <Typography variant="h4" align="center">
+        <Typography variant="h4" align="center" style={{ background: '#e9ecef', paddingTop: '10px', paddingBottom: '10px', borderBottom: '2px solid #adb5bd' }}>
           Options
         </Typography>
         <List>
