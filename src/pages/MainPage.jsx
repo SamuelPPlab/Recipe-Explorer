@@ -55,7 +55,7 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
   return(
     <div>
       <Header {...headerProps} />
-      <ExploreLinks />
+      <ExploreLinks isItFood={isItFood} />
       <Categories isItFood={isItFood} />
       <Grid container spacing={4}>
         {
