@@ -4,6 +4,7 @@ import { swapMainPage } from "../redux/actions/mainPage";
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import { Button } from "@material-ui/core";
+import Tooltip from '@mui/material/Tooltip';
 
 const SwitchMainPage = ({ isItFood }) => {
   const dispatch = useDispatch();
@@ -17,9 +18,11 @@ const SwitchMainPage = ({ isItFood }) => {
   };
 
   return(
-    <Button style={{ width: '50px', height: '50px' }} {...switchMainPageProps} >
-      {isItFood ? <LocalBarIcon fontSize="large"/> : <FastfoodIcon fontSize="large" />}
-    </Button>
+    <Tooltip title={isItFood ? 'See Driks' : 'See Foods'}>
+      <Button style={{ width: '50px', height: '50px' }} {...switchMainPageProps} >
+        {isItFood ? <LocalBarIcon fontSize="large"/> : <FastfoodIcon fontSize="large" />}
+      </Button>
+    </Tooltip>
   );
 };
 
