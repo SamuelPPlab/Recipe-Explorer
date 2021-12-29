@@ -1,5 +1,5 @@
 import {
-  LOADING, SUCCESS, ERROR, SWAP_MAIN_PAGE, SHOULD_NOT_LOAD_MAIN_RECIPES, SHOULD_LOAD_MAIN_RECIPES, CHANGE_PAGE
+  LOADING, SUCCESS, ERROR, SWAP_MAIN_PAGE, SHOULD_NOT_LOAD_MAIN_RECIPES, SHOULD_LOAD_MAIN_RECIPES, CHANGE_PAGE, NEW_CATEGORY
 } from '../actions/mainPage';
 import { mainPageData } from '../../services/apiDataProcessor';
 
@@ -12,10 +12,11 @@ const INITIAL_STATE = {
   currentPage: 1,
   apiResponse: [],
   isSearchResult: false,
+  category: '',
 };
 
 const mainPageReducer = (state = INITIAL_STATE, action) => {
-  const { list, error, newPage, isSearchResult, pageSize } = action;
+  const { list, error, newPage, isSearchResult, pageSize, category } = action;
   const { isItFood } = state;
 
   switch(action.type) {
@@ -34,6 +35,8 @@ const mainPageReducer = (state = INITIAL_STATE, action) => {
       return { ...state, isItFood: !isItFood, loading: true };
     case CHANGE_PAGE:
       return { ...state, currentPage: newPage, recipeList: state.apiResponse.slice((newPage - 1) * pageSize, newPage * pageSize) };
+    case NEW_CATEGORY:
+      return { ...state, category };
     default:
       return state;
   };

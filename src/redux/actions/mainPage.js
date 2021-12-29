@@ -9,6 +9,7 @@ export const CHANGE_PAGE = 'CHANGE_PAGE';
 export const SHOULD_NOT_LOAD_MAIN_RECIPES = 'SHOULD_NOT_LOAD_MAIN_RECIPES';
 export const SHOULD_LOAD_MAIN_RECIPES = 'SHOULD_LOAD_MAIN_RECIPES';
 export const SWAP_MAIN_PAGE = 'SWAP MAIN PAGE';
+export const NEW_CATEGORY = 'NEW_CATEGORY';
 
 const loading = () => ({ type: LOADING });
 
@@ -19,6 +20,8 @@ const shouldNotLoadMainRecipes = () => ({ type: SHOULD_NOT_LOAD_MAIN_RECIPES });
 const error = (error) => ({ type: ERROR, error });
 
 export const changePage = (newPage, pageSize) => ({ type: CHANGE_PAGE, newPage, pageSize });
+
+export const setSelectedCategory = (category) => ({ type: NEW_CATEGORY, category })
  
 export const shouldLoadMainRecipes = () => ({ type: SHOULD_LOAD_MAIN_RECIPES });
 

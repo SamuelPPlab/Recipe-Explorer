@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => {
         transform: "skewY(-3deg)",
       },
       recipeName: {
-        fontSize: ({ nameSize }) => nameSize > 40 ? '1.5em' : '2em',
+        fontSize: ({ nameSize }) => nameSize > 21 ? '1.5em' : '2em',
         margin: '0',
         fontFamily: `'Russo One', sans-serif;`,
         color: '#424242',
