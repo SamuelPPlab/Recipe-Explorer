@@ -54,6 +54,11 @@ const MainPage = ({ recipeList, loading, isItFood, shouldReloadRecipes, apiRespo
 
   return(
     <div>
+      <div>
+        <h1 style={{ fontFamily: `'Russo One', sans-serif`, fontSize: '3em', color: '#1c1c1c', textAlign: 'center' }}>
+          Home
+        </h1>
+      </div>
       <div style={{ width: '100%', borderTop: '2px solid black', borderBottom: '2px solid black', marginBottom: '30px', paddingTop: '20px', background: 'linear-gradient(180deg, rgba(244,244,244,1) 69%, rgba(206,217,254,1) 100%)' }}>
         <ExploreLinks isItFood={isItFood} />
         <Categories isItFood={isItFood} />
