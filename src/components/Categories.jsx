@@ -6,9 +6,9 @@ import Loading from "./Loading";
 import { categorySelector, setSelectedCategory } from "../redux/actions/mainPage";
 import { connect } from "react-redux";
 import { makeStyles } from "@mui/styles";
-import { useTheme } from "@mui/styles";
 
-const useStyles = makeStyles(() => (
+const useStyles = makeStyles(
+  () => (
     {
       categoriesContainer: {
         width: '100%',
@@ -16,9 +16,6 @@ const useStyles = makeStyles(() => (
         justifyContent: 'center',
         padding: '20px'
       },
-      selected: {
-        boxShadow: '5px, 5px, 5px gray'
-      }
     }
   )
 );
@@ -49,7 +46,6 @@ const Categories = ({ isItFood, category }) => {
             <Button
               color="primary"
               variant={currentCategory === category ? "contained" : "outlined"}
-              className={classes.selected}
               id={currentCategory}
               onClick={() => handleClick(currentCategory)}
             >
