@@ -3,20 +3,46 @@ import { useDispatch, connect } from 'react-redux';
 import { searching } from "../redux/actions/mainPage";
 import { mainPageFetcher } from "../redux/actions/mainPage";
 import searchIcon from "../images/searchIcon.svg";
-import x from "../images/x-icon.png";
-import Input from "./Input";
-import Button from './Button';
-import RadioButton from "./RadioButton";
+import SearchIcon from '@material-ui/icons/Search';
+import { Button, TextField } from "@material-ui/core";
+import { ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
 
 const SearchBar = ({ isItFood, isSearchResult }) => {
   const [searchValue, setSearchValue] = useState('');
   const [selectedFilter, setSelectedFilter] = useState('Name');
-  const searchIconImg = <img src={ searchIcon } alt="searchIcon" style={{ width: '50px', height: '50px' }} />;
-	const XIconImg = <img src={ x } alt="X" style={{ width: '50px', height: '50px' }} />;
-
+  const [searchIng, setSearchIng] = useState('');
   const searchOptions = ['Name', 'Ingredient'];
 
   const dispatch = useDispatch();
+
+  const searchIngredientsProps = {
+    onChange: ({ target: { value } }) => setSearchIng(value),
+    variant: 'outlined',
+    margin: 'normal',
+    style: { width: '500px' },
+    placeholder: 'Search for an ingredient'
+  };
+
+  const searchButtonProps = {
+    id: 'Search Ingredient',
+    onClick: () => {
+      dispatch(ingredientSearch(searchIng));
+      setSearchIng('');
+    },
+    style: {
+      width: '55px',
+      height: '55px',
+      marginTop: '17px'
+    },
+    color: 'primary',
+    variant: 'contained',
+  };
+
+  const clearSearchButtonProps = {
+    label: 'Clear Search Results',
+    id: 'Clear Search Results',
+    onClick: () => {dispatch(ingredientFetcher(showFood))},
+  };
 
   const searchOptionsProps = {
     options: searchOptions,
@@ -37,24 +63,11 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
     },
   };
 
-	const clearSearchResultsProps = {
-		name: XIconImg,
-		onClick: () => dispatch(mainPageFetcher(isItFood)),
-		id: 'ClearSearch',
-	};
-
-
-  const searchButtonProps = {
-    name: searchIconImg,
-    id: 'pesquisar',
-    onClick: () => dispatch(searching(selectedFilter, searchValue, isItFood)),
-  };
-
   return(
-    <div style={{ display: 'flex', flexWrap: 'wrap', height: '50px' }}>
-      <Button {...searchButtonProps} />
-      <RadioButton {...searchOptionsProps} />
-      <Input {...searchBarProps} />
+    <div style={{ background: 'gray' }}>
+      <TextField {...searchIngredientsProps} />
+      <Button {...searchButtonProps} ><SearchIcon /></Button>
+      <Button {...clearSearchButtonProps} />
     </div>
   );
 };
