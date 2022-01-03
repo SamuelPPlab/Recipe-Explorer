@@ -1,4 +1,4 @@
-import { CHANGE_INGREDIENT_PAGE, CLEAR_STATE, ERROR_AREAS, INGREDIENT_SEARCH, LOADING, SUCCESS_ALCOHOLIC, SUCCESS_AREAS, SUCCESS_GLASSES, SUCCESS_INGREDIENTS } from "../actions/explorePage";
+import { CHANGE_INGREDIENT_PAGE, CLEAR_INGREDIENT_SEARCH, CLEAR_STATE, ERROR_AREAS, INGREDIENT_SEARCH, LOADING, SUCCESS_ALCOHOLIC, SUCCESS_AREAS, SUCCESS_GLASSES, SUCCESS_INGREDIENTS } from "../actions/explorePage";
 
 const INITIAL_STATE = {
   loading: true,
@@ -16,7 +16,7 @@ const queryFinder = (query, state) => {
   const filteredIngredients = apiResponse.filter((ingredient) =>
     (ingredient.toLowerCase().includes(query.toLowerCase())));
 
-  return { ...state, apiResponse: filteredIngredients, ingredients: filteredIngredients.slice(0, 15) };
+  return { ...state, ingredients: filteredIngredients.slice(0, 15) };
 };
 
 const exploreReducer = (state = INITIAL_STATE, action) => {
@@ -41,6 +41,8 @@ const exploreReducer = (state = INITIAL_STATE, action) => {
       return { ...state, currentPage: newPage, ingredients: apiResponse.slice((newPage - 1) * pageSize, newPage * pageSize) };
     case INGREDIENT_SEARCH:
       return queryFinder(query, state);
+    case CLEAR_INGREDIENT_SEARCH:
+      return { ...state, ingredients: apiResponse.slice(0, 21) };
     default:
       return state;
   };

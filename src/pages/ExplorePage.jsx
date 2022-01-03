@@ -7,6 +7,7 @@ import IngredientCard from "../components/IngredientCard";
 import AlcoholicOptionCard from "../components/AlcoholicOptionCard";
 import { Grid } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
+import SearchBar from "../components/SearchBar";
 
 const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicOptions, apiResponse }) => {
 
@@ -30,23 +31,24 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
   };
 
   return(
-    <div style={{ maxWidth: '100vw' }}>
-      <ExploreHeader />
-      <Grid container spacing={4} style={{ marginLeft: '220px', background: 'red', marginTop: '30px' } }>
-        {
-          areas && areas.map((area) => area !== 'Unknown' && <Grid key={area} item><FlagCard area={area} /></Grid>)
-        }
-        {
-          ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard isItFood={isItFood} ingredient={ingredient} /></Grid>)
-        }
-        {
-          alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
-        }
-      </Grid>
-      <div style={{ width: '100%', padding: '30px', display: 'flex', justifyContent: 'center' }}>
-        {ingredients && <Pagination {...paginationProps} /> }
-      </div>
+    <Grid container spacing={4} style={{ width: '100%', marginTop: '30px' } }>
+    <ExploreHeader />
+    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+      <SearchBar />
     </div>
+      {
+        areas && areas.map((area) => area !== 'Unknown' && <Grid key={area} item><FlagCard area={area} /></Grid>)
+      }
+      {
+        ingredients && ingredients.map((ingredient) => <Grid key={ingredient} item><IngredientCard isItFood={isItFood} ingredient={ingredient} /></Grid>)
+      }
+      {
+        alcoholicOptions && alcoholicOptions.map((option) => <Grid key={option} item><AlcoholicOptionCard option={option} /></Grid>)
+      }
+    <div style={{ width: '100%', padding: '30px', display: 'flex', justifyContent: 'center' }}>
+      {ingredients && <Pagination {...paginationProps} /> }
+    </div>
+    </Grid>
   );
 };
 

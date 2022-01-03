@@ -3,14 +3,13 @@ import { useDispatch, connect } from 'react-redux';
 import { searching } from "../redux/actions/mainPage";
 import { mainPageFetcher } from "../redux/actions/mainPage";
 import SearchIcon from '@material-ui/icons/Search';
-import { Button, TextField } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Button, IconButton, InputAdornment, TextField } from "@material-ui/core";
 import { ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const SearchBar = ({ isItFood, isSearchResult }) => {
-  const [searchValue, setSearchValue] = useState('');
-  const [selectedFilter, setSelectedFilter] = useState('Name');
   const [searchIng, setSearchIng] = useState('');
-  const searchOptions = ['Name', 'Ingredient'];
   
 
   const dispatch = useDispatch();
@@ -19,6 +18,20 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
     onChange: ({ target: { value } }) => setSearchIng(value),
     variant: 'outlined',
     margin: 'normal',
+    InputProps: {
+      endAdornment: <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={() => {
+            dispatch(ingredientSearch(searchIng));
+            setSearchIng('');
+          }}
+          edge="end"
+        >
+          <DeleteIcon color="primary" />
+        </IconButton>
+      </InputAdornment>
+    },
     style: { width: '500px' },
     placeholder: 'Search for an ingredient'
   };
@@ -45,9 +58,9 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
   };
 
   return(
-    <div style={{ background: 'gray' }}>
+    <div>
       <TextField {...searchIngredientsProps} />
-      <Button {...searchButtonProps} ><SearchIcon /></Button>
+      <Button {...searchButtonProps}><SearchIcon /></Button>
       <Button {...clearSearchButtonProps} />
     </div>
   );
