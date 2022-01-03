@@ -44,25 +44,6 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
     onClick: () => {dispatch(ingredientFetcher())},
   };
 
-  const searchOptionsProps = {
-    options: searchOptions,
-    selectedFilter,
-    setSelectedFilter,
-    name: 'Search Options',
-  };
-
-  const searchBarProps = {
-    id: 'searchInput',
-    name: '',
-    fieldValue: searchValue,
-    setFieldValue: setSearchValue,
-    onKeyUp: ({ keyCode, target: { value } }) => {
-      if (keyCode === 13) {
-        dispatch(searching(selectedFilter, value, isItFood));
-      }
-    },
-  };
-
   return(
     <div style={{ background: 'gray' }}>
       <TextField {...searchIngredientsProps} />

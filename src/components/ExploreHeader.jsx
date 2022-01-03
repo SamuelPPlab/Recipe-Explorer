@@ -1,33 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Navigate } from "react-router";
-import { Button, Drawer, List, TextField, Typography } from "@material-ui/core";
+import { Button, Drawer, List, Typography } from "@material-ui/core";
 import { fetchRandomRecipe } from "../redux/actions/detailPage";
-import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
+import { alcoholicOptionsFetcher, areaFetcher, ingredientFetcher } from "../redux/actions/explorePage";
 import { swapMainPage } from "../redux/actions/mainPage";
 import ListMenuItem from "./ListMenuItem";
 import LocalBarIcon from '@material-ui/icons/LocalBar';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
-import SearchBar from "./SearchBar";
 
-const ExploreHeader = ({ loading, isItFood, id }) => {
-  const [showFood, setShowFood] = useState(false);
+const ExploreHeader = ({ isItFood, id }) => {
   const [selectedRadioOption, setSelectedRadioOption] = useState('Ingredients');
   const [redirect, setRedirect] = useState(false);
 
   const dispatch = useDispatch();
 
-  const foodExploreOptions = ['Ingredients', 'Area', 'Surprise me'];
+  const foodExploreOptions = ['Spices and more', 'Area', 'Surprise me'];
   const drinkExploreOptions = ['Ingredients', 'Alcohol Options', 'Surprise me'];
 
   useEffect(() => {
-    if (showFood !== isItFood) {
-      dispatch(swapMainPage());
-    }
+
 
     switch(selectedRadioOption) {
       case 'Ingredients':
-        dispatch(ingredientFetcher(showFood));
+        dispatch(ingredientFetcher());
+      break;
+      case 'Spices and more':
+        dispatch(ingredientFetcher(true));
       break;
       case 'Area':
         dispatch(areaFetcher());
@@ -42,7 +41,7 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
       default:
         return null;
     }
-  }, [selectedRadioOption, showFood, isItFood, dispatch]);
+  }, [selectedRadioOption, isItFood, dispatch]);
 
   if(redirect && id) return <Navigate to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
 
@@ -54,8 +53,6 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
         </Typography>
         <List>
           <ListMenuItem
-            active={!showFood}
-            setActive={() => setShowFood(!showFood)}
             icon={<LocalBarIcon color="primary" />}
             itemText="Explore drinks by"
             currentOption={selectedRadioOption}
@@ -63,8 +60,6 @@ const ExploreHeader = ({ loading, isItFood, id }) => {
             options={drinkExploreOptions}
           />
           <ListMenuItem
-            active={showFood}
-            setActive={() => setShowFood(!showFood)}
             icon={<FastfoodIcon color="primary" />}
             itemText="Explore foods by"
             currentOption={selectedRadioOption}
