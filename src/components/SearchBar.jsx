@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, connect } from 'react-redux';
 import { searching } from "../redux/actions/mainPage";
 import { mainPageFetcher } from "../redux/actions/mainPage";
-import searchIcon from "../images/searchIcon.svg";
 import SearchIcon from '@material-ui/icons/Search';
 import { Button, TextField } from "@material-ui/core";
 import { ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
@@ -12,6 +11,7 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
   const [selectedFilter, setSelectedFilter] = useState('Name');
   const [searchIng, setSearchIng] = useState('');
   const searchOptions = ['Name', 'Ingredient'];
+  
 
   const dispatch = useDispatch();
 
@@ -41,7 +41,7 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
   const clearSearchButtonProps = {
     label: 'Clear Search Results',
     id: 'Clear Search Results',
-    onClick: () => {dispatch(ingredientFetcher(showFood))},
+    onClick: () => {dispatch(ingredientFetcher())},
   };
 
   const searchOptionsProps = {

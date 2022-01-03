@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { FormControlLabel, ListItem, ListItemIcon, ListItemText, Radio, RadioGroup } from '@material-ui/core';
 
-const ListMenuItem = ({ currentOption, setCurrentOption, options, itemText, icon, active, setActive }) => {
+const ListMenuItem = ({ currentOption, setCurrentOption, options, itemText, icon }) => {
+
+  const [active, setActive] = useState(false);
 
   return(
     <div>
       <ListItem
         button
         onClick={() => {
-          setActive();
+          setActive(!active);
         }}
         style={active ? { background: '#e9ecef', borderTop: '1px solid #adb5bd', borderBottom: '1px solid #adb5bd' } : null}
       >
