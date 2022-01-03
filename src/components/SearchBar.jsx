@@ -4,12 +4,14 @@ import { searching } from "../redux/actions/mainPage";
 import { mainPageFetcher } from "../redux/actions/mainPage";
 import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Button, IconButton, InputAdornment, TextField } from "@material-ui/core";
+import { Button, IconButton, InputAdornment, TextField, ButtonGroup } from "@material-ui/core";
 import { ingredientFetcher, ingredientSearch } from "../redux/actions/explorePage";
+import Tooltip from '@mui/material/Tooltip';
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const SearchBar = ({ isItFood, isSearchResult }) => {
   const [searchIng, setSearchIng] = useState('');
+  const [listIsResult, setListIsResult] = useState(false);
   
 
   const dispatch = useDispatch();
@@ -18,29 +20,17 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
     onChange: ({ target: { value } }) => setSearchIng(value),
     variant: 'outlined',
     margin: 'normal',
-    InputProps: {
-      endAdornment: <InputAdornment position="end">
-        <IconButton
-          aria-label="toggle password visibility"
-          onClick={() => {
-            dispatch(ingredientSearch(searchIng));
-            setSearchIng('');
-          }}
-          edge="end"
-        >
-          <DeleteIcon color="primary" />
-        </IconButton>
-      </InputAdornment>
-    },
     style: { width: '500px' },
     placeholder: 'Search for an ingredient'
   };
 
   const searchButtonProps = {
     id: 'Search Ingredient',
+    value: searchIng,
     onClick: () => {
       dispatch(ingredientSearch(searchIng));
       setSearchIng('');
+      setListIsResult(!listIsResult);
     },
     style: {
       width: '55px',
@@ -52,16 +42,33 @@ const SearchBar = ({ isItFood, isSearchResult }) => {
   };
 
   const clearSearchButtonProps = {
-    label: 'Clear Search Results',
+    disabled: !listIsResult,
+    style: {
+      width: '55px',
+      height: '55px',
+      marginTop: '17px'
+    },
+    color: 'primary',
+    variant: 'contained',
     id: 'Clear Search Results',
-    onClick: () => {dispatch(ingredientFetcher())},
+    onClick: () => {
+      dispatch(ingredientFetcher());
+      setListIsResult(!listIsResult);
+      setSearchIng('');
+    },
   };
 
   return(
     <div>
       <TextField {...searchIngredientsProps} />
-      <Button {...searchButtonProps}><SearchIcon /></Button>
-      <Button {...clearSearchButtonProps} />
+      <ButtonGroup>
+        <Tooltip title="Clear Search" placement="top">
+          <Button {...clearSearchButtonProps}><DeleteIcon /></Button>
+        </Tooltip>
+        <Tooltip title="Search" placement="top" >
+          <Button {...searchButtonProps}><SearchIcon /></Button>
+        </Tooltip>
+      </ButtonGroup>
     </div>
   );
 };

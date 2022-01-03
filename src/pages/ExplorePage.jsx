@@ -18,7 +18,7 @@ const ExplorePage = ({ areas, loadIngredients, ingredients, isItFood, alcoholicO
     return () => dispatch(clearState());
   }, [loadIngredients, dispatch]);
 
-  const length = apiResponse && apiResponse.length;
+  const length = ingredients && ingredients.length;
   const pageSize = 21;
 
   const paginationProps = {
