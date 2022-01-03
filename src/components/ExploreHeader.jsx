@@ -11,39 +11,43 @@ import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 const ExploreHeader = ({ isItFood, id }) => {
   const [selectedRadioOption, setSelectedRadioOption] = useState('Ingredients');
-  const [redirect, setRedirect] = useState(false);
+  const [redirectToDrink, setRedirectToDrink] = useState(false);
+  const [redirectToFood, setRedirectToFood] = useState(false);
 
   const dispatch = useDispatch();
 
-  const foodExploreOptions = ['Spices and more', 'Area', 'Surprise me'];
-  const drinkExploreOptions = ['Ingredients', 'Alcohol Options', 'Surprise me'];
+  const foodExploreOptions = ['Meats and more', 'Area', 'Get random food'];
+  const drinkExploreOptions = ['Fruits and more', 'Alcohol Options', 'Get random drink'];
 
   useEffect(() => {
-
-
     switch(selectedRadioOption) {
-      case 'Ingredients':
+      case drinkExploreOptions[0]:
         dispatch(ingredientFetcher());
       break;
-      case 'Spices and more':
-        dispatch(ingredientFetcher(true));
-      break;
-      case 'Area':
-        dispatch(areaFetcher());
-      break;
-      case 'Alcohol Options':
+      case drinkExploreOptions[1]:
         dispatch(alcoholicOptionsFetcher());
       break;
-      case 'Surprise me':
-        setRedirect(true);
-        dispatch(fetchRandomRecipe(isItFood));
+      case drinkExploreOptions[2]:
+        setRedirectToDrink(true);
+        dispatch(fetchRandomRecipe(false));
+      break;
+      case foodExploreOptions[0]:
+        dispatch(ingredientFetcher(true));
+      break;
+      case foodExploreOptions[1]:
+        dispatch(areaFetcher());
+      break;
+      case foodExploreOptions[2]:
+        setRedirectToFood(true);
+        dispatch(fetchRandomRecipe(true));
       break;
       default:
         return null;
     }
   }, [selectedRadioOption, isItFood, dispatch]);
 
-  if(redirect && id) return <Navigate to={isItFood ? `/foods/${id}` : `/drinks/${id}`} />;
+  if(redirectToDrink) return <Navigate to={`/drinks/${id}`} />;
+  if(redirectToFood) return <Navigate to={`/foods/${id}`} />;
 
   return(
     <div style={{ display: 'flex', width: '100%', background: 'red' }}>
